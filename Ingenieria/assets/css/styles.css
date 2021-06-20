@@ -113,8 +113,8 @@ body {
     height: 0px;  
 }
 #labelLogin{
-    text-align: right;
-    color: black;
+    text-align: left;
+    color: white;
 }
 #col{
     border-radius: 10px;

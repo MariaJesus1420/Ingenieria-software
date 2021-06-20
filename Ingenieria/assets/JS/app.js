@@ -41,18 +41,20 @@ const loggedOut = () => {
 sessionStorage.pageChange = false;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-
         loggedIn(user);
-        $(location).attr('href', "loged.html");
-
+        if (sessionStorage.getItem("pageChange") != "true") {
+            sessionStorage.getItem("pageChange", true);
+            $(location).attr('href', "loged.html");
+           // $("#labelLoginTexto").html("Salir");
+        }
     } else {
 
         loggedOut();
         console.log("HOLA");
-        if (sessionStorage.getItem("pageChange") === false) {
-            $(location).attr('href', "index.html");
-            sessionStorage.pageChange = true;
-        }
+        // if (sessionStorage.getItem("pageChange") === false) {
+        //     $(location).attr('href', "index.html");
+        //     sessionStorage.pageChange = true;
+        // }
 
     }
 });
