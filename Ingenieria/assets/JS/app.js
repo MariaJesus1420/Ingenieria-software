@@ -5,9 +5,57 @@ let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
 
-let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
-let inputMeterID=document.querySelector('#inputId');
-let checkBoxLogin= document.querySelector('#cbLogin');
+let btnAgregarMedidor = document.querySelector("#btnAgregarMedidor");
+let inputMeterID = document.querySelector('#inputId');
+let checkBoxLogin = document.querySelector('#cbLogin');
+
+
+const loggedIn = (user) => {
+    console.log("logged in !!");
+    console.log({ user });
+    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-user");
+    document.querySelector("#labelLoginImage").classList.add("fas", "fa-sign-out-alt", "fa-lg");
+    $("#labelLoginTexto").html("Salir");
+    let picture = document.createElement('img');
+    let list = document.createElement("li");
+    list.id = "userProfileLi";
+    list.classList.add("nav-item");
+    picture.src = user.photoURL;
+    picture.classList.add("rounded-circle");
+    // h1UserName.innerHTML = user.displayName;
+    picture.id = "userPicture";
+    list.append(picture);
+    $("#divlogin").prepend(list);
+}
+
+const loggedOut = () => {
+    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-sign-out-alt", "fa-lg");
+    document.querySelector("#labelLoginImage").classList.add("fas", "fa-user");
+    $("#labelLoginTexto").html("Login or SignUp");
+    // h1UserName.innerHTML = "Nadie esta logueado";
+    $("#userProfileLi").remove();
+}
+
+sessionStorage.pageChange = false;
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+
+        loggedIn(user);
+        $(location).attr('href', "loged.html");
+
+    } else {
+
+        loggedOut();
+        console.log("HOLA");
+        if (sessionStorage.getItem("pageChange") === false) {
+            $(location).attr('href', "index.html");
+            sessionStorage.pageChange = true;
+        }
+
+    }
+});
 
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
@@ -40,23 +88,7 @@ btnRegistro.addEventListener("click", () => {
     btnClick(btnRegistro, btnLogin);
 })
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
 
-        loggedIn(user);
-
-    } else {
-        loggedOut();
-    }
-});
-const loggedOut = () => {
-    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
-    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-sign-out-alt", "fa-lg");
-    document.querySelector("#labelLoginImage").classList.add("fas", "fa-user");
-    $("#labelLoginTexto").html("Login or SignUp");
-    // h1UserName.innerHTML = "Nadie esta logueado";
-    $("#userProfileLi").remove();
-}
 
 const cardNueva = (customName, id, lastValue) => {
         let divCard = document.createElement("div");
@@ -143,36 +175,19 @@ const loadData = async() => {
     }
     cardDiv.append(divContainer);
 }
-const loggedIn = (user) => {
-    console.log("logged in !!");
-    console.log({ user });
-    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
-    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-user");
-    document.querySelector("#labelLoginImage").classList.add("fas", "fa-sign-out-alt", "fa-lg");
-    $("#labelLoginTexto").html("Salir");
-    let picture = document.createElement('img');
-    let list = document.createElement("li");
-    list.id = "userProfileLi";
-    list.classList.add("nav-item");
-    picture.src = user.photoURL;
-    picture.classList.add("rounded-circle");
-    // h1UserName.innerHTML = user.displayName;
-    picture.id = "userPicture";
-    list.append(picture);
-    $("#divlogin").prepend(list);
-}
+
 
 
 bntGoogle.addEventListener('click', async() => {
     if (checkBoxLogin.checked) {
         await registerUserGoogle("LOCAL");
-    }else{
+    } else {
         await registerUserGoogle("SESSION");
     }
-    $(location).attr('href',"loged.html");
+
     $('#signUpModal').modal('hide');
 
-        await loadData();
-        console.log("saliendo");
-        
+    await loadData();
+    console.log("saliendo");
+
 })
