@@ -7,6 +7,7 @@ let labelImage = document.querySelector("#labelLogin");
 let divbtnAgregar=document.querySelector('#divbtnAgregar');
 let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
 let inputMeterID=document.querySelector('#inputId');
+let agregarMedidor =document.querySelector('#agregarmedidor');
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
     btnOff.classList.remove("btnOnClick");
@@ -170,3 +171,6 @@ bntGoogle.addEventListener('click', async() => {
 })
 
 
+agregarMedidor.addEventListener('click',e=>{
+    $('#modalAgregarMedidor').modal('show');
+})
