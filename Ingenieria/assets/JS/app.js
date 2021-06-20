@@ -4,7 +4,7 @@ let btnLogin = document.querySelector("#loginBtn");
 let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
-let divbtnAgregar=document.querySelector('#divbtnAgregar');
+
 let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
 let inputMeterID=document.querySelector('#inputId');
 let checkBoxLogin= document.querySelector('#cbLogin');
@@ -56,9 +56,6 @@ const loggedOut = () => {
     $("#labelLoginTexto").html("Login or SignUp");
     // h1UserName.innerHTML = "Nadie esta logueado";
     $("#userProfileLi").remove();
-    if (divbtnAgregar.firstChild) {
-        divbtnAgregar.removeChild(divbtnAgregar.firstChild);
-    }
 }
 
 const cardNueva = (customName, id, lastValue) => {
@@ -163,7 +160,6 @@ const loggedIn = (user) => {
     picture.id = "userPicture";
     list.append(picture);
     $("#divlogin").prepend(list);
-    divbtnAgregar.appendChild(botonAgregar());
 }
 
 
@@ -173,6 +169,10 @@ bntGoogle.addEventListener('click', async() => {
     }else{
         await registerUserGoogle("SESSION");
     }
+    $(location).attr('href',"loged.html");
     $('#signUpModal').modal('hide');
+
         await loadData();
+        console.log("saliendo");
+        
 })
