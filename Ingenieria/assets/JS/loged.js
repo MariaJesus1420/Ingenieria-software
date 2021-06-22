@@ -4,8 +4,9 @@ const btnHome=document.querySelector('#btnHome');
 document.addEventListener("DOMContentLoaded", e=>{
     // user=await firebase.auth().currentUser;
     setTimeout(() => {
+        nombreUsuario.innerText="Bienveniddo: "+firebase.auth().currentUser.displayName;
          loadData2();
-    },300 );
+    },1000 );
 });
 btnSalir.addEventListener('click',e=>{
         firebase.auth().signOut().then(() => {
