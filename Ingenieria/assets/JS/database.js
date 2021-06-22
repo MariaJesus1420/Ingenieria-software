@@ -9,7 +9,7 @@ let result;
 
 await docRef.get().then((doc) => {
     if (doc.exists) {
-        result = doc.data(); // Antes: result=Object.entries(doc.data().WaterMeters);
+        result=Object.entries(doc.data().Devices); // Antes: result=Object.entries(doc.data().WaterMeters);
         console.log(result);
     } else {
         // doc.data() will be undefined in this case

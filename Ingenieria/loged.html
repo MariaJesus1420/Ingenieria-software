@@ -16,13 +16,12 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#index.html">Home</a>
+        <a id="btnHome" href="#">Home</a>
         <a href="#">Agregar Dispositivo</a>
         <a href="#">Configurar Dispositivo</a>
         <a id="salir" href="#" ><i id="salirImage" class="fas fa-sign-out-alt" ></i></i> <span>Salir</span> </a>
         <!-- <div id="divbtnAgregar"></div> -->
     </div>
-
     <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
     <script>
         function openNav() {
@@ -34,7 +33,7 @@
         }
     </script>
     <div id="Cards" class="container-fluid"></div>
-
+    <h1 id="nombreUsuario"></h1>
     <div class="modal fade" id="modalAgregarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -67,6 +66,7 @@
     <script src="assets/JS/registro.js"></script>
     <script src="assets/JS/login.js"></script>
     <script src="assets/JS/app.js"></script>
+    <script src="assets/JS/loged.js"></script>
     <script src="assets/JS/addMeter.js"></script>
     <script src="assets/JS/database.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
