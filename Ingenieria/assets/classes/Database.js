@@ -90,8 +90,6 @@ class DataBase {
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-
-
     }
 
     async loginRegistroGoogle() {
