@@ -1,24 +1,59 @@
-const btnSalir=document.querySelector('#salir');
-const nombreUsuario=document.querySelector('#nombreUsuario');
-const btnHome=document.querySelector('#btnHome');
-document.addEventListener("DOMContentLoaded", e=>{
-    // user=await firebase.auth().currentUser;
-    setTimeout(() => {
-        nombreUsuario.innerText="Bienveniddo: "+firebase.auth().currentUser.displayName;
+const btnSalir = document.querySelector('#salir');
+const nombreUsuario = document.querySelector('#nombreUsuario');
+const btnHome = document.querySelector('#btnHome');
+let btnAgregar = document.querySelector('#btnAgregar');
+let btnModalAgregar = document.querySelector('#btnAgregarMedidor');
+/*document.addEventListener("DOMContentLoaded", async() => {
+    let user = await firebase.auth().currentUser;
+    nombreUsuario.innerText = "Bienveniddo: " + user.displayName;
+      setTimeout(() => {
+         nombreUsuario.innerText = "Bienveniddo: " + await firebase.auth().currentUser.displayName;
          loadData2();
-    },1000 );
+     }, 2000); 
+}); 
+
+*/
+
+$(document).ready(async() => {
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log("EVENTO FIREd");
+
+            nombreUsuario.innerText = "Bienveniddo: " + user.displayName;
+
+        } else {
+            // No user is signed in.
+        }
+    });
 });
-btnSalir.addEventListener('click',e=>{
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            console.log("salio de la sesion");
-            $(location).attr('href', "index.html");
-        }).catch((error) => {
-            // An error happened.
-        });
+
+btnSalir.addEventListener('click', e => {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        console.log("salio de la sesion");
+        $(location).attr('href', "index.html");
+    }).catch((error) => {
+        // An error happened.
+    });
 
 })
 
+btnAgregar.addEventListener('click', e => {
+    // validateWaterMeter(inputMeterID.value);
+    // addWaterMeter(inputMeterID.value);
+
+    $('#modalAgregarMedidor').modal('show');
+})
+
+btnModalAgregar.addEventListener('click', async() => {
+    // validateWaterMeter(inputMeterID.value);
+    // addWaterMeter(inputMeterID.value);
+    let db = new DataBase();
+    await db.agregarDispositivo(inputId.value);
+    $('#modalAgregarMedidor').modal('hide');
+    loadData2();
+})
 
 const cardNueva2 = (customName, id, lastValue) => {
     let divCard = document.createElement("div");
@@ -48,9 +83,12 @@ const cardNueva2 = (customName, id, lastValue) => {
     return divCard;
 }
 const loadData2 = async() => {
-    let user=await firebase.auth().currentUser;
-    let resultado = await getData('Users',user.uid);
+    let db = new DataBase();
+
+    let user = await firebase.auth().currentUser;
+    let resultado = await db.obtenerDocumento('Users', user.uid);
     console.log(resultado);
+    resultado = Object.entries(resultado.devices);
     let customName;
     let id;
     let lastValue;
@@ -61,6 +99,9 @@ const loadData2 = async() => {
     let divCol;
     let card;
     let counter = 0;
+    while (cardDiv.firstChild) {
+        cardDiv.removeChild(cardDiv.firstChild);
+    }
     for (let index = 0; index < resultado.length; index++) {
         console.log("CaRTA");
         if (index === 0 || counter === 4) {
@@ -76,13 +117,13 @@ const loadData2 = async() => {
         lastValue = resultado[index][1].lastValue;
         id = resultado[index][0];
         card = cardNueva2(customName, id, lastValue);
-        
+
 
         console.log({ card });
 
         divCol.append(card);
         divRow.append(divCol);
-        
+
         counter++;
     }
     cardDiv.append(divContainer);

@@ -11,6 +11,8 @@ class DataBase {
 
         await docRef.get().then((doc) => {
             if (doc.exists) {
+                console.log("data es ", doc.data());
+
                 result = doc.data();
 
             } else {

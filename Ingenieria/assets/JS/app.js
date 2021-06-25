@@ -10,9 +10,14 @@ let inputMeterID = document.querySelector('#inputId');
 let checkBoxLogin = document.querySelector('#cbLogin');
 
 
+(function() {
+    'use strict'
+
+
+})();
+
 const loggedIn = (user) => {
-    console.log("logged in !!");
-    console.log({ user });
+
     // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
     document.querySelector("#labelLoginImage").classList.remove("fas", "fa-user");
     document.querySelector("#labelLoginImage").classList.add("fas", "fa-sign-out-alt", "fa-lg");
@@ -41,15 +46,15 @@ const loggedOut = () => {
 sessionStorage.pageChange = false;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        loggedIn(user);
+
         if (sessionStorage.getItem("pageChange") != "true") {
             sessionStorage.getItem("pageChange", true);
-            $(location).attr('href', "loged.html");
-           // $("#labelLoginTexto").html("Salir");
+
+            // $("#labelLoginTexto").html("Salir");
         }
     } else {
 
-        loggedOut();
+
         console.log("HOLA");
         // if (sessionStorage.getItem("pageChange") === false) {
         //     $(location).attr('href', "index.html");
@@ -120,25 +125,22 @@ const cardNueva = (customName, id, lastValue) => {
         return divCard;
     }
     // crearUnmedidor
-const botonAgregar = () => {
-    let a = document.createElement('a');
-    a.classList.add("text-secondary")
-    a.innerText = "AgregarMedidor"
-    a.addEventListener('click', e => {
-        $('#modalAgregarMedidor').modal('show');
+
+if (btnAgregarMedidor) {
+    btnAgregarMedidor.addEventListener('click', e => {
+        // validateWaterMeter(inputMeterID.value);
+        // addWaterMeter(inputMeterID.value);
+        let db = new DataBase();
+        db.agregarDispositivo(inputMeterID.value);
     })
-    return a;
 }
-btnAgregarMedidor.addEventListener('click', e => {
-    // validateWaterMeter(inputMeterID.value);
-    // addWaterMeter(inputMeterID.value);
-    let db = new DataBase();
-    db.agregarDispositivo(inputMeterID.value);
-})
+
 
 
 const loadData = async() => {
-    let resultado = await getData("Users", await firebase.auth().currentUser.uid); // Esto es diferente ya que hice el método más reutilizable
+    let dataBase = new DataBase();
+    let uid = await firebase.auth().currentUser.uid;
+    let resultado = await dataBase.obtenerDocumento("Users", uid); // Esto es diferente ya que hice el método más reutilizable
     resultado = Object.entries(resultado.devices); // Espero que al hacer esto evite romper lo que ya han implementado
     let customName;
     let id;
@@ -150,7 +152,9 @@ const loadData = async() => {
     let divCol;
     let card;
     let counter = 0;
-
+    while (cardDiv.firstChild) {
+        cardDiv.removeChild(cardDiv.firstChild);
+    }
     for (let index = 0; index < resultado.length; index++) {
 
         if (index === 0 || counter === 4) {
@@ -186,10 +190,13 @@ bntGoogle.addEventListener('click', async() => {
     } else {
         await registerUserGoogle("SESSION");
     }
-
-    $('#signUpModal').modal('hide');
-
-    await loadData();
     console.log("saliendo");
+    $('#signUpModal').modal('hide');
+    let user = await firebase.auth().currentUser;
+    console.log(user);
+
+    $(location).attr('href', "loged.html");
+
+
 
 })
