@@ -4,7 +4,7 @@ class DataBase {
 
     }
 
-    async  obtenerDocumento(coleccion, documento) {
+    async obtenerDocumento(coleccion, documento) {
 
         var docRef = this.db.collection(coleccion).doc(documento);
         let result;
@@ -26,21 +26,20 @@ class DataBase {
     }
     async loginEmailPassword(email, password, session) {
         let user;
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
             .then((result) => {
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
                 // ...
                 // New sign-in will be persisted with session persistence.
-                // user=result.user;
+                user = result.user;
                 return firebase.auth().signInWithEmailAndPassword(email, password);
             })
             .catch((error) => {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                console.log(errorMessage);
             });
         return Promise.resolve(user);
     }
@@ -122,7 +121,7 @@ class DataBase {
 
                         let docReg = this.db.collection("Users").doc(user.uid);
 
-                        docReg.get().then((doc) => {
+                        await docReg.get().then((doc) => {
                             if (doc.exists) {
 
                             } else {
