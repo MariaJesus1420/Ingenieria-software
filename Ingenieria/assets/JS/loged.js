@@ -3,16 +3,7 @@ const nombreUsuario = document.querySelector('#nombreUsuario');
 const btnHome = document.querySelector('#btnHome');
 let btnAgregar = document.querySelector('#btnAgregar');
 let btnModalAgregar = document.querySelector('#btnAgregarMedidor');
-/*document.addEventListener("DOMContentLoaded", async() => {
-    let user = await firebase.auth().currentUser;
-    nombreUsuario.innerText = "Bienveniddo: " + user.displayName;
-      setTimeout(() => {
-         nombreUsuario.innerText = "Bienveniddo: " + await firebase.auth().currentUser.displayName;
-         loadData2();
-     }, 2000); 
-}); 
 
-*/
 
 $(document).ready(async() => {
 
@@ -20,8 +11,8 @@ $(document).ready(async() => {
         if (user) {
             console.log("EVENTO FIREd");
 
-            nombreUsuario.innerText = "Bienveniddo: " + user.displayName;
-
+            nombreUsuario.innerText = "Bienvenid@: " + user.displayName;
+            loadData2();
         } else {
             // No user is signed in.
         }
