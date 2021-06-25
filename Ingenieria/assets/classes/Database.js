@@ -4,7 +4,7 @@ class DataBase {
 
     }
 
-    async obtenerDocumento(coleccion, documento) {
+    async  obtenerDocumento(coleccion, documento) {
 
         var docRef = this.db.collection(coleccion).doc(documento);
         let result;
@@ -26,40 +26,46 @@ class DataBase {
     }
     async loginEmailPassword(email, password, session) {
         let user;
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
-            .then(() => {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
+            .then((result) => {
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
                 // ...
                 // New sign-in will be persisted with session persistence.
+                // user=result.user;
                 return firebase.auth().signInWithEmailAndPassword(email, password);
             })
             .catch((error) => {
                 // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                console.log(errorMessage);
             });
         return Promise.resolve(user);
     }
 
     async registroEmailPassword(email, password) {
         let user;
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-            .then(() => {
-                // Existing and future Auth states are now persisted in the current
-                // session only. Closing the window would clear any existing state even
-                // if a user forgets to sign out.
-                // ...
-                // New sign-in will be persisted with session persistence.
-                return firebase.auth().signInWithEmailAndPassword(email, password);
+        await firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                user = userCredential.user;
+                this.db.collection("Users").doc(user.uid).set({
+                    email: user.email,
+                }).then(() => {
+                    console.log("Document successfully written!");
+                }).catch((error) => {
+                    console.error("Error writing document: ", error);
+                })
             })
             .catch((error) => {
-                // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                // ..
             });
-        return Promise.resolve(user);
+
+        return user;
     }
 
     async agregarDispositivo(id) {
