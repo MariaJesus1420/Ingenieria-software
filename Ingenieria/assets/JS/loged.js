@@ -9,7 +9,7 @@ $(document).ready(async() => {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            console.log("EVENTO FIREd");
+            console.log(user);
 
             nombreUsuario.innerText = "Bienvenid@: " + user.displayName;
             loadData2();

@@ -1,4 +1,5 @@
 const registerUser = (email, password) => {
+    console.log("resistra a "+email+" "+password);
     let user = null;
     let db = firebase.firestore();
     firebase.auth().createUserWithEmailAndPassword(email, password)

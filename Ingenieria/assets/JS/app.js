@@ -4,28 +4,32 @@ let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
 let checkBoxLogin = document.querySelector('#cbLogin');
-//metodo para cambiar el login y register
+let canLogin=true;
+let btnConfirm_loginRegist=document.querySelector('#btnConfirm_loginRegist');
+let inputEmail=document.querySelector('#inputEmail');
+let inputPassword=document.querySelector('#inputPassword');
+let divConfirmPassword=document.querySelector('#divConfirmPassword');
 
-(function() {
-    'use strict'
+document.addEventListener('DOMContentLoaded',()=>{
+    divConfirmPassword.style.display="none";
+})
 
+btnConfirm_loginRegist.addEventListener('click',async()=>{
+    if(canLogin){
+        loginUser(inputEmail.value,inputPassword.value);
+        $(location).attr('href', "loged.html");
+    }else{
+        registerUser(inputEmail.value,inputPassword.value);
+        $('#signUpModal').modal('hide');
+    }
+    let user = await firebase.auth().currentUser;
+    console.log(user);
+})
 
-})();
-const loggedIn = (user) => {
-    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
-    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-user");
-    document.querySelector("#labelLoginImage").classList.add("fas", "fa-sign-out-alt", "fa-lg");
-    $("#labelLoginTexto").html("Salir");
-    let picture = document.createElement('img');
-    let list = document.createElement("li");
-    list.id = "userProfileLi";
-    list.classList.add("nav-item");
-    picture.src = user.photoURL;
-    picture.classList.add("rounded-circle");
-    // h1UserName.innerHTML = user.displayName;
-    picture.id = "userPicture";
-    list.append(picture);
-    $("#divlogin").prepend(list);
+const btnClick = (btnOn, btnOff) => {
+    btnOn.classList.add("btnOnClick");
+    btnOff.classList.remove("btnOnClick");
+
 }
 labelImage.addEventListener('click', async() => {
     let user = firebase.auth().currentUser
@@ -42,6 +46,16 @@ labelImage.addEventListener('click', async() => {
         });
     }
 
+})
+btnLogin.addEventListener("click", () => {
+    btnClick(btnLogin, btnRegistro);
+    canLogin=true;
+    divConfirmPassword.style.display="none";
+})
+btnRegistro.addEventListener("click", () => {
+    btnClick(btnRegistro, btnLogin);
+    canLogin=false;
+    divConfirmPassword.style.display="block";
 })
 bntGoogle.addEventListener('click', async() => {
     if (checkBoxLogin.checked) {
