@@ -9,11 +9,13 @@ let btnConfirm_loginRegist = document.querySelector('#btnConfirm_loginRegist');
 let inputEmail = document.querySelector('#inputEmail');
 let inputPassword = document.querySelector('#inputPassword');
 let divConfirmPassword = document.querySelector('#divConfirmPassword');
-const db = new DataBase();
+
 document.addEventListener('DOMContentLoaded', () => {
     divConfirmPassword.style.display = "none";
+
 })
 btnConfirm_loginRegist.addEventListener('click', async() => {
+    let db = new DataBase();
     if (canLogin) {
         let user = await db.loginEmailPassword(inputEmail.value, inputPassword.value, "SESSION");
         if (user) $(location).attr('href', "loged.html");

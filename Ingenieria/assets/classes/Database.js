@@ -26,15 +26,17 @@ class DataBase {
     }
     async loginEmailPassword(email, password, session) {
         let user;
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
-            .then((result) => {
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
+            .then(() => {
                 // Existing and future Auth states are now persisted in the current
                 // session only. Closing the window would clear any existing state even
                 // if a user forgets to sign out.
                 // ...
                 // New sign-in will be persisted with session persistence.
-                user = result.user;
-                return firebase.auth().signInWithEmailAndPassword(email, password);
+
+                return firebase.auth().signInWithEmailAndPassword(email, password).then((result) => {
+                    user = result.user;
+                });
             })
             .catch((error) => {
                 // Handle Errors here.
@@ -105,10 +107,10 @@ class DataBase {
         });
     }
 
-    async loginRegistroGoogle() {
+    async loginRegistroGoogle(session) {
         let provider = new firebase.auth.GoogleAuthProvider();
         let user;
-        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence[persistencia])
+        await firebase.auth().setPersistence(firebase.auth.Auth.Persistence[session])
             .then(() => {
                 return firebase.auth()
                     .signInWithPopup(provider)
@@ -123,7 +125,7 @@ class DataBase {
 
                         let docReg = this.db.collection("Users").doc(user.uid);
 
-                        await docReg.get().then((doc) => {
+                        docReg.get().then((doc) => {
                             if (doc.exists) {
 
                             } else {
