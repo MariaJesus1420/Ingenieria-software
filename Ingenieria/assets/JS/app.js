@@ -4,22 +4,23 @@ let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
 let checkBoxLogin = document.querySelector('#cbLogin');
-let canLogin=true;
-let btnConfirm_loginRegist=document.querySelector('#btnConfirm_loginRegist');
-let inputEmail=document.querySelector('#inputEmail');
-let inputPassword=document.querySelector('#inputPassword');
-let divConfirmPassword=document.querySelector('#divConfirmPassword');
-const db= new DataBase();
-document.addEventListener('DOMContentLoaded',()=>{
-    divConfirmPassword.style.display="none";
+let canLogin = true;
+let btnConfirm_loginRegist = document.querySelector('#btnConfirm_loginRegist');
+let inputEmail = document.querySelector('#inputEmail');
+let inputPassword = document.querySelector('#inputPassword');
+let divConfirmPassword = document.querySelector('#divConfirmPassword');
+const db = new DataBase();
+document.addEventListener('DOMContentLoaded', () => {
+    divConfirmPassword.style.display = "none";
 })
-btnConfirm_loginRegist.addEventListener('click',async()=>{
-    if(canLogin){
-       let user= await db.loginEmailPassword(inputEmail.value,inputPassword.value,"SESSION");
-       if(user) $(location).attr('href', "loged.html");else alert("no esta registrado");
-    // $(location).attr('href', "loged.html")
-}else{
-        registerUser(inputEmail.value,inputPassword.value);
+btnConfirm_loginRegist.addEventListener('click', async() => {
+    if (canLogin) {
+        let user = await db.loginEmailPassword(inputEmail.value, inputPassword.value, "SESSION");
+        if (user) $(location).attr('href', "loged.html");
+        else alert("no esta registrado");
+        // $(location).attr('href', "loged.html")
+    } else {
+        registerUser(inputEmail.value, inputPassword.value);
         $('#signUpModal').modal('hide');
     }
     let user = await firebase.auth().currentUser;
@@ -49,13 +50,13 @@ labelImage.addEventListener('click', async() => {
 })
 btnLogin.addEventListener("click", () => {
     btnClick(btnLogin, btnRegistro);
-    canLogin=true;
-    divConfirmPassword.style.display="none";
+    canLogin = true;
+    divConfirmPassword.style.display = "none";
 })
 btnRegistro.addEventListener("click", () => {
     btnClick(btnRegistro, btnLogin);
-    canLogin=false;
-    divConfirmPassword.style.display="block";
+    canLogin = false;
+    divConfirmPassword.style.display = "block";
 })
 bntGoogle.addEventListener('click', async() => {
     if (checkBoxLogin.checked) {
