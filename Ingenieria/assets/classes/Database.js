@@ -111,7 +111,7 @@ class DataBase {
 
                 } else {
                     console.log("No such document!");
-                    throw "Medidor en uso";
+                    throw "Medidor en uso o no existe";
                 }
                 transaction.update(docRef, { activated: true });
             });
@@ -180,29 +180,4 @@ class DataBase {
 
         return Promise.resolve(user);
     }
-
-    async eliminarDispositivo(id) {
-        let docRef = this.db.collection("Devices").doc(id);
-        docRef.get().then((doc) => {
-            if (doc.exists && doc.data().activated == true) {
-                docRef.remove();
-                this.db.collection("Users").doc(user.uid).remove(id).then(() => {
-                    console.log("Document successfully removed!");
-                }).catch((error) => {
-                    console.error("Error removing document: ", error);
-                }).catch((error) => {
-                    let errorCode = error.code;
-                    let errorMessage = error.message;
-                    console.log(errorMessage);
-
-                });
-
-            } else {
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-    }
-
 }
