@@ -70,43 +70,63 @@ class DataBase {
 
         return user;
     }
+    async fudk(id) {
+
+        let docRef = await this.db.collection("Devices").withConverter(deviceConverter).doc(id);
+
+
+        return await this.db.runTransaction((transaction) => {
+            // This code may get re-run multiple times if there are conflicts.
+            return transaction.get(docRef).then((sfDoc) => {
+                if (!sfDoc.exists) {
+                    throw "Document does not exist!";
+                }
+
+
+                let user = firebase.auth().currentUser;
+                let path = `devices.${id}`;
+
+                if (sfDoc.exists && sfDoc.data().activated == false) {
+                    let device = sfDoc.data();
+                    let userDevice = {
+                        customName: device.customName,
+                        lastValue: device.lastValue,
+                        type: device.type,
+                    };
+                    this.db.collection("Users").doc(user.uid).update({
+                        [path]: userDevice
+
+                    }).then((result) => {
+
+                        console.log("Document successfully written!");
+
+                    }).catch((error) => {
+                        console.error("Error writing document: ", error);
+                    }).catch((error) => {
+                        let errorCode = error.code;
+                        let errorMessage = error.message;
+                        console.log(errorMessage);
+
+                    });
+
+                } else {
+                    console.log("No such document!");
+                    throw "Medidor en uso";
+                }
+                transaction.update(docRef, { activated: true });
+            });
+
+        }).then((result) => {
+            console.log("Transaction successfully committed!");
+        }).catch((error) => {
+            console.log("Transaction failed: ", error);
+        });
+    }
 
     async agregarDispositivo(id) {
 
         let docRef = await this.db.collection("Devices").doc(id).withConverter(deviceConverter);
-        let user = firebase.auth().currentUser;
-        let path = `devices.${id}`;
-        await docRef.get().then((doc) => {
-            if (doc.exists && doc.data().activated == false) {
-                let device = doc.data();
-                let userDevice = {
-                    customName: device.customName,
-                    lastValue: device.lastValue,
-                    type: device.type,
-                };
-                this.db.collection("Users").doc(user.uid).update({
-                    [path]: userDevice
 
-                }).then((result) => {
-                    console.log("Document successfully written!");
-
-                }).catch((error) => {
-                    console.error("Error writing document: ", error);
-                }).catch((error) => {
-                    let errorCode = error.code;
-                    let errorMessage = error.message;
-                    console.log(errorMessage);
-
-                });
-
-            } else {
-                console.log("No such document!");
-            }
-
-
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
     }
 
     async loginRegistroGoogle(session) {

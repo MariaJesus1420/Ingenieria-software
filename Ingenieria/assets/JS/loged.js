@@ -43,7 +43,7 @@ btnModalAgregar.addEventListener('click', async() => {
     let db = new DataBase();
     console.log("ADDING NEW METER");
 
-    await db.agregarDispositivo(inputId.value);
+    await db.fudk(inputId.value);
     console.log("DONE ADDING");
     $('#modalAgregarMedidor').modal('hide');
     loadData2();
