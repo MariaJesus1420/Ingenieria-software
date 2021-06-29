@@ -73,23 +73,23 @@ class DataBase {
 
     async agregarDispositivo(id) {
 
-        let docRef = this.db.collection("Devices").doc(id).withConverter(deviceConverter);
+        let docRef = await this.db.collection("Devices").doc(id).withConverter(deviceConverter);
         let user = firebase.auth().currentUser;
-        docRef.get().then((doc) => {
+        let path = `devices.${id}`;
+        await docRef.get().then((doc) => {
             if (doc.exists && doc.data().activated == false) {
                 let device = doc.data();
                 let userDevice = {
-                    devices: {
-                        [id]: {
-                            customName: device.customName,
-                            lastValue: device.lastValue,
-                            type: device.type,
-
-                        }
-                    }
+                    customName: device.customName,
+                    lastValue: device.lastValue,
+                    type: device.type,
                 };
-                this.db.collection("Users").doc(user.uid).update(userDevice).then(() => {
+                this.db.collection("Users").doc(user.uid).update({
+                    [path]: userDevice
+
+                }).then((result) => {
                     console.log("Document successfully written!");
+
                 }).catch((error) => {
                     console.error("Error writing document: ", error);
                 }).catch((error) => {
@@ -102,6 +102,8 @@ class DataBase {
             } else {
                 console.log("No such document!");
             }
+
+
         }).catch((error) => {
             console.log("Error getting document:", error);
         });

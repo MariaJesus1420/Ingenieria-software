@@ -41,9 +41,14 @@ btnModalAgregar.addEventListener('click', async() => {
     // validateWaterMeter(inputMeterID.value);
     // addWaterMeter(inputMeterID.value);
     let db = new DataBase();
+    console.log("ADDING NEW METER");
+
     await db.agregarDispositivo(inputId.value);
+    console.log("DONE ADDING");
     $('#modalAgregarMedidor').modal('hide');
     loadData2();
+
+
 })
 
 const cardNueva2 = (customName, id, lastValue) => {
@@ -75,6 +80,7 @@ const cardNueva2 = (customName, id, lastValue) => {
 }
 const loadData2 = async() => {
     let db = new DataBase();
+    console.log("LOADING NEW METERS");
 
     let user = await firebase.auth().currentUser;
     let resultado = await db.obtenerDocumento('Users', user.uid);
