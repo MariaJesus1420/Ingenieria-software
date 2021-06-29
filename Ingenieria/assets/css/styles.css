@@ -8,6 +8,7 @@
 body {
     background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg");
     background-color: #cccccc;
+    font-family: Segoe UI;
   }
 .card {
     margin-right: auto;
@@ -65,7 +66,7 @@ body {
     color: teal;
 }
 #titulo{
-    font-family: Courier;
+    font-family: Segoe UI;
     margin-left: auto;
     margin-right: auto;
     font-size: 80px;
@@ -79,16 +80,16 @@ body {
 .menu {
     text-align: left;
     font-weight: bold;
-    font-family: Courier;
+    font-family: Segoe UI;
 }
 #intro{
     margin-top: 60px;
-    font-family: Courier;
+    font-family: Segoe UI;
 }
 #subtitulos{
 
     font-weight: bold;
-    font-family: Courier;
+    font-family: Segoe UI;
     color: black;
     font-size: 30px;
   
@@ -98,7 +99,7 @@ body {
     border-radius: 60px;
 }
 #nombre{
-    font-family: Courier;
+    font-family: Segoe UI;
     color: black;
     text-align: center;
     font-size: 20px;
@@ -129,7 +130,7 @@ body {
     border-radius: 10px;
 }
 #descipcion{
-    font-family: Courier;
+    font-family: Segoe UI;
     font-size: 20px;
     margin-left: 100;
     margin-right: 30px;

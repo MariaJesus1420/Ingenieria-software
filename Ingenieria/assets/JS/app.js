@@ -9,7 +9,7 @@ let btnConfirm_loginRegist = document.querySelector('#btnConfirm_loginRegist');
 let inputEmail = document.querySelector('#inputEmail');
 let inputPassword = document.querySelector('#inputPassword');
 let divConfirmPassword = document.querySelector('#divConfirmPassword');
-
+let inputConfirmPassword = document.querySelector('#inputConfirmPassword');
 document.addEventListener('DOMContentLoaded', () => {
     divConfirmPassword.style.display = "none";
 
@@ -25,9 +25,12 @@ btnConfirm_loginRegist.addEventListener('click', async() => {
         $('#signUpModal').modal('hide');
         }
         // $(location).attr('href', "loged.html")
-    } else {
+    } else if(inputPassword.value===inputConfirmPassword.value){
         registerUser(inputEmail.value, inputPassword.value);
         $('#signUpModal').modal('hide');
+    }else{
+        $('#modalContent').text("Las contraseñas no coinciden o el email es invalido");
+        $('#modalMessages').modal('show');
     }
     let user = await firebase.auth().currentUser;
     console.log(user);

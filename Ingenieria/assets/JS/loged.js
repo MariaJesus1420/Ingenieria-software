@@ -10,8 +10,7 @@ $(document).ready(async() => {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             console.log(user);
-
-            nombreUsuario.innerText = "Bienvenid@: " + user.displayName;
+            user.displayName? nombreUsuario.innerText = "Bienvenid@: " + user.displayName:nombreUsuario.innerText = "Bienvenid@: " + user.email;
             loadData2();
         } else {
             // No user is signed in.
