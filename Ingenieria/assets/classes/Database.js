@@ -70,7 +70,7 @@ class DataBase {
 
         return user;
     }
-    async fudk(id) {
+    async agregarDispositivo(id) {
 
         let docRef = await this.db.collection("Devices").withConverter(deviceConverter).doc(id);
 
@@ -123,11 +123,6 @@ class DataBase {
         });
     }
 
-    async agregarDispositivo(id) {
-
-        let docRef = await this.db.collection("Devices").doc(id).withConverter(deviceConverter);
-
-    }
 
     async loginRegistroGoogle(session) {
         let provider = new firebase.auth.GoogleAuthProvider();
