@@ -19,7 +19,11 @@ btnConfirm_loginRegist.addEventListener('click', async() => {
     if (canLogin) {
         let user = await db.loginEmailPassword(inputEmail.value, inputPassword.value, "SESSION");
         if (user) $(location).attr('href', "loged.html");
-        else alert("no esta registrado");
+        else {
+        $('#modalContent').text("Las credenciales son incorrectas o el usuario no se encuentra registrado");
+        $('#modalMessages').modal('show');
+        $('#signUpModal').modal('hide');
+        }
         // $(location).attr('href', "loged.html")
     } else {
         registerUser(inputEmail.value, inputPassword.value);

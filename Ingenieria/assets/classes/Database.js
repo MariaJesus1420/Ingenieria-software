@@ -106,7 +106,6 @@ class DataBase {
                         let errorCode = error.code;
                         let errorMessage = error.message;
                         console.log(errorMessage);
-
                     });
 
                 } else {
@@ -120,6 +119,8 @@ class DataBase {
             console.log("Transaction successfully committed!");
         }).catch((error) => {
             console.log("Transaction failed: ", error);
+            $('#modalContent').text("El medidor no existe o esta en uso");
+            $('#modalMessages').modal('show');
         });
     }
 
