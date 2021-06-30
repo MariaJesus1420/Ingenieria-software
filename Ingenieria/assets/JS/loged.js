@@ -71,7 +71,7 @@ const cardNueva2 = (customName, id, lastValue) => {
     let buttonCard = document.createElement("a");
     buttonCard.classList.add("btn-primary", "btn");
     buttonCard.innerText = "Configurar";
-    buttonCard.href = id;
+    buttonCard.href = "config.html";
     divBody.appendChild(buttonCard);
     divCard.appendChild(divBody);
 
