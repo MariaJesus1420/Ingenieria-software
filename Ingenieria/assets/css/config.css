@@ -1,7 +1,7 @@
 #seccion1,
 #seccion2,
 #seccion3 {
-   
+
     margin-top: 15px;
     margin-bottom: 15px;
 }
@@ -9,27 +9,25 @@
 #containerForm {
     width: 60%;
     margin-top: 60px;
- 
- 
+
+
 }
 
-table.schedule-table{
-border-collapse: separate;
+table.schedule-table {
+    border-collapse: separate;
 }
-#horarioContainer{
+
+#horarioContainer {
     height: 500px;
     width: 100%;
 }
 
-#v-pills-home{
+#v-pills-home {
     width: 100%;
 }
 
-.tbody {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
-} 
+
+
 .schedule-rows td {
     width: 80px;
     height: 30px;
@@ -37,17 +35,31 @@ border-collapse: separate;
     padding: 5px;
     background-color: #3cb371;
     cursor: pointer;
-  }
-  .schedule-rows td:first-child {
+}
+
+.schedule-rows td:first-child {
     background-color: transparent;
     text-align: right;
     position: relative;
     top: -12px;
-  }
-  .schedule-rows td[data-selected],
-  .schedule-rows td[data-selecting] {
+}
+
+.schedule-rows td[data-selectedG] {
+    background-color: #3cb371;
+}
+
+.schedule-rows td[data-selected] {
     background-color: #f2003c;
-  }
-  .schedule-rows td[data-disabled] {
+}
+
+.schedule-rows td[data-selecting] {
+    background-color: #f2003c;
+}
+
+.schedule-rows td[data-selectingG] {
+    background-color: #3cb371;
+}
+
+.schedule-rows td[data-disabled] {
     opacity: 0.55;
-  }
+}
