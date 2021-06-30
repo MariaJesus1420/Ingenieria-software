@@ -1,252 +1,90 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/references/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <link rel="stylesheet" href="assets/css/sidebar.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  <script src="assets/references/jquery.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
-  <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
-  <script src="assets/references/bootstrap.min.js"></script>
-  <script src="assets/JS/firebase.js"></script>
-  <script src="assets/JS/database.js"></script>
-  <title>Configurar el dispositivo</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/config.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
+    <title>Document</title>
 </head>
 
 <body>
-  <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-    <div id="divlogin">
-      <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span
-          id="labelLoginTexto">Login or SignUp</span></a>
-    </div>
-  </div>
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
-  <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
 
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-  </script>
 
-  <br>
+    <div id="containerForm" class=" shadow p-3 mb-5 bg-white rounded container-sm bg-light text-dark rounded">
 
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h3><i class="bi bi-wrench"></i><i class="bi bi-cpu"></i></i> Ajustes generales del dispositivo</h3>
-      </div>
-    </div>
+        <div id="contenidoTabs"class="d-flex">
+            <div id="menuTabs" class="nav  d-flex nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-configurar-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-configurar" type="button" role="tab" aria-controls="v-pills-configurar"
+                    aria-selected="true">Configurar</button>
+                <button class="nav-link" id="v-pills-funciones-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-funciones" type="button" role="tab" aria-controls="v-pills-funciones"
+                    aria-selected="false">Funciones</button>
+                <button class="nav-link" id="v-pills-usuarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-usuarios" type="button" role="tab" aria-controls="v-pills-usuarios"
+                    aria-selected="false">Usuarios</button>
+                <button class="nav-link" id="v-pills-horarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
+                    aria-selected="false">Horarios</button>
+            </div>
+            <div class="container-sm tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-configurar" role="tabpanel"
+                    aria-labelledby="v-pills-configurar-tab">
+                    <form>
+                        <div id="seccion1" class="form-group mx-auto ">
+                            <label for="nuevoNombreInput">Nuevo nombre</label>
+                            <input type="text" class="form-control" id="nuevoNombreInput" aria-describedby="emailHelp"
+                                placeholder="Ingresa un nombre clave" required>
+                            <small id="emailHelp" class="form-text text-muted">Trata de utilizar nombres
+                                distintivos.</small>
+                        </div>
+                        <div id="seccion2" class="form-group  mx-auto">
+                            <label for="exampleInputPassword1">Nombre actual</label>
+                            <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
+                                disabled readonly>
 
-    <br>
+                        </div>
+                        <div id="seccion3" class=" d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
 
-    <div class="row">
-      <div class="col">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="AlarmSW">
-          <label class="form-check-label" for="AlarmSW"><i class="bi bi-bell"></i> Alarma</label>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
+                    aria-labelledby="v-pills-funciones-tab">
+                    ...</div>
+                <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
+
+                    <div id="horarioContainer" class="  container-sm overflow-auto">
+                        <div id="weekly-schedule" class="overflow-auto"> </div>
+                    </div>
+                    <div id="seccion3" class=" d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+
+
+
+
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="TestSW">
-          <label class="form-check-label" for="TestSW">Modo prueba  <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="Permite probar la sensibilidad configurada sin disparar alertas.
-Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
-        </div>
-      </div>
+
     </div>
 
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <label for="SensSlider" class="form-label">Sensibilidad de la alarma:</label>
-      </div>
-      <div class="col-1">
-        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menor sensibilidad"></i>
-      </div>
-      <div class="col-5">
-        <input type="range" class="form-range" id="SensSlider">
-      </div>
-      <div class="col-1">
-        <i class="bi bi-volume-up" style="font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mayor sensibilidad"></i>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas:</label>
-      </div>
-      <div class="col-4">
-        <input type="number" class="form-control" id="cooldown" min="5" max="60" value="5">
-      </div>
-      <div class="col-2">
-        <p style="text-align: left;">minutos</p>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <label class="form-check-label" for="message"><i class="bi bi-envelope"></i><i class="bi bi-bell"></i> Mensaje de notificación</label>
-        <textarea class="form-control" id="message" placeholder="Este campo debe llenarse"></textarea>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-primary" onclick="applyGeneralSettings()"><i class="bi bi-check2"></i> Aplicar cambios</button>
-      </div>
-    </div>
-  </div>
-
-  <br>
-
-  <hr>
-
-  <!-- Aquí va la configuración de fecha y hora -->
-  <br>
-
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"> </i><i class="bi bi-calendar"></i> Ajustar hora y fecha del dispositivo</h3>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <h6>Hora</h6>
-      </div>
-    </div>
-
-    <div class="row">
-      
-      <div class="col-2">
-        <p style="text-align: center;">Horas</p>
-      </div>
-      <div class="col-1">
-        <p style="text-align: center;">:</p>
-      </div>
-      <div class="col-2">
-        <p style="text-align: center;">Minutos</p>
-      </div>
-      <div class="col-1">
-        <p style="text-align: center;">:</p>
-      </div>
-      <div class="col-2">
-        <p style="text-align: center;">Segundos</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-2">
-        <input type="number" class="form-control" id="hour" min="1" max="12">
-      </div>
-      <div class="col-1">
-        <p style="text-align: center;">:</p>
-      </div>
-      <div class="col-2">
-        <input type="number" class="form-control" id="minute" min="0" max="59">
-      </div>
-      <div class="col-1">
-        <p style="text-align: center;">:</p>
-      </div>
-      <div class="col-2">
-        <input type="number" class="form-control" id="second" min="0" max="59">
-      </div>
-      <div class="col-2">
-        <select class="form-select" id="halfDay">
-          <option value="a" selected>a.m.</option>
-          <option value="p">p.m.</option>
-        </select>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <h6>Fecha</h6>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <input type="date" class="form-control" id="date">
-      </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-      <div class="col">
-        <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
-      </div>
-    </div>
-  </div>
-
-
-  <script>
-    $(document).ready(function () {
-      // Traer el ID del medidor seleccionado
-      let devID = "abcdefgihj";
-
-      // Cuál es el nombre de la colección de configs de dispositivos?
-      //let settings = getData("Devices", devID); // Recordar que los parámetros son (colección, documento)
-
-      // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
-      let currentTime = new Date();
-      //console.log(currentTime);
-
-      let h = currentTime.getHours();
-
-      // Convertir formato 24h a formato 12h
-      if (h === 0) document.getElementById("hour").value = 12;
-      else if (h > 12) {
-        document.getElementById("hour").value = h - 12;
-        document.getElementById("halfDay").value = "p";
-      } else document.getElementById("hour").value = h;
-
-      document.getElementById("minute").value = currentTime.getMinutes();
-      document.getElementById("second").value = currentTime.getSeconds();
-
-      let dateStr = currentTime.toISOString();
-      document.getElementById("date").value = dateStr.substring(0, dateStr.indexOf('T'));
-
-    });
-
-    function applyGeneralSettings() {
-      if (document.getElementById("message").value.length === 0) alert("El campo del mensaje de notificación no debe estar vacío");
-
-    }
-
-    function applyDateTimeSettings() {
-
-    }
-  </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/references/bootstrap.min.js"></script>
+    <script src="assets/references/index.js"></script>
+    <script src="assets/JS/config.js"></script>
 </body>
 
 </html>

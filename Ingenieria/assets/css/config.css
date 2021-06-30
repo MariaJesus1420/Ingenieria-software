@@ -1,3 +1,27 @@
+
+
+
+ @media (min-width: 992px) { 
+    #contenidoTabs{
+        align-content: flex-start;
+    }
+
+    #menuTabs{
+        flex-direction: column
+    }
+  }
+
+
+  @media (min-width: 0px) and (max-width: 991.98px) { 
+    #contenidoTabs{
+        flex-direction: column
+    }
+
+    #menuTabs{
+        flex-direction: row
+    }
+  }
+
 #seccion1,
 #seccion2,
 #seccion3 {
@@ -7,7 +31,7 @@
 }
 
 #containerForm {
-    width: 60%;
+   
     margin-top: 60px;
 
 
@@ -19,7 +43,7 @@ table.schedule-table {
 
 #horarioContainer {
     height: 500px;
-    width: 100%;
+   
 }
 
 #v-pills-home {
@@ -53,11 +77,11 @@ table.schedule-table {
 }
 
 .schedule-rows td[data-selecting] {
-    background-color: #f2003c;
+    background-color: #fa4371;
 }
 
 .schedule-rows td[data-selectingG] {
-    background-color: #3cb371;
+    background-color: #4eff9e;
 }
 
 .schedule-rows td[data-disabled] {
