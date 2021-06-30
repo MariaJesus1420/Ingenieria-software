@@ -14,7 +14,25 @@
 </head>
 
 <body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="btnHome" href="#">Home</a>
+        <a id="btnAgregar" href="#">Agregar Dispositivo</a>
+        <a href="#">Configurar Dispositivo</a>
+        <a id="btnEliminar"  href="#">Eliminar Dispositivo</a>
+        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt" ></i></i> <span>Salir</span> </a>
+        <!-- <div id="divbtnAgregar"></div> -->
+    </div>
+    <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 
     <div id="containerForm" class=" shadow p-3 mb-5 bg-white rounded container-sm bg-light text-dark rounded">
 
