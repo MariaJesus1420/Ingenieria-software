@@ -22,7 +22,7 @@ btnConfirm_loginRegist.addEventListener('click', async() => {
             let resultado = await db.obtenerDocumento('Users', user.uid);
             console.log(resultado.rol);
             if (resultado.rol==='admin') $(location).attr('href', "admin.html");
-            else if(resultado.rol===''){
+            else if(resultado.rol==null){
                 $(location).attr('href', "loged.html");
             }
         }catch(e) {
