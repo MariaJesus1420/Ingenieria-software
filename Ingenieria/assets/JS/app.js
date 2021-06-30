@@ -18,13 +18,17 @@ btnConfirm_loginRegist.addEventListener('click', async() => {
     let db = new DataBase();
     if (canLogin) {
         let user = await db.loginEmailPassword(inputEmail.value, inputPassword.value, "SESSION");
-        if (user) $(location).attr('href', "loged.html");
+        let resultado = await db.obtenerDocumento('Users', user.uid);
+        console.log(resultado.rol);
+        if (resultado.rol==='admin') $(location).attr('href', "admin.html");
+        else if(resultado.rol===''){
+            $(location).attr('href', "loged.html");
+        }
         else {
         $('#modalContent').text("Las credenciales son incorrectas o el usuario no se encuentra registrado");
         $('#modalMessages').modal('show');
         $('#signUpModal').modal('hide');
         }
-        // $(location).attr('href', "loged.html")
     } else if(inputPassword.value===inputConfirmPassword.value){
         registerUser(inputEmail.value, inputPassword.value);
         $('#signUpModal').modal('hide');
