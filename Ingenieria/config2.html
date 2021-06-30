@@ -1,0 +1,89 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/config.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <link rel="stylesheet" href="../node_modules/jquery-schedule/dist/jquery.schedule.min.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div id="containerForm" class="shadow p-3 mb-5 bg-white rounded container bg-light text-dark rounded">
+
+        <div class="d-flex align-items-start">
+            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-configurar-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-configurar" type="button" role="tab" aria-controls="v-pills-configurar"
+                    aria-selected="true">Configurar</button>
+                <button class="nav-link" id="v-pills-funciones-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-funciones" type="button" role="tab" aria-controls="v-pills-funciones"
+                    aria-selected="false">Funciones</button>
+                <button class="nav-link" id="v-pills-usuarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-usuarios" type="button" role="tab" aria-controls="v-pills-usuarios"
+                    aria-selected="false">Usuarios</button>
+                <button class="nav-link" id="v-pills-horarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
+                    aria-selected="false">Horarios</button>
+            </div>
+            <div class="container tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-configurar" role="tabpanel"
+                    aria-labelledby="v-pills-configurar-tab">
+                    <form>
+                        <div id="seccion1" class="form-group mx-auto ">
+                            <label for="nuevoNombreInput">Nuevo nombre</label>
+                            <input type="text" class="form-control" id="nuevoNombreInput" aria-describedby="emailHelp"
+                                placeholder="Ingresa un nombre clave" required>
+                            <small id="emailHelp" class="form-text text-muted">Trata de utilizar nombres
+                                distintivos.</small>
+                        </div>
+                        <div id="seccion2" class="form-group  mx-auto">
+                            <label for="exampleInputPassword1">Nombre actual</label>
+                            <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
+                                disabled readonly>
+
+                        </div>
+                        <div id="seccion3" class=" d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
+                    aria-labelledby="v-pills-funciones-tab">
+                    ...</div>
+                <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
+
+                </div>
+                <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
+                    <div class="row">
+                        <div id="horarioContainer" class="mx-auto container overflow-auto">
+                            <div id="schedule" class="overflow-auto"> </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/references/bootstrap.min.js"></script>
+    <script src="../node_modules/jquery-schedule/dist/jquery.schedule.min.js"></script>
+    <script src="assets/JS/config.js"></script>
+</body>
+
+</html>

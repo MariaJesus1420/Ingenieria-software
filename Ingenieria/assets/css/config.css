@@ -1,0 +1,22 @@
+#seccion1,
+#seccion2,
+#seccion3 {
+   
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#containerForm {
+    width: 70%;
+    margin-top: 60px;
+
+ 
+}
+
+#horarioContainer{
+    height: 500px;
+}
+
+#v-pills-home{
+    width: 100%;
+}

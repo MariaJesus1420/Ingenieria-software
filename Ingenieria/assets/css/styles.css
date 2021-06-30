@@ -5,11 +5,13 @@
     background-color: white;
     border-width: 0px;
 }
+
 body {
     background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg");
     background-color: #cccccc;
     font-family: Segoe UI;
-  }
+}
+
 .card {
     margin-right: auto;
     margin-left: auto;
@@ -57,6 +59,8 @@ body {
     float: right;
 }
 
+
+
 .btnOnClick {
     text-decoration: underline;
     text-decoration-thickness: 4px;
@@ -65,7 +69,8 @@ body {
     font-weight: bold;
     color: teal;
 }
-#titulo{
+
+#titulo {
     font-family: Segoe UI;
     margin-left: auto;
     margin-right: auto;
@@ -73,63 +78,73 @@ body {
     font-weight: bold;
     border-radius: 10px;
 }
-.divEditor{
+
+.divEditor {
     border: 10px;
-    text-align: center; 
+    text-align: center;
 }
+
 .menu {
     text-align: left;
     font-weight: bold;
     font-family: Segoe UI;
 }
-#intro{
+
+#intro {
     margin-top: 60px;
     font-family: Segoe UI;
 }
-#subtitulos{
 
+#subtitulos {
     font-weight: bold;
     font-family: Segoe UI;
     color: black;
     font-size: 30px;
-  
 }
-#subContainer{
+
+#subContainer {
     margin-top: 60px;
     border-radius: 60px;
 }
-#nombre{
+
+#nombre {
     font-family: Segoe UI;
     color: black;
     text-align: center;
     font-size: 20px;
     margin-left: 180px;
     margin-right: 30px;
-    
 }
-#logo{
+
+#logo {
     margin-left: 150px;
     margin-top: 5px;
 }
-#sound{
+
+#sound {
     margin-left: 100px;
 }
-#contenedor{
+
+#contenedor {
     margin-top: 60px;
-    background-color: "#337CAD" ;
+    background-color: "#337CAD";
 }
-#barra{
+
+#barra {
     width: 100px;
-    height: 0px;  
+    height: 0px;
 }
-#labelLogin{
+
+#labelLogin {
     text-align: left;
     color: white;
 }
-#col{
+
+#col {
     border-radius: 10px;
 }
-#descipcion{
+
+#descipcion {
     font-family: Segoe UI;
     font-size: 20px;
     margin-left: 100;
