@@ -5,30 +5,22 @@ console.log('PENE');
 
 $(function () {
     console.log("READY");
-    $('#schedule').jqs({
-        daysList: [
-            'Lunes',
-            'Martes',
-            'Miercoles',
-            'Jueves',
-            'Viernes',
-            'Sabado',
-            'Domingo'
-          ],
-  
-        periodColors: [
+    $('#weekly-schedule').dayScheduleSelector({
+        /* options */
 
-            ['rgba(200, 0, 0, 0.5)', '#f00', '#000'],
-            ['rgba(0, 200, 0, 0.5)', '#0f0', '#000'],
+        // Sun - Sat
+        days: [0, 1, 2, 3, 4, 5, 6],
 
-        ],
-        periodTitle: 'No title',
-        periodBackgroundColor: 'rgba(200, 0, 0, 0.5)',
-        periodBorderColor: '#f00',
-        periodTextColor: '#00',
-        periodRemoveButton: 'Eliminar',
-        periodDuplicateButton: 'Duplicar',
-        periodTitlePlaceholder: 'Titulo personalizado'
+        // HH:mm format
+        startTime: '00:00',
+
+        // HH:mm format       
+        endTime: '24:00',
+
+        // minutes                
+        interval: 30,
+
+        stringDays: ['Dom', 'Lun', 'Mar', 'Mier', 'Jue', 'Vie', 'Sab'],
     });
     console.log("HOLAAA");
 });
