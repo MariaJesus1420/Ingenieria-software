@@ -4,21 +4,27 @@
  @media (min-width: 992px) { 
     #contenidoTabs{
         align-content: flex-start;
+ 
     }
 
     #menuTabs{
-        flex-direction: column
+        flex-direction: column;
+      
+    }
+    #containerForm{
+        width: 60%;
     }
   }
 
 
   @media (min-width: 0px) and (max-width: 991.98px) { 
     #contenidoTabs{
-        flex-direction: column
+        flex-direction: column;
+       
     }
 
     #menuTabs{
-        flex-direction: row
+        justify-content: center;
     }
   }
 

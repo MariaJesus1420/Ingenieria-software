@@ -95,8 +95,8 @@ const loadData2 = async() => {
     let divCol;
     let card;
     let counter = 0;
-    while (cardDiv.firstChild) {
-        cardDiv.removeChild(cardDiv.firstChild);
+    while (cardDiv.children.length > 1) {
+        cardDiv.removeChild(cardDiv.lastChild);
     }
     for (let index = 0; index < resultado.length; index++) {
         console.log("CaRTA");
