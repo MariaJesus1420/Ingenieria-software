@@ -78,7 +78,7 @@ class DataBase {
             // This code may get re-run multiple times if there are conflicts.
             return transaction.get(docRef).then((sfDoc) => {
                 if (!sfDoc.exists) {
-                    throw "Document does not exist!";
+                    throw "El medidor no existe!";
                 }
 
                 let path = `devices.${id}`;
@@ -108,7 +108,7 @@ class DataBase {
 
                 } else {
                     console.log("No such document!");
-                    throw "Medidor en uso o no existe";
+                    throw "Error, medidor en uso";
                 }
 
                 if(!complete){
