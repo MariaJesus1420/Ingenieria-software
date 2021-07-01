@@ -2,7 +2,7 @@ const btnSalir = document.querySelector('#salir');
 const nombreUsuario = document.querySelector('#nombreUsuario');
 const btnHome = document.querySelector('#btnHome');
 let btnAgregar = document.querySelector('#btnAgregar');
-let btnModalAgregar = document.querySelector('#btnAgregarMedidor');
+let btnModalAgregar = document.querySelector('#modalAgregarMedidor');
 
 
 $(document).ready(async() => {
@@ -42,7 +42,7 @@ btnModalAgregar.addEventListener('click', async() => {
     let db = new DataBase();
     console.log("ADDING NEW METER");
 
-    await db.agregarDispositivo(inputId.value);
+    await db.agregarDispositivo(inputIdMeter.value, inputIdUser.value, inputEmail.value, inputRol.value);
     console.log("DONE ADDING");
     $('#modalAgregarMedidor').modal('hide');
     loadData2();

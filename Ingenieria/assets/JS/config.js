@@ -1,6 +1,8 @@
-
-
-
+let btnAgregar = document.querySelector('#btnAgregarUsuario');
+let inputIdMeter = document.querySelector('#inputIdMeter');
+let inputIdUser= document.querySelector('#inputIdUser');
+let inputEmail= document.querySelector('#inputEmail');
+let inputRol= document.querySelector('#inputRol');
 
 $(function () {
     console.log("READY");
@@ -23,3 +25,14 @@ $(function () {
     });
     console.log("HOLAAA");
 });
+
+btnAgregar.addEventListener('click', async() => {
+    let db = new DataBase();
+    console.log("ADDING NEW METER");
+    console.log(inputIdMeter.value);
+    console.log(inputIdUser.value);
+    await db.agregarDispositivo(inputIdMeter.value, inputIdUser.value, inputEmail.value, inputRol.value);
+
+    console.log("DONE ADDING");
+
+})

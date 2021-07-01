@@ -72,15 +72,41 @@
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </div>
 
+                        <!--Agregar usuarios-->
                     </form>
                 </div>
                 <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
                     aria-labelledby="v-pills-funciones-tab">
                     ...</div>
+
                 <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
-                    <div id="agregarUsuario" class=" d-flex justify-content-end">
-                        <button id="btnAgregarUsuario" type="submit" class="btn btn-primary">Agregar</button>
-                    </div>
+                    
+                    <form>
+                        <div class="form-group mx-auto ">
+                            <label for="inputIdMeter">Codigo del medidor</label>
+                            <input type="text" class="form-control" id="inputIdMeter" required>
+                        </div>
+
+                        <div class="form-group mx-auto ">
+                            <label for="inputIdUser">Identificador de Usuario</label>
+                            <input type="text" class="form-control" id="inputIdUser" required>
+                        </div>
+
+                        <div class="form-group mx-auto ">
+                            <label for="inputEmail">Email del usuario</label>
+                            <input type="email" placeholder="example@mail.com" class="form-control" id="inputEmail" required>
+                        </div>
+
+                        <div class="form-group mx-auto ">
+                            <label for="inputRol">Rol de Usuario</label>
+                            <input type="text" class="form-control" id="inputRol" required>
+                        </div>
+
+                        <div id="agregar" class=" d-flex justify-content-end mt-3">
+                            <button id="btnAgregarUsuario" type="button" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+
                 </div>
                 <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
 
@@ -100,11 +126,18 @@
 
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="assets/JS/firebase.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="assets/references/bootstrap.min.js"></script>
     <script src="assets/references/index.js"></script>
+    <script src="assets/classes/Device.js"></script>
+    <script src="assets/classes/Database.js"></script>
     <script src="assets/JS/config.js"></script>
+
 </body>
 
 </html>

@@ -70,11 +70,10 @@ class DataBase {
 
         return user;
     }
-    async agregarDispositivo(id) {
+    async agregarDispositivo(id, idUser, emailUser, rolUser) {
 
         let docRef = await this.db.collection("Devices").withConverter(deviceConverter).doc(id);
-
-
+        
         return await this.db.runTransaction((transaction) => {
             // This code may get re-run multiple times if there are conflicts.
             return transaction.get(docRef).then((sfDoc) => {
@@ -82,9 +81,9 @@ class DataBase {
                     throw "Document does not exist!";
                 }
 
-
-                let user = firebase.auth().currentUser;
                 let path = `devices.${id}`;
+                let pathUser= `users.${idUser}`;
+                let complete= false;
 
                 if (sfDoc.exists && sfDoc.data().activated == false) {
                     let device = sfDoc.data();
@@ -93,26 +92,38 @@ class DataBase {
                         lastValue: device.lastValue,
                         type: device.type,
                     };
-                    this.db.collection("Users").doc(user.uid).update({
+
+
+                    this.db.collection("Users").doc(idUser).update({
                         [path]: userDevice
 
-                    }).then((result) => {
-
+                    }).then(() => {
+                        complete= true;
                         console.log("Document successfully written!");
 
                     }).catch((error) => {
                         console.error("Error writing document: ", error);
-                    }).catch((error) => {
-                        let errorCode = error.code;
-                        let errorMessage = error.message;
-                        console.log(errorMessage);
+                        complete=false;
                     });
 
                 } else {
                     console.log("No such document!");
                     throw "Medidor en uso o no existe";
                 }
-                transaction.update(docRef, { activated: true });
+
+                if(!complete){
+                    throw "Error al escribir en usuario";
+                }
+
+                let deviceUser= {
+                    email: emailUser,
+                    rol: rolUser,
+                }
+
+                transaction.update(docRef, { 
+                    activated: true,
+                    [pathUser]: deviceUser
+                });
             });
 
         }).then((result) => {
