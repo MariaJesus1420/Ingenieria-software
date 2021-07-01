@@ -73,10 +73,11 @@ btnRegistro.addEventListener("click", () => {
     divConfirmPassword.style.display = "block";
 })
 bntGoogle.addEventListener('click', async() => {
+    let db = new DataBase();
     if (checkBoxLogin.checked) {
-        await registerUserGoogle("LOCAL");
+        await db.loginRegistroGoogle("LOCAL");
     } else {
-        await registerUserGoogle("SESSION");
+        await db.loginRegistroGoogle("SESSION");
     }
     console.log("saliendo");
     $('#signUpModal').modal('hide');
