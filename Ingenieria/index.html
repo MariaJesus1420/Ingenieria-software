@@ -13,7 +13,7 @@
     <title>AquaMetrics</title>
 </head>
 
-<body>
+<body id="principal">
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a id="labelLogin" href="#"><i id="labelLoginImage" class="fas fa-user" ></i> </i> <span id="labelLoginTexto">Login or SignUp</span> </a>
@@ -29,7 +29,7 @@
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
-    
+    <div class="container" id="container" style="background-color:white;"> 
         <div class="row">
             <div class="col-sm-3"></div>
             <div class="col-sm-4">
@@ -39,10 +39,10 @@
             </div>
         </div>
         <div class="row"> 
-                   <div style="background-color:  #6FA7B6;text-align: right;" id="nombres" class="col-sm-5">
+                   <div style="text-align: right;" id="nombres" class="col-sm-5">
                     <div>
                         <h4 id="subtitulos" style="text-align:center">Creadores: </h4>
-                        <div style="text-align:left" id="nombre">       
+                        <div style="text-align:center" id="nombre">       
                             <p>Esteban Barrantes</p>
                             <p>Glenda Rodriguez</p>
                             <p>Maria Rodriguez</p>
@@ -53,7 +53,7 @@
                 <div class="col-sm-2">
 
                 </div>
-            <div  style="background-color: #6FA7B6; text-align: center;" id="nombres" class="col-sm-5">  
+            <div  style=" text-align: center;" id="nombres" class="col-sm-5">  
                  <div>
                         <h4 id="subtitulos" style="text-align:center">Descripcion del producto </h4>
                         <div style="text-align:justify" id="descipcion">
@@ -63,6 +63,8 @@
                     </div>
             </div>
             </div>
+    </div>
+       
        
     
 

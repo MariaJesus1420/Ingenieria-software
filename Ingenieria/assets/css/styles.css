@@ -7,11 +7,16 @@
 }
 
 body {
-    background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg");
+    /* background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg"); */
     background-color: #cccccc;
     font-family: Segoe UI;
 }
 
+#principal{
+      background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg"); */
+        background-color: #cccccc;
+        font-family: Segoe UI;
+}
 .card {
     margin-right: auto;
     margin-left: auto;
@@ -112,7 +117,7 @@ body {
     color: black;
     text-align: center;
     font-size: 20px;
-    margin-left: 180px;
+    margin-left: 40px;
     margin-right: 30px;
 }
 
@@ -149,4 +154,7 @@ body {
     font-size: 20px;
     margin-left: 100;
     margin-right: 30px;
+}
+#container{
+    border-radius: 30px;
 }
