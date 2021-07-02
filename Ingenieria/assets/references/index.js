@@ -18,7 +18,7 @@
     interval: 30, // minutes
     stringDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     template: '<div class="day-schedule-selector">' +
-      '<table class="schedule-table">' +
+      '<table class="schedule-table mx-auto">' +
       '<thead class="schedule-header"></thead>' +
       '<tbody class="schedule-rows"></tbody>' +
       '</table>' +

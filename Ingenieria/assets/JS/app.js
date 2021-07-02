@@ -83,6 +83,8 @@ bntGoogle.addEventListener('click', async() => {
     $('#signUpModal').modal('hide');
     let user = await firebase.auth().currentUser;
     console.log(user);
-
-    $(location).attr('href', "loged.html");
+    if(user){
+        $(location).attr('href', "loged.html");
+    }
+   
 })

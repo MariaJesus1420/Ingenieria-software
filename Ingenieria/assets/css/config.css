@@ -53,7 +53,7 @@ table.schedule-table {
 
 #horarioContainer {
     height: 500px;
-   
+   width: auto;
 }
 
 #v-pills-home {
