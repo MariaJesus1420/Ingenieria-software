@@ -198,13 +198,13 @@ class DataBase {
             throw "Document does not exist!";
         }
         let newUsers = Object.entries(docResult.data().users);
-        
+        let path = `devices.${id}`;
         transaction.update(docRef, { users: firebase.firestore.FieldValue.delete()});
         console.log(newUsers);
         for (let index = 0; index < newUsers.length; index++) {
             console.log('INDEX',index);
             let userRef = this.db.collection("Users").doc(newUsers[index][0]);
-            transaction.update(userRef, { devices: firebase.firestore.FieldValue.delete()});
+            transaction.update(userRef.update[path]=firebase.firestore.FieldValue.delete());
         }
     });
     }).then(() => {
