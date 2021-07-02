@@ -76,7 +76,7 @@ const cardNueva2 = (customName, id, lastValue) => {
     buttonCard.href = "config.html?id="+id;
     divBody.appendChild(buttonCard);
     divCard.appendChild(divBody);
-
+    
     return divCard;
 }
 const loadData2 = async() => {
