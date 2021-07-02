@@ -3,9 +3,12 @@ let inputIdMeter = document.querySelector('#inputIdMeter');
 let inputIdUser= document.querySelector('#inputIdUser');
 let inputEmail= document.querySelector('#inputEmail');
 let inputRol= document.querySelector('#inputRol');
-
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+let meterId=urlParams.get("id");
 $(function () {
     console.log("READY");
+    console.log(meterId);
     $('#weekly-schedule').dayScheduleSelector({
         /* options */
 
