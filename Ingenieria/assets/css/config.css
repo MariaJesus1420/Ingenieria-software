@@ -1,36 +1,55 @@
-
-
-
- @media (min-width: 992px) { 
-    #contenidoTabs{
+@media (min-width: 992px) {
+    #contenidoTabs {
         align-content: flex-start;
- 
+
     }
 
-    #menuTabs{
+    #menuTabs {
         flex-direction: column;
-      
+
     }
-    #containerForm{
-        width: 60%;
-        
+
+    #containerForm {
+        width: 100%;
+        padding: 0px;
     }
-  }
+}
 
 
-  @media (min-width: 0px) and (max-width: 991.98px) { 
-    #contenidoTabs{
+
+@media (min-width: 0px) and (max-width: 991.98px) {
+    #contenidoTabs {
         flex-direction: column;
-       
+
     }
 
-    #menuTabs{
+    #menuTabs {
         justify-content: center;
     }
-  }
-#headerConfiguracion,#footerConfiguracion{
-    padding-right: .75rem;
-    margin-bottom: 5px;
+}
+
+#footerContenido,#headerContenido{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#footerContenido{
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+#footerConfiguracion{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    border-top: 1px solid grey;
+    margin-top: 20px;
+}
+
+#headerConfiguracion{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    border-bottom: 1px solid grey;
 }
 #seccion1,
 #seccion2,
@@ -41,7 +60,7 @@
 }
 
 #containerForm {
-   
+
     margin-top: 60px;
 
 
@@ -53,7 +72,7 @@ table.schedule-table {
 
 #horarioContainer {
     height: 500px;
-   width: auto;
+    width: auto;
 }
 
 #v-pills-home {
