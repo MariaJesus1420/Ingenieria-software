@@ -6,6 +6,8 @@ let inputRol= document.querySelector('#inputRol');
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 let meterId=urlParams.get("id");
+let btnEliminar= document.querySelector('#btnEliminarMedidor');
+
 $(function () {
     console.log("READY");
     console.log(meterId);
@@ -38,4 +40,8 @@ btnAgregar.addEventListener('click', async() => {
 
     console.log("DONE ADDING");
 
+})
+btnEliminar.addEventListener('click',async ()=>{
+    let db = new DataBase();
+    await db.eliminarDispositivo(inputIdMeter.value);
 })

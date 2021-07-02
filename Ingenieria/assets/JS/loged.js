@@ -1,8 +1,9 @@
 const btnSalir = document.querySelector('#salir');
 const nombreUsuario = document.querySelector('#nombreUsuario');
 const btnHome = document.querySelector('#btnHome');
-let btnAgregar = document.querySelector('#btnAgregar');
-let btnModalAgregar = document.querySelector('#modalAgregarMedidor');
+let btnAgregar = document.querySelector('#btnAgregarMedidor');
+let btnModalAgregar = document.querySelector('#btnAgregarMedidorModal');
+let inputId= document.querySelector('#inputId');
 
 
 $(document).ready(async() => {
@@ -41,8 +42,9 @@ btnModalAgregar.addEventListener('click', async() => {
     // addWaterMeter(inputMeterID.value);
     let db = new DataBase();
     console.log("ADDING NEW METER");
-
-    await db.agregarDispositivo(inputIdMeter.value, inputIdUser.value, inputEmail.value, inputRol.value);
+    let user= firebase.auth().currentUser;
+    console.log(inputId.value);
+    await db.agregarDispositivo(inputId.value, user.uid, user.email , "Admin");
     console.log("DONE ADDING");
     $('#modalAgregarMedidor').modal('hide');
     loadData2();
@@ -84,43 +86,48 @@ const loadData2 = async() => {
     let user = await firebase.auth().currentUser;
     let resultado = await db.obtenerDocumento('Users', user.uid);
     console.log(resultado);
-    resultado = Object.entries(resultado.devices);
-    let customName;
-    let id;
-    let lastValue;
-    let divContainer = document.createElement("div");
-    divContainer.classList.add("container-fluid");
-    let cardDiv = document.querySelector("#Cards");
-    let divRow;
-    let divCol;
-    let card;
-    let counter = 0;
-    while (cardDiv.children.length > 1) {
-        cardDiv.removeChild(cardDiv.lastChild);
-    }
-    for (let index = 0; index < resultado.length; index++) {
-        console.log("CaRTA");
-        if (index === 0 || counter === 4) {
-            divRow = document.createElement("div");
-            divRow.classList.add("row");
-            divContainer.append(divRow);
-            counter = 0;
+    if(resultado.devices){
+        resultado = Object.entries(resultado.devices);
+        let customName;
+        let id;
+        let lastValue;
+        let divContainer = document.createElement("div");
+        divContainer.classList.add("container-fluid");
+        let cardDiv = document.querySelector("#Cards");
+        let divRow;
+        let divCol;
+        let card;
+        let counter = 0;
+        while (cardDiv.children.length > 1) {
+            cardDiv.removeChild(cardDiv.lastChild);
         }
+        for (let index = 0; index < resultado.length; index++) {
+            console.log("CaRTA");
+            if (index === 0 || counter === 4) {
+                divRow = document.createElement("div");
+                divRow.classList.add("row");
+                divContainer.append(divRow);
+                counter = 0;
+            }
+    
+            divCol = document.createElement("div");
+            divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
+            customName = resultado[index][1].customName;
+            lastValue = resultado[index][1].lastValue;
+            id = resultado[index][0];
+            card = cardNueva2(customName, id, lastValue);
+    
+    
+            console.log({ card });
+    
+            divCol.append(card);
+            divRow.append(divCol);
+    
+            counter++;
+        }
+        cardDiv.append(divContainer);
+    }else{
 
-        divCol = document.createElement("div");
-        divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
-        customName = resultado[index][1].customName;
-        lastValue = resultado[index][1].lastValue;
-        id = resultado[index][0];
-        card = cardNueva2(customName, id, lastValue);
-
-
-        console.log({ card });
-
-        divCol.append(card);
-        divRow.append(divCol);
-
-        counter++;
     }
-    cardDiv.append(divContainer);
+   
 }
