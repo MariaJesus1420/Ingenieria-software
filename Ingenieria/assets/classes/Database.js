@@ -83,7 +83,7 @@ class DataBase {
 
                 let path = `devices.${id}`;
                 let pathUser= `users.${idUser}`;
-                let complete= false;
+                let complete= true;
 
                 if (sfDoc.exists && sfDoc.data().activated == false) {
                     let device = sfDoc.data();
