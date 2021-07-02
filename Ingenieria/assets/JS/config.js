@@ -3,6 +3,7 @@ let inputIdMeter = document.querySelector('#inputIdMeter');
 let inputIdUser= document.querySelector('#inputIdUser');
 let inputEmail= document.querySelector('#inputEmail');
 let inputRol= document.querySelector('#inputRol');
+let btnEliminar= document.querySelector('#btnEliminarMedidor');
 
 $(function () {
     console.log("READY");
@@ -35,4 +36,8 @@ btnAgregar.addEventListener('click', async() => {
 
     console.log("DONE ADDING");
 
+})
+btnEliminar.addEventListener('click',async ()=>{
+    let db = new DataBase();
+    await db.eliminarDispositivo(inputIdMeter.value);
 })

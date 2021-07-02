@@ -190,26 +190,27 @@ class DataBase {
 
 
     async eliminarDispositivo(id) {
-        let docRef = this.db.collection("Devices").doc(id);
-        docRef.get().then((doc) => {
-            if (doc.exists && doc.data().activated == true) {
-                docRef.remove();
-                this.db.collection("Users").doc(user.uid).remove(id).then(() => {
-                    console.log("Document successfully removed!");
-                }).catch((error) => {
-                    console.error("Error removing document: ", error);
-                }).catch((error) => {
-                    let errorCode = error.code;
-                    let errorMessage = error.message;
-                    console.log(errorMessage);
+    let docRef = this.db.collection("Devices").doc(id);
+    return this.db.runTransaction((transaction) => {
 
-                });
-
-            } else {
-                console.log("No such document!");
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+    return transaction.get(docRef).then((docResult) => {
+        if (!docResult.exists) {
+            throw "Document does not exist!";
+        }
+        let newUsers = Object.entries(docResult.data().users);
+        
+        transaction.update(docRef, { users: firebase.firestore.FieldValue.delete()});
+        console.log(newUsers);
+        for (let index = 0; index < newUsers.length; index++) {
+            console.log('INDEX',index);
+            let userRef = this.db.collection("Users").doc(newUsers[index][0]);
+            transaction.update(userRef, { devices: firebase.firestore.FieldValue.delete()});
+        }
+    });
+    }).then(() => {
+    console.log("Transaction successfully committed!");
+    }).catch((error) => {
+    console.log("Transaction failed: ", error);
+    });
     }
 }
