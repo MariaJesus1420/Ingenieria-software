@@ -204,7 +204,7 @@ class DataBase {
         for (let index = 0; index < newUsers.length; index++) {
             console.log('INDEX',index);
             let userRef = this.db.collection("Users").doc(newUsers[index][0]);
-            transaction.update(userRef.update[path]=firebase.firestore.FieldValue.delete());
+            transaction.update(userRef.update([path]=firebase.firestore.FieldValue.delete()));
         }
     });
     }).then(() => {
