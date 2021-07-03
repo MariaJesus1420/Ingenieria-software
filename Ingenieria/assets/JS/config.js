@@ -70,3 +70,11 @@ window.onbeforeunload = function(){
         // do foo
       }
 };
+
+window.onload = function(){
+    if (document.referrer === "") {
+        sessionStorage.removeItem("id");
+      } else {
+        // do foo
+      }
+};
