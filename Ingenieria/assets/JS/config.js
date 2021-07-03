@@ -3,14 +3,21 @@ let inputIdMeter = document.querySelector('#inputIdMeter');
 let inputIdUser= document.querySelector('#inputIdUser');
 let inputEmail= document.querySelector('#inputEmail');
 let inputRol= document.querySelector('#inputRol');
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-let meterId=urlParams.get("id");
 let btnEliminar= document.querySelector('#btnEliminarMedidor');
-
+let mensajeError=document.querySelector("#mensajeError");
+let contenidoConfig=document.querySelector("#v-pills-tabContent");
+let meterId;
 $(function () {
     console.log("READY");
+    meterId= sessionStorage.getItem("id");
     console.log(meterId);
+    if(meterId===""||meterId===null){
+        mensajeError.style.visibility = "show";
+        contenidoConfig.style.display="none";
+    }else{
+        contenidoConfig.style.visibility="show";
+        mensajeError.style.display = "none";
+    }
     $('#weekly-schedule').dayScheduleSelector({
         /* options */
 
@@ -45,3 +52,10 @@ btnEliminar.addEventListener('click',async ()=>{
     let db = new DataBase();
     await db.eliminarDispositivo(inputIdMeter.value);
 })
+window.onbeforeunload = function(){
+    if (!document.referrer.includes("config.html")) {
+        sessionStorage.removeItem("id");
+      } else {
+        // do foo
+      }
+};

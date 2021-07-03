@@ -73,10 +73,13 @@ const cardNueva2 = (customName, id, lastValue) => {
     let buttonCard = document.createElement("a");
     buttonCard.classList.add("btn-primary", "btn");
     buttonCard.innerText = "Configurar";
-    buttonCard.href = "config.html?id="+id;
+    buttonCard.href = "#";
     divBody.appendChild(buttonCard);
     divCard.appendChild(divBody);
-    
+    buttonCard.addEventListener('click',()=>{
+        sessionStorage.setItem("id", id);
+        $(location).attr('href', "config.html"); 
+    })
     return divCard;
 }
 const loadData2 = async() => {
