@@ -44,7 +44,7 @@ btnModalAgregar.addEventListener('click', async() => {
     console.log("ADDING NEW METER");
     let user= firebase.auth().currentUser;
     console.log(inputId.value);
-    await db.agregarDispositivo(inputId.value, user.uid, user.email , "Admin");
+    await db.activarDispositivo(inputId.value, user.uid, user.email , "Admin");
     console.log("DONE ADDING");
     $('#modalAgregarMedidor').modal('hide');
     loadData2();
