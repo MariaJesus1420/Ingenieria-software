@@ -39,7 +39,9 @@
 .hideElement{
     display: none;
 }
-
+#v-pills-nombre{
+    width: 90%;
+}
 .showElement{
     display: inline-block;
 }
