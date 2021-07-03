@@ -8,15 +8,26 @@ let mensajeError=document.querySelector("#mensajeError");
 let contenidoConfig=document.querySelector("#v-pills-tabContent");
 let meterId;
 $(function () {
+    console.log(document.referrer);
+    
     console.log("READY");
     meterId= sessionStorage.getItem("id");
     console.log(meterId);
+
     if(meterId===""||meterId===null){
-        mensajeError.style.visibility = "show";
-        contenidoConfig.style.display="none";
+        console.log("NO ID");
+        
+        mensajeError.classList.remove("hideElement");
+        mensajeError.classList.add("showElement");
+        contenidoConfig.classList.remove("showElement");
+        contenidoConfig.classList.add("hideElement");
     }else{
-        contenidoConfig.style.visibility="show";
-        mensajeError.style.display = "none";
+        console.log("ES ID");
+        
+        mensajeError.classList.add("hideElement");
+        mensajeError.classList.remove("showElement");
+        contenidoConfig.classList.add("showElement");
+        contenidoConfig.classList.remove("hideElement");
     }
     $('#weekly-schedule').dayScheduleSelector({
         /* options */
@@ -53,7 +64,7 @@ btnEliminar.addEventListener('click',async ()=>{
     await db.eliminarDispositivo(inputIdMeter.value);
 })
 window.onbeforeunload = function(){
-    if (!document.referrer.includes("config.html")) {
+    if (document.referrer === "") {
         sessionStorage.removeItem("id");
       } else {
         // do foo

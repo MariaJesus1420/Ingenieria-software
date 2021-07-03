@@ -36,7 +36,13 @@
     margin-bottom: 0px;
     margin-top: 20px;
 }
+.hideElement{
+    display: none;
+}
 
+.showElement{
+    display: inline-block;
+}
 #footerConfiguracion{
     display: flex;
     align-items: flex-end;
