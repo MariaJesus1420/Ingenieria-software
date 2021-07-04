@@ -49,7 +49,7 @@ $(document).ready(async () => {
 
 
     btnModalAgregar.addEventListener("click", async (event) => {
-        console.log("PREVENT DEFAULT");
+
         event.preventDefault();
 
 
@@ -108,7 +108,7 @@ $(document).ready(async () => {
             let id;
             let lastValue;
             let divContainer = document.createElement("div");
-            
+
             let cardDiv = document.querySelector("#Cards");
             let divRow;
             let divCol;

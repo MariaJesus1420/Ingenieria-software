@@ -10,13 +10,15 @@ let inputEmail = document.querySelector('#inputEmail');
 let inputPassword = document.querySelector('#inputPassword');
 let divConfirmPassword = document.querySelector('#divConfirmPassword');
 let inputConfirmPassword = document.querySelector('#inputConfirmPassword');
+let divCheck = document.querySelector('#divCheck');
 document.addEventListener('DOMContentLoaded', () => {
     divConfirmPassword.style.display = "none";
 
 })
 
 
-btnConfirm_loginRegist.addEventListener('click', async() => {
+btnConfirm_loginRegist.addEventListener('click', async(event) => {
+    event.preventDefault();
     let db = new DataBase();
     if (canLogin) {
         try{
@@ -68,11 +70,14 @@ btnLogin.addEventListener("click", () => {
     btnClick(btnLogin, btnRegistro);
     canLogin = true;
     divConfirmPassword.style.display = "none";
+    divCheck.style.display="block";
 })
 btnRegistro.addEventListener("click", () => {
     btnClick(btnRegistro, btnLogin);
     canLogin = false;
+    divCheck.style.display="none";
     divConfirmPassword.style.display = "block";
+
 })
 bntGoogle.addEventListener('click', async() => {
     let db = new DataBase();
@@ -82,10 +87,11 @@ bntGoogle.addEventListener('click', async() => {
         await db.loginRegistroGoogle("SESSION");
     }
     console.log("saliendo");
-    $('#signUpModal').modal('hide');
+    
     let user = await firebase.auth().currentUser;
-    console.log(user);
+   
     if(user){
+        $('#signUpModal').modal('hide');
         $(location).attr('href', "loged.html");
     }
    

@@ -35,13 +35,13 @@
     margin-top: 20px;
 }
 .hideElement{
-    display: none;
+    height: 0%;
 }
 #v-pills-nombre{
     width: 90%;
 }
 .showElement{
-    display: inline-block;
+    height: 100%;
 }
 .estiloMensajeError{
     display: flex;

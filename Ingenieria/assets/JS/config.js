@@ -12,14 +12,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   let datosDB;
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
 
-  console.log(document.referrer);
   let db = new DataBase();
-  console.log("READY");
+  
   meterId = sessionStorage.getItem("id");
-  console.log(meterId);
+
 const revisarVariable = async() => {
     if (meterId === "" || meterId === null) {
-      console.log("NO ID");
+      
       btnEliminar.disable = true;
       mensajeError.classList.remove("hideElement");
       mensajeError.classList.add("showElement",'estiloMensajeError');
@@ -27,7 +26,7 @@ const revisarVariable = async() => {
       contenidoConfig.classList.add("hideElement");
     } else {
       datosDB = await db.consultarMedidorID(meterId);
-      console.log("ES ID");
+  
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
       mensajeError.classList.remove("showElement","estiloMensajeError");
@@ -54,13 +53,11 @@ const revisarVariable = async() => {
 
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
-  console.log("HOLAAA");
+  
 
   btnAgregar.addEventListener("click", async () => {
     let db = new DataBase();
-    console.log("ADDING NEW METER");
-    console.log(inputIdMeter.value);
-    console.log(inputIdUser.value);
+
     await db.agregarDispositivo(
       inputIdMeter.value,
       inputIdUser.value,
@@ -70,9 +67,11 @@ const revisarVariable = async() => {
 
     console.log("DONE ADDING");
   });
+
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
   });
+  
   btnEliminarModal.addEventListener("click", async () => {
     let db = new DataBase();
     if (meterName.value === datosDB.customName) {
