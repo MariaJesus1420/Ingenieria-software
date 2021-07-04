@@ -33,7 +33,7 @@ btnConfirm_loginRegist.addEventListener('click', async() => {
         $('#signUpModal').modal('hide');
         }
     } else if(inputPassword.value===inputConfirmPassword.value){
-        registerUser(inputEmail.value, inputPassword.value);
+        db.registroEmailPassword(inputEmail.value, inputPassword.value);
         $('#signUpModal').modal('hide');
     }else{
         $('#modalContent').text("Las contraseñas no coinciden o el email es invalido");
