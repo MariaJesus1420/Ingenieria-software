@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-console.log(generateName());
-console.log(generateName());
-console.log(generateName());
 
 btnConfirm_loginRegist.addEventListener('click', async() => {
     let db = new DataBase();

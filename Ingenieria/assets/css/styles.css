@@ -17,7 +17,7 @@ body {
     height: 100%;
 }
 html{
-    height: 80%;
+    height: 100%;
 }
 #principal{
       background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg"); 
@@ -32,7 +32,7 @@ html{
     width: 15rem;
 }
 #Cards{
-    height: 100%;
+  
     width: 80%;
 }
 .modal.hidden {
