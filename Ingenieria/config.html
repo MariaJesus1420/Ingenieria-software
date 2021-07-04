@@ -57,7 +57,14 @@
                     data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
                     aria-selected="false">Horarios</button>
             </div>
-            <div id="mensajeError"class="hideElement" ><h1 >no hay un medidor seleccionado</h1></div>
+            <div id="mensajeError"class="hideElement" >
+                <div class="container mx-auto" id="containerMensaje">
+                    <h3 id="noMedidores" >Previamente se debe seleccionar un dispositivo</h3>
+                </div>
+                <div class="container mx-auto" id="containerBoton">
+                    <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos  </a>
+                </div>
+            </div>
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
                     aria-labelledby="v-pills-nombre-tab">
@@ -135,14 +142,33 @@
                 </div>
             </div>
         </div>
+
         <div id="footerConfiguracion">
             <div id="footerContenido">
                 <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem" class="bi bi-trash"></i></button>
-            </div>
-          
-
+        </div>
         </div>
     </div>
+    <div class="modal fade" id="modalEliminarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desactivar Dispositivo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="inputName" class="form-label">Ingrese el nombre del dispositivo</label>
+                    <input type="text" class="form-control" id="inputName">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnEliminarDispositivo" class="btn btn-primary">Eliminar el dispositivo</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
