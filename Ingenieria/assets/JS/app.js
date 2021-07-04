@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     divConfirmPassword.style.display = "none";
 
 })
+
+console.log(generateName());
+console.log(generateName());
+console.log(generateName());
+
 btnConfirm_loginRegist.addEventListener('click', async() => {
     let db = new DataBase();
     if (canLogin) {

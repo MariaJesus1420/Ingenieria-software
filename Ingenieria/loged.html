@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/references/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
@@ -19,8 +20,8 @@
         <a id="btnHome" href="#">Home</a>
         <a id="btnAgregar" href="#">Agregar Dispositivo</a>
         <a href="#">Configurar Dispositivo</a>
-        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt" ></i></i> <span>Salir</span> </a>
-        <a id="btnEliminar"  href="#">Eliminar Dispositivo</a>
+        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt"></i></i> <span>Salir</span> </a>
+        <a id="btnEliminar" href="#">Eliminar Dispositivo</a>
         <!-- <div id="divbtnAgregar"></div> -->
     </div>
     <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
@@ -35,8 +36,10 @@
     </script>
     <h1 id="nombreUsuario"></h1>
     <div id="Cards" class="container shadow p-3 mb-5 bg-white rounded container-sm bg-light text-dark rounded">
-        <div id="header-contenido" class=" d-flex justify-content-end">
-            <button id="btnAgregarMedidor" type="submit" class="btn btn-primary">Agregar</button>
+        <div id="headerContenido" class=" d-flex">
+
+            <button id="btnAgregarMedidor" class="btn btn-success">Activar <i class="bi bi-plus"></i></button>
+
         </div>
     </div>
 
@@ -49,20 +52,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="mb-3">
-                        <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
-                        <input type="text" class="form-control" id="inputId">
-                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
+                            <input type="text" class="form-control" id="inputId" required>
+                        </div>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnAgregarMedidorModal" class="btn btn-primary">Agregar el Medidor</button>
+                <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" id="btnCrearRandomMedidorModal" class="btn btn-primary"><i
+                            class="bi bi-shuffle"></i></button>
+                    <button type="submit" id="btnAgregarMedidorModal" class="btn btn-success">¡Activalo!</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
-    
+
     <!-- modal mensajes -->
     <div class="modal fade" id="modalMessages" tabindex="-1" aria-labelledby="modalMessages" aria-hidden="true">
         <div class="modal-dialog">
@@ -78,27 +84,28 @@
                 </div>
             </div>
         </div>
-      </div>
-<!-- Eliminar medidor -->
-<div class="modal fade" id="modalEliminarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Desactivar Medidor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
-                    <input type="text" class="form-control" id="inputId">
+    </div>
+    <!-- Eliminar medidor -->
+    <div class="modal fade" id="modalEliminarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desactivar Medidor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnEliminarMedidor" class="btn btn-primary">Eliminar el Medidor</button>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
+                        <input type="text" class="form-control" id="inputId">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnEliminarMedidor" class="btn btn-primary">Eliminar el Medidor</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
