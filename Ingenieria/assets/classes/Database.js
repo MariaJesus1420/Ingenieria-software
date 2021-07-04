@@ -261,4 +261,22 @@ class DataBase {
         console.log("Transaction failed: ", error);
       });
   }
+  async consultarMedidorID(id){
+    let device;
+    var docRef = this.db.collection("Devices").doc(id);
+
+    await docRef.get().then((doc) => {
+    if (doc.exists) {
+      device= doc.data();
+        console.log("Document data:", doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+  return device;
+  }
+
 }

@@ -15,8 +15,6 @@
     }
 }
 
-
-
 @media (min-width: 0px) and (max-width: 991.98px) {
     #contenidoTabs {
         flex-direction: column;
@@ -44,6 +42,18 @@
 }
 .showElement{
     display: inline-block;
+}
+.estiloMensajeError{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
+#containerBoton{
+    width: 50%;
+    margin-top: 20px;
+    display: flex;
+    align-content: center;
 }
 #footerConfiguracion{
     display: flex;
