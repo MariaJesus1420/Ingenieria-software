@@ -1,6 +1,6 @@
 class DataBase {
   db = firebase.firestore();
-  constructor() {}
+  constructor() { }
 
   async obtenerDocumento(coleccion, documento) {
     var docRef = this.db.collection(coleccion).doc(documento);
@@ -152,22 +152,22 @@ class DataBase {
   async agregarMedidor(device) {
     let id;
     await this.db.collection("Devices").add({
-        activated: device.activated,
-        customName: device.customName,
-        lastValue : device.lastValue,
-        type: device.type,
-        updateConfig: device.updateConfig,
-      })
+      activated: device.activated,
+      customName: device.customName,
+      lastValue: device.lastValue,
+      type: device.type,
+      updateConfig: device.updateConfig,
+    })
       .then((docRef) => {
-        
+
         id = docRef.id;
-        console.log("Document successfully written!",docRef.id);
-   
+        console.log("Document successfully written!", docRef.id);
+
       })
       .catch((error) => {
         console.error("Error writing document: ", error);
       });
-      return id;
+    return id;
   }
 
   async loginRegistroGoogle(session) {
@@ -194,7 +194,7 @@ class DataBase {
             docReg
               .get()
               .then((doc) => {
-                if (doc.exists) {} else {
+                if (doc.exists) { } else {
                   this.db
                     .collection("Users")
                     .doc(user.uid)
@@ -261,4 +261,44 @@ class DataBase {
         console.log("Transaction failed: ", error);
       });
   }
+
+  async addDates(idMeter, cutOffDate, payDay) {
+    
+    await this.db.collection("Devices").doc(idMeter).update({
+      cutOffDate: cutOffDate,
+      payDay: payDay,
+    })
+      .then(() => {
+        console.log("Document successfully written!");
+
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
+
+  async addDateForUser(idUser, idMeter, cutOffDate, payDay) {
+
+    let path = `users.${idUser}`;
+
+    let dateUser = {
+      cutOffDateUser: cutOffDate,
+      payDayUser: payDay,
+    };
+
+    this.db
+      .collection("Devices")
+      .doc(idMeter)
+      .update({
+        [path]: dateUser,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+
+  };
+
 }
