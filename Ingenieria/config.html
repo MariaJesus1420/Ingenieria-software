@@ -101,23 +101,25 @@
 
 
                 <!--Agregar usuarios-->
-                <div class="container mx-auto tab-pane fade d-flex" id="v-pills-usuarios" role="tabpanel"
+                <div class="mx-auto tab-pane fade " id="v-pills-usuarios" role="tabpanel"
                     aria-labelledby="v-pills-usuarios-tab">
+                    <div id="divUsuarios"class="container d-flex">
+                        <table id="tablaUsuarios" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" class="text-center">Rol</th>
+                                    <th scope="col" class="text-end">Configurar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTablaUsuarios">
 
-                    <table id="tablaUsuarios" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Email</th>
-                                <th scope="col" class="text-center">Rol</th>
-                                <th scope="col" class="text-end">Configurar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cuerpoTablaUsuarios">
-                           
-                            
-                        </tbody>
-                    </table>
-                    <button type="button" id="agregarUsuario" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarUsuario"><i class="bi bi-person-plus"></i> Agregar</button>
+
+                            </tbody>
+                        </table>
+                        <button type="button" id="agregarUsuario" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarUsuario"><i class="bi bi-person-plus"></i> Agregar</button>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
 
@@ -162,29 +164,31 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="formAgregarUsuario">
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">email:</label>
-                  <input type="email" class="form-control" id="emailAgregarUsuario" required>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" id="btnAgregarUsuarioModal" class="btn btn-primary">AgregarUsuario</button>
-                  </div>
-              </form>
+                <div class="modal-body">
+                    <form id="formAgregarUsuario">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">email:</label>
+                            <input type="email" class="form-control" id="emailAgregarUsuario" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="btnAgregarUsuarioModal"
+                                class="btn btn-primary">AgregarUsuario</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-            
-          </div>
         </div>
-      </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
