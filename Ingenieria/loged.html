@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  
     <link rel="stylesheet" href="assets/references/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/global.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>PricipalPage</title>
 </head>
@@ -37,7 +39,12 @@
     <h1 id="nombreUsuario"></h1>
     <div id="Cards" class="container shadow p-3 mb-5 bg-white rounded container-sm bg-light text-dark rounded">
         <div id="headerContenido" class=" d-flex">
-
+            <h2>Mis dispositivos </h2>
+            <div id="divCargando" class="showElement">
+                <div class="spinner-border  text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    
+                </div>
+            </div>
             <button id="btnAgregarMedidor" class="btn btn-success">Activar <i class="bi bi-plus"></i></button>
 
         </div>
@@ -108,7 +115,7 @@
         </div>
     </div>
     </div>
-    
+
     <script src="assets/references/name.js"></script>s
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>

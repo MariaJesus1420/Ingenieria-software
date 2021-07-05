@@ -1,18 +1,21 @@
-const btnSalir = document.querySelector('#salir');
-const nombreUsuario = document.querySelector('#nombreUsuario');
-const btnHome = document.querySelector('#btnHome');
-let btnAgregar = document.querySelector('#btnAgregarMedidor');
-let btnModalAgregar = document.querySelector('#btnAgregarMedidorModal');
-let inputId = document.querySelector('#inputId');
-let btnRandomMedidor = document.querySelector("#btnCrearRandomMedidorModal");
 
-$(document).ready(async () => {
+document.addEventListener("DOMContentLoaded", async function () {
+    const btnSalir = document.querySelector('#salir');
+    const nombreUsuario = document.querySelector('#nombreUsuario');
+    const btnHome = document.querySelector('#btnHome');
+    let btnAgregar = document.querySelector('#btnAgregarMedidor');
+    let btnModalAgregar = document.querySelector('#btnAgregarMedidorModal');
+    let inputId = document.querySelector('#inputId');
+    let btnRandomMedidor = document.querySelector("#btnCrearRandomMedidorModal");
+    let divCargando = document.querySelector("#divCargando");
 
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
             console.log(user);
             user.displayName ? nombreUsuario.innerText = "Bienvenid@: " + user.displayName : nombreUsuario.innerText = "Bienvenid@: " + user.email;
-            loadData2();
+           await loadData2();
+           divCargando.classList.remove("showElement");
+           divCargando.classList.add("hideElement");
         } else {
             // No user is signed in.
         }
@@ -33,13 +36,25 @@ $(document).ready(async () => {
         $('#modalAgregarMedidor').modal('show');
 
     })
-
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+      }
 
     btnRandomMedidor.addEventListener("click", async () => {
         let db = new DataBase();
-        let device = new Device(generateName(), "", false, 0, "WaterMeter", false);
+        let types = ["WaterMeter","SoundMeter"];
+        shuffleArray(types);
+       console.log(types[0]);
+       
+        
+        let device = new Device(generateName(), "", false, 0, types[0], false);
         let id = await db.agregarMedidor(device);
-        console.log(id);
+        
 
         let user = firebase.auth().currentUser;
         await db.activarDispositivo(id, user.uid, user.email, "Admin");
@@ -65,13 +80,19 @@ $(document).ready(async () => {
 
     })
 
-    const cardNueva2 = (customName, id, lastValue) => {
+    const cardNueva2 = (customName, id, lastValue,type) => {
         let divCard = document.createElement("div");
         divCard.classList.add("card");
         let imgCard = document.createElement("img");
         imgCard.classList.add("card-img-top");
         imgCard.alt = "Sensor de ruido";
-        imgCard.src = "https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg";
+        if(type ==="WaterMeter"){
+            imgCard.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1200px-Pok%C3%A9mon_Water_Type_Icon.svg.png";
+            
+        }else{
+            imgCard.src = "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/sound-icon.png";
+        }
+       
         divCard.appendChild(imgCard);
         let divBody = document.createElement("div");
         divBody.classList.add("card-body");
@@ -95,7 +116,7 @@ $(document).ready(async () => {
         })
         return divCard;
     }
-    const loadData2 = async () => {
+    const loadData2 = async() => {
         let db = new DataBase();
         console.log("LOADING NEW METERS");
 
@@ -107,6 +128,7 @@ $(document).ready(async () => {
             let customName;
             let id;
             let lastValue;
+            let type;
             let divContainer = document.createElement("div");
 
             let cardDiv = document.querySelector("#Cards");
@@ -130,8 +152,10 @@ $(document).ready(async () => {
                 divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
                 customName = resultado[index][1].customName;
                 lastValue = resultado[index][1].lastValue;
+                type = resultado[index][1].type;
                 id = resultado[index][0];
-                card = cardNueva2(customName, id, lastValue);
+
+                card = cardNueva2(customName, id, lastValue,type);
 
 
                 console.log({

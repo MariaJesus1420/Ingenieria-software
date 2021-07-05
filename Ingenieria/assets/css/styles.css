@@ -6,25 +6,26 @@
     border-width: 0px;
 }
 
+.hideElement {
+    display: none;
+}
+
+.showElement {
+    display: block;
+}
+
+
+#btnAgregarMedidor{
+    align-self: flex-end;
+}
 #headerContenido {
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
 }
 
 body {
     /* background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg"); */
     background-color: rgb(240, 240, 240);
-    font-family: Segoe UI;
-    height: 100%;
-}
-
-html {
-    height: 100%;
-}
-
-#principal {
-    background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg");
-    background-color: #cccccc;
-    font-family: Segoe UI;
 }
 
 .card {
@@ -71,8 +72,6 @@ html {
     float: right;
 }
 
-
-
 .btnOnClick {
     text-decoration: underline;
     text-decoration-thickness: 4px;
@@ -83,7 +82,7 @@ html {
 }
 
 #titulo {
-    font-family: Segoe UI;
+
     margin-left: auto;
     margin-right: auto;
     font-size: 80px;
@@ -99,17 +98,17 @@ html {
 .menu {
     text-align: left;
     font-weight: bold;
-    font-family: Segoe UI;
+
 }
 
 #intro {
     margin-top: 60px;
-    font-family: Segoe UI;
+
 }
 
 #subtitulos {
     font-weight: bold;
-    font-family: Segoe UI;
+
     color: black;
     font-size: 30px;
 }
@@ -120,7 +119,7 @@ html {
 }
 
 #nombre {
-    font-family: Segoe UI;
+  
     color: black;
     text-align: center;
     font-size: 20px;
@@ -157,7 +156,7 @@ html {
 }
 
 #descipcion {
-    font-family: Segoe UI;
+
     font-size: 20px;
     margin-left: 100;
     margin-right: 30px;

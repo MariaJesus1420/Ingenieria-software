@@ -11,31 +11,35 @@ document.addEventListener("DOMContentLoaded", async function () {
   let meterName = document.querySelector("#inputName");
   let datosDB;
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
+  let divCargando = document.querySelector("#divCargando");
 
   let db = new DataBase();
-  
+
   meterId = sessionStorage.getItem("id");
 
-const revisarVariable = async() => {
+  const revisarVariable = async () => {
     if (meterId === "" || meterId === null) {
-      
+
       btnEliminar.disable = true;
       mensajeError.classList.remove("hideElement");
-      mensajeError.classList.add("showElement",'estiloMensajeError');
+      mensajeError.classList.add("showElement", 'estiloMensajeError');
       contenidoConfig.classList.remove("showElement");
       contenidoConfig.classList.add("hideElement");
     } else {
       datosDB = await db.consultarMedidorID(meterId);
-  
+
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
-      mensajeError.classList.remove("showElement","estiloMensajeError");
+      mensajeError.classList.remove("showElement", "estiloMensajeError");
       contenidoConfig.classList.add("showElement");
       contenidoConfig.classList.remove("hideElement");
       meterName.placeholder = datosDB.customName;
+      nombreActual.placeholder =  datosDB.customName;
     }
   }
   await revisarVariable();
+  divCargando.classList.remove("showElement");
+  divCargando.classList.add("hideElement");
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -53,7 +57,7 @@ const revisarVariable = async() => {
 
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
-  
+
 
   btnAgregar.addEventListener("click", async () => {
     let db = new DataBase();
@@ -71,13 +75,13 @@ const revisarVariable = async() => {
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
   });
-  
+
   btnEliminarModal.addEventListener("click", async () => {
     let db = new DataBase();
     if (meterName.value === datosDB.customName) {
       await db.eliminarDispositivo(meterId);
       console.log("ELIMINAR");
-      meterId= null;
+      meterId = null;
       sessionStorage.removeItem("id");
       revisarVariable();
       $("#modalEliminarMedidor").modal("hide");

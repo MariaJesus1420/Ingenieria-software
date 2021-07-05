@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/references/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/config.css">
+    <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <title>Document</title>
@@ -39,7 +40,7 @@
             <div id="headerContenido">
                 <h3>Configuración</h3>
             </div>
-          
+
         </div>
         <div id="contenidoTabs" class="d-flex">
             <div id="menuTabs" class="nav  d-flex nav-pills me-3" id="v-pills-tab" role="tablist"
@@ -57,13 +58,19 @@
                     data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
                     aria-selected="false">Horarios</button>
             </div>
-            <div id="mensajeError"class="hideElement" >
-                <div class="container mx-auto" id="containerMensaje">
-                    <h3 id="noMedidores" >Previamente se debe seleccionar un dispositivo</h3>
+            <div id="divCargando" class="showElement">
+                <div class="spinner-border  text-primary" style="width: 6rem; height: 6rem;" role="status">
+
                 </div>
-                <div class="container mx-auto" id="containerBoton">
-                    <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos  </a>
-                </div>
+            </div>
+
+            <div id="mensajeError" class="hideElement container mx-auto">
+
+                <h3 id="noMedidores">Selecciona un dispositivo para empezar</h3>
+
+
+                <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos </a>
+
             </div>
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
@@ -82,21 +89,23 @@
                                 disabled readonly>
 
                         </div>
-                        <div id="seccion3" class=" d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success">Actualizar</button>
-                        </div>
+
 
                         <!--Agregar usuarios-->
                     </form>
                 </div>
                 <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
                     aria-labelledby="v-pills-funciones-tab">
+                    <div id="funcionesWaterMeter" class="container hideElement">
+
+                    </div>
+                    <div id="funcionesSoundMeterS" class="container hideElement">
+
+                    </div>
+                </div>
 
 
-
-
-                    ...</div>
-
+                        <!--Agregar usuarios-->
                 <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
 
                     <form>
@@ -135,40 +144,42 @@
                     <div id="seccion3" class=" d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">Actualizar</button>
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
 
         <div id="footerConfiguracion">
             <div id="footerContenido">
-                <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem" class="bi bi-trash"></i></button>
-        </div>
+                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem" class="bi bi-cloud-arrow-up"></i></button>
+                <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
+                        class="bi bi-trash"></i></button>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="modalEliminarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Desactivar Dispositivo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="inputName" class="form-label">Ingrese el nombre del dispositivo</label>
-                    <input type="text" class="form-control" id="inputName">
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desactivar Dispositivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="btnEliminarDispositivo" class="btn btn-primary">Eliminar el dispositivo</button>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4 class="text-center">¡Atencion: Esta accion es irreversible!</h4>
+                        <label for="inputName" class="form-label">Para desactivar el dispositivo debe confirmarlo con su nombre.</label>
+                        <input type="text" class="form-control" id="inputName">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnEliminarDispositivo" class="btn btn-danger">Eliminar</button>
+                    
+
+                
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
