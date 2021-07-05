@@ -61,8 +61,17 @@ body {
     display: block;
 }
 
-#v-pills-nombre {
+#v-pills-nombre,#v-pills-usuarios{
     width: 90%;
+}
+#v-pills-usuarios {
+
+    display: flex;
+    flex-direction: column;
+}
+#v-pills-usuarios> #agregarUsuario {
+
+    align-self: flex-end;
 }
 
 .estiloMensajeError {

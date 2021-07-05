@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/config.css">
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
-  
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <title>Document</title>
@@ -65,12 +65,8 @@
             </div>
 
             <div id="mensajeError" class="hideElement container mx-auto">
-
                 <h3 id="noMedidores">Selecciona un dispositivo para empezar</h3>
-
-
                 <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos </a>
-
             </div>
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
@@ -87,7 +83,6 @@
                             <label for="exampleInputPassword1">Nombre actual</label>
                             <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
                                 disabled readonly>
-
                         </div>
 
 
@@ -105,36 +100,24 @@
                 </div>
 
 
-                        <!--Agregar usuarios-->
-                <div class="tab-pane fade" id="v-pills-usuarios" role="tabpanel" aria-labelledby="v-pills-usuarios-tab">
+                <!--Agregar usuarios-->
+                <div class="container mx-auto tab-pane fade" id="v-pills-usuarios" role="tabpanel"
+                    aria-labelledby="v-pills-usuarios-tab">
 
-                    <form>
-                        <div class="form-group mx-auto ">
-                            <label for="inputIdMeter">Codigo del medidor</label>
-                            <input type="text" class="form-control" id="inputIdMeter" required>
-                        </div>
-
-                        <div class="form-group mx-auto ">
-                            <label for="inputIdUser">Identificador de Usuario</label>
-                            <input type="text" class="form-control" id="inputIdUser" required>
-                        </div>
-
-                        <div class="form-group mx-auto ">
-                            <label for="inputEmail">Email del usuario</label>
-                            <input type="email" placeholder="example@mail.com" class="form-control" id="inputEmail"
-                                required>
-                        </div>
-
-                        <div class="form-group mx-auto ">
-                            <label for="inputRol">Rol de Usuario</label>
-                            <input type="text" class="form-control" id="inputRol" required>
-                        </div>
-
-                        <div id="agregar" class=" d-flex justify-content-end mt-3">
-                            <button id="btnAgregarUsuario" type="button" class="btn btn-primary">Agregar</button>
-                        </div>
-                    </form>
-
+                    <table id="tablaUsuarios" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col" class="text-center">Rol</th>
+                                <th scope="col" class="text-end">Configurar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaUsuarios">
+                           
+                            
+                        </tbody>
+                    </table>
+                    <button type="button" id="agregarUsuario" class="btn btn-primary"><i  class="bi bi-person-plus"></i></button>
                 </div>
                 <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
 
@@ -150,7 +133,8 @@
 
         <div id="footerConfiguracion">
             <div id="footerContenido">
-                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem" class="bi bi-cloud-arrow-up"></i></button>
+                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
+                        class="bi bi-cloud-arrow-up"></i></button>
                 <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
                         class="bi bi-trash"></i></button>
             </div>
@@ -167,15 +151,13 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <h4 class="text-center">¡Atencion: Esta accion es irreversible!</h4>
-                        <label for="inputName" class="form-label">Para desactivar el dispositivo debe confirmarlo con su nombre.</label>
+                        <label for="inputName" class="form-label">Para desactivar el dispositivo debe confirmarlo con su
+                            nombre.</label>
                         <input type="text" class="form-control" id="inputName">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnEliminarDispositivo" class="btn btn-danger">Eliminar</button>
-                    
-
-                
                 </div>
             </div>
         </div>

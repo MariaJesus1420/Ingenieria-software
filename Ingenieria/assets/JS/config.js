@@ -34,10 +34,36 @@ document.addEventListener("DOMContentLoaded", async function () {
       contenidoConfig.classList.add("showElement");
       contenidoConfig.classList.remove("hideElement");
       meterName.placeholder = datosDB.customName;
-      nombreActual.placeholder =  datosDB.customName;
+      nombreActual.placeholder = datosDB.customName;
     }
   }
+  
   await revisarVariable();
+
+  const loadUsers = (users) => {
+    console.log(users);
+    
+    for (let index = 0; index < users.length; index++) {
+      const user = users[index][1];
+     
+     
+      
+      let newRow = 
+    ` 
+    <tr>
+    <td>${user.email}</td>
+    <td class="text-center">${user.rol}</td>
+    <td class="text-end">
+        <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
+    </td>
+  </tr>`
+
+  $("#cuerpoTablaUsuarios").append(newRow);
+    }
+    
+  }
+
+  loadUsers(Object.entries(datosDB.users));
   divCargando.classList.remove("showElement");
   divCargando.classList.add("hideElement");
   $("#weekly-schedule").dayScheduleSelector({
@@ -59,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  btnAgregar.addEventListener("click", async () => {
+  /*btnAgregar.addEventListener("click", async () => {
     let db = new DataBase();
 
     await db.agregarDispositivo(
@@ -70,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
 
     console.log("DONE ADDING");
-  });
+  });*/
 
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
