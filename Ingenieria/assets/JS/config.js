@@ -12,13 +12,37 @@ document.addEventListener("DOMContentLoaded", async function () {
   let datosDB;
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
   let divCargando = document.querySelector("#divCargando");
-  let emailAgregarUsuario=document.querySelector("#emailAgregarUsuario");
-  let formAgregarUsuario=document.querySelector("#formAgregarUsuario");
+  let emailAgregarUsuario = document.querySelector("#emailAgregarUsuario");
+  let formAgregarUsuario = document.querySelector("#formAgregarUsuario");
   let db = new DataBase();
 
   meterId = sessionStorage.getItem("id");
 
+  const loadUsers = (users) => {
+    console.log(users);
+
+    for (let index = 0; index < users.length; index++) {
+      const user = users[index][1];
+
+
+
+  let newRow =
+  ` 
+    <tr>
+    <td>${user.email}</td>
+    <td class="text-center">${user.rol}</td>
+    <td class="text-end">
+        <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
+    </td>
+  </tr>`
+
+      $("#cuerpoTablaUsuarios").append(newRow);
+    }
+
+  }
+
   const revisarVariable = async () => {
+
     if (meterId === "" || meterId === null) {
 
       btnEliminar.disable = true;
@@ -28,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       contenidoConfig.classList.add("hideElement");
     } else {
       datosDB = await db.consultarMedidorID(meterId);
+      loadUsers(Object.entries(datosDB.users));
 
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
@@ -37,36 +62,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       meterName.placeholder = datosDB.customName;
       nombreActual.placeholder = datosDB.customName;
     }
+    divCargando.classList.remove("showElement");
+    divCargando.classList.add("hideElement");
   }
-  
+
   await revisarVariable();
 
-  const loadUsers = (users) => {
-    console.log(users);
-    
-    for (let index = 0; index < users.length; index++) {
-      const user = users[index][1];
-     
-     
-      
-      let newRow = 
-    ` 
-    <tr>
-    <td>${user.email}</td>
-    <td class="text-center">${user.rol}</td>
-    <td class="text-end">
-        <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
-    </td>
-  </tr>`
 
-  $("#cuerpoTablaUsuarios").append(newRow);
-    }
-    
-  }
 
-  loadUsers(Object.entries(datosDB.users));
-  divCargando.classList.remove("showElement");
-  divCargando.classList.add("hideElement");
+
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -114,12 +118,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-  formAgregarUsuario.addEventListener('submit',async e=>{
+  formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let db = new DataBase();
-    let userId= await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    if(userId!==undefined){
-      await db.agregarUsuarioAlista(meterId,userId,emailAgregarUsuario.value,"User");
+    let userId = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    if (userId !== undefined) {
+      await db.agregarUsuarioAlista(meterId, userId, emailAgregarUsuario.value, "User");
     }
     $("#modalAgregarUsuario").modal("hide");
   })
