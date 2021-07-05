@@ -317,21 +317,36 @@ class DataBase {
       });
   }
   async buscarUsuarioXemail(email){
-    let user;
-    let userRef = await this.db.collection("Users");
-    userRef.where("email","==",email)
+    let id;
+   await this.db.collection("Users").where("email", "==", email)
     .get()
     .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-           // if(doc.exists);
-           user= doc.data();
-           console.log(user);
-        });   
+            id=doc.id;
+        });
     })
     .catch((error) => {
         console.log("Error getting documents: ", error);
     });
-    return user;
+    return id;
   }
+  async agregarUsuarioAlista(idMeter,userId,email,rol) {
+
+    let path=`users.${userId}`;
+    this.db
+      .collection("Devices")
+      .doc(idMeter)
+      .update({
+        [path]:{ email
+        ,rol}
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
+
 }

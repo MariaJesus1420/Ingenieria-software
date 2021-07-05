@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   let datosDB;
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
   let divCargando = document.querySelector("#divCargando");
-  let btnAgregarUsuarioModal=document.querySelector("#btnAgregarUsuarioModal");
   let emailAgregarUsuario=document.querySelector("#emailAgregarUsuario");
+  let formAgregarUsuario=document.querySelector("#formAgregarUsuario");
   let db = new DataBase();
 
   meterId = sessionStorage.getItem("id");
@@ -114,11 +114,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-  btnAgregarUsuarioModal.addEventListener('click',async()=>{
+  formAgregarUsuario.addEventListener('submit',async e=>{
+    e.preventDefault();
     let db = new DataBase();
-    const {email}=await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    console.log(email);
-
+    let userId= await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    if(userId!==undefined){
+      await db.agregarUsuarioAlista(meterId,userId,emailAgregarUsuario.value,"User");
+    }
+    $("#modalAgregarUsuario").modal("hide");
   })
   window.onbeforeunload = function () {
     if (document.referrer === "") {

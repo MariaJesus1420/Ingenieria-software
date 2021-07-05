@@ -170,17 +170,18 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form id="formAgregarUsuario">
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">email:</label>
-                  <input type="email" class="form-control" id="emailAgregarUsuario">
+                  <input type="email" class="form-control" id="emailAgregarUsuario" required>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnAgregarUsuarioModal" class="btn btn-primary">AgregarUsuario</button>
+                  </div>
               </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" id="btnAgregarUsuarioModal" class="btn btn-primary">AgregarUsuario</button>
-            </div>
+            
           </div>
         </div>
       </div>
