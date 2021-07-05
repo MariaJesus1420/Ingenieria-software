@@ -316,5 +316,22 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
-
+  async buscarUsuarioXemail(email){
+    let user;
+    let userRef = await this.db.collection("Users");
+    userRef.where("email","==",email)
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+           // if(doc.exists);
+           user= doc.data();
+           console.log(user);
+        });   
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+    return user;
+  }
 }
