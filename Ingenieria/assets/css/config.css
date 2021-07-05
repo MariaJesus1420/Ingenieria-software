@@ -65,9 +65,14 @@ body {
     width: 90%;
 }
 #v-pills-usuarios {
+    position: relative;
+    
 
-    display: flex;
-    flex-direction: column;
+}
+@media (max-width:400px){
+    tbody{
+        font-size: 10px;
+    }
 }
 #v-pills-usuarios> #agregarUsuario {
 
@@ -128,7 +133,10 @@ body {
 table.schedule-table {
     border-collapse: separate;
 }
-
+#v-pills-horarios{
+    position: relative;
+    
+}
 #horarioContainer {
     height: 500px;
     width: auto;
