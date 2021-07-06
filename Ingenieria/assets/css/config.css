@@ -48,9 +48,10 @@ body {
     justify-content: space-between;
 }
 #divCargando{
-    margin: auto;
-   
+    margin:auto;
 }
+
+
 .hideElement {
     display: none;
 }
@@ -140,10 +141,13 @@ table.schedule-table {
 #v-pills-horarios{
     position: relative;
     
+    
 }
 #horarioContainer {
     height: 500px;
     width: auto;
+    
+ 
 }
 
 #v-pills-home {

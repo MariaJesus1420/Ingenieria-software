@@ -74,9 +74,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       datosDB = await db.consultarMedidorID(meterId);
       loadUsers(Object.entries(datosDB.users));
-      let scheduleUI = await db.cargarHorario(meterId);
+   
 
-      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(scheduleUI);
+      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
       mensajeError.classList.remove("showElement", "estiloMensajeError");
@@ -84,9 +84,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       contenidoConfig.classList.remove("hideElement");
       meterName.placeholder = datosDB.customName;
       nombreActual.placeholder = datosDB.customName;
+      
+      
     }
     divCargando.classList.remove("showElement");
+    
     divCargando.classList.add("hideElement");
+   
   }
 
   await revisarVariable();
