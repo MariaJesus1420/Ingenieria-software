@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   $("#serial").click(async () => {
 
     let horarioUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
-   
+    console.log(horarioUI);
+    
+
     scheduleObject.actualizar(horarioUI);
     console.log(scheduleObject.dias);
     
