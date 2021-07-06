@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  let btnAgregar = document.querySelector("#btnAgregarUsuario");
-  let inputIdMeter = document.querySelector("#inputIdMeter");
-  let inputIdUser = document.querySelector("#inputIdUser");
-  let inputEmail = document.querySelector("#inputEmail");
-  let inputRol = document.querySelector("#inputRol");
+
   let btnEliminar = document.querySelector("#btnEliminarMedidor");
   let mensajeError = document.querySelector("#mensajeError");
   let contenidoConfig = document.querySelector("#v-pills-tabContent");
@@ -14,6 +10,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let divCargando = document.querySelector("#divCargando");
   let emailAgregarUsuario = document.querySelector("#emailAgregarUsuario");
   let formAgregarUsuario = document.querySelector("#formAgregarUsuario");
+  let btnGuardarFecha = document.querySelector("#btnguardarFechas");
+  let fechaCorte = document.querySelector("#slcCutOffDay");
+  let fechaPago = document.querySelector("#slcPayDay");
   let db = new DataBase();
 
   meterId = sessionStorage.getItem("id");
@@ -137,4 +136,35 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
+
+  btnGuardarFecha.addEventListener("click", async () => {
+    let db = new DataBase();
+    let optCorte;
+    let optPago;
+
+    for (let i = 0, len = fechaCorte.options.length; i < len; i++) {
+      optCorte = fechaCorte.options[i];
+      if (optCorte.selected === true) {
+        break;
+      }
+    }
+
+    for (let i = 0, len = fechaPago.options.length; i < len; i++) {
+      optPago = fechaPago.options[i];
+      if (optPago.selected === true) {
+        break;
+      }
+    }
+
+    if (optCorte.value * 1 < optPago.value * 1) {
+      await db.addDates(meterId, optCorte.value, optPago.value);
+      console.log("Dias agregados");
+    } else {
+      //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
+    }
+
+  });
+
+
+
 });

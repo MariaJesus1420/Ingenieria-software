@@ -279,10 +279,10 @@ class DataBase {
     return device;
   }
 
-  async addDates(idMeter, cutOffDate, payDay) {
+  async addDates(idMeter, cutOffDay, payDay) {
 
     await this.db.collection("Devices").doc(idMeter).update({
-      cutOffDate: cutOffDate,
+      cutOffDay: cutOffDay,
       payDay: payDay,
     })
       .then(() => {
@@ -294,12 +294,12 @@ class DataBase {
       });
   };
 
-  async addDateForUser(idUser, idMeter, cutOffDate, payDay) {
+  async addDateForUser(idUser, idMeter, cutOffDay, payDay) {
 
     let path=`users.${idUser}`;
 
     let dateUser = {
-      cutOffDateUser: cutOffDate,
+      cutOffDayUser: cutOffDay,
       payDayUser: payDay,
     };
 
@@ -316,6 +316,8 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
+
+  
   async buscarUsuarioXemail(email){
     let id;
    await this.db.collection("Users").where("email", "==", email)
