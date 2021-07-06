@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaCorte = document.querySelector("#slcCutOffDay");
   let fechaPago = document.querySelector("#slcPayDay");
   let db = new DataBase();
+  let scheduleObject = new Schedule(true);
+
+
 
   meterId = sessionStorage.getItem("id");
 
@@ -67,9 +70,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await revisarVariable();
 
-
-
-
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     startTime: "00:00",
 
     // HH:mm format
-    endTime: "24:00",
+    endTime: "23:30",
 
     // minutes
     interval: 30,
@@ -89,9 +89,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  $("#serial").click(() => {
-    console.log(
-      $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize());
+  $("#serial").click(async () => {
+
+    let horarioUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
+   
+    scheduleObject.actualizar(horarioUI);
+    console.log(scheduleObject.dias);
+    
+    await db.actualizarConfiguracionWaterMeter( meterId,scheduleObject);
   });
 
   btnEliminar.addEventListener("click", async () => {

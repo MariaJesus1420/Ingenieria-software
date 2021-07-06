@@ -154,7 +154,7 @@ table.schedule-table {
 
 .schedule-rows td {
     width: 80px;
-    height: 30px;
+    height: 38px;
     margin: 3px;
     padding: 5px;
     background-color: #3cb371;
@@ -165,7 +165,7 @@ table.schedule-table {
     background-color: transparent;
     text-align: right;
     position: relative;
-    top: -12px;
+    top: -26px;
 }
 
 .schedule-rows td[data-selectedG] {
