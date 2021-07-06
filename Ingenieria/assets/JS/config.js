@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-  let newRow =
-  ` 
-    <tr>
-    <td>${user.email}</td>
-    <td class="text-center">${user.rol}</td>
-    <td class="text-end">
-        <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
-    </td>
+
+      let newRow =
+        `<tr>
+      <td>${user.email}</td>
+      <td class="text-center">${user.rol}</td>
+      <td class="text-end">
+          <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
+      </td>
   </tr>`
 
       $("#cuerpoTablaUsuarios").append(newRow);
@@ -90,18 +90,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  /*btnAgregar.addEventListener("click", async () => {
-    let db = new DataBase();
-
-    await db.agregarDispositivo(
-      inputIdMeter.value,
-      inputIdUser.value,
-      inputEmail.value,
-      inputRol.value
-    );
-
-    console.log("DONE ADDING");
-  });*/
+  $("#serial").click(() => {
+    console.log(
+      $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize());
+  });
 
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
@@ -118,6 +110,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
+
+
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let db = new DataBase();
@@ -126,7 +120,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       await db.agregarUsuarioAlista(meterId, userId, emailAgregarUsuario.value, "User");
     }
     $("#modalAgregarUsuario").modal("hide");
-  })
+  });
+
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
