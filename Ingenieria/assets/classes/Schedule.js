@@ -16,13 +16,19 @@ class Schedule {
     }
 
     actualizar(horarioUI) {
-     
-        for (let index = 0; index < 7; index++) {
-            if (horarioUI[index][0] && horarioUI[index][0]) {
-              
 
-                this.dias[`d${index}`].desactivarHoras(horarioUI[index][0][0], horarioUI[index][0][1]);
+        for (let index = 0; index < 7; index++) {
+            let intervalo = 0;
+
+
+            while (horarioUI[index][intervalo]) {
+                this.dias[`d${index}`].desactivarHoras(horarioUI[index][intervalo][0], horarioUI[index][intervalo][1]);
+                console.log(horarioUI[index][intervalo][0]);
+                
+                intervalo++;
             }
+
+
 
         }
     }
