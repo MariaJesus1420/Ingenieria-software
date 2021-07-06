@@ -170,31 +170,53 @@ class DataBase {
     return id;
   }
 
-  scheduleConverter(schedule) {
-    let scheduleDB ={};
-    for (let index = 0; index < 7; index++) {
-      scheduleDB[`d${index}`] = schedule.dias[`d${index}`].horas;
 
+
+
+  async cargarHorario(idMeter) {
+    let schedule = new Schedule(true);
+    let scheduleDB = schedule.toScheduleDB();
+
+
+    for (let index = 0; index < 7; index++) {
+      let docRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+     await docRef.get().then((doc) => {
+        if (doc.exists) {
+        
+          scheduleDB[`d${index}`] = doc.data();
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch((error) => {
+        console.log("Error getting document:", error);
+      });
     }
-    console.log();
+    console.log("db es ",scheduleDB);
     
-    return scheduleDB;
+    return schedule.toScheduleUI(scheduleDB);
   }
 
-  async actualizarConfiguracionWaterMeter(idMeter, schedule) {
-    let configRef = this.db.collection("Config").doc(idMeter);
+  async acutalizarHorario(idMeter, schedule) {
+    let scheduleDB = schedule.toScheduleDB();
+    for (let index = 0; index < 7; index++) {
+      let configRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+      await configRef.set(
+          scheduleDB[`d${index}`], {
+            merge: true
+          }
+        )
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
 
-    // Set the "capital" field of the city 'DC'
-    return await configRef.update({
-        Schedule: this.scheduleConverter(schedule),
-      })
-      .then(() => {
-        console.log("Document successfully updated!");
-      })
-      .catch((error) => {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
+          console.error("Error updating document: ", error);
+        });
+
+    }
+
+
   }
 
   async loginRegistroGoogle(session) {

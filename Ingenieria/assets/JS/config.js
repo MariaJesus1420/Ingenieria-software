@@ -43,32 +43,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   }
 
-  const revisarVariable = async () => {
-
-    if (meterId === "" || meterId === null) {
-
-      btnEliminar.disable = true;
-      mensajeError.classList.remove("hideElement");
-      mensajeError.classList.add("showElement", 'estiloMensajeError');
-      contenidoConfig.classList.remove("showElement");
-      contenidoConfig.classList.add("hideElement");
-    } else {
-      datosDB = await db.consultarMedidorID(meterId);
-      loadUsers(Object.entries(datosDB.users));
-
-      btnEliminar.disable = false;
-      mensajeError.classList.add("hideElement");
-      mensajeError.classList.remove("showElement", "estiloMensajeError");
-      contenidoConfig.classList.add("showElement");
-      contenidoConfig.classList.remove("hideElement");
-      meterName.placeholder = datosDB.customName;
-      nombreActual.placeholder = datosDB.customName;
-    }
-    divCargando.classList.remove("showElement");
-    divCargando.classList.add("hideElement");
-  }
-
-  await revisarVariable();
 
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
@@ -88,18 +62,55 @@ document.addEventListener("DOMContentLoaded", async function () {
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
 
+  const revisarVariable = async () => {
 
-  $("#serial").click(async () => {
+    if (meterId === "" || meterId === null) {
 
-    let horarioUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
-    console.log(horarioUI);
-    
+      btnEliminar.disable = true;
+      mensajeError.classList.remove("hideElement");
+      mensajeError.classList.add("showElement", 'estiloMensajeError');
+      contenidoConfig.classList.remove("showElement");
+      contenidoConfig.classList.add("hideElement");
+    } else {
+      datosDB = await db.consultarMedidorID(meterId);
+      loadUsers(Object.entries(datosDB.users));
+      let scheduleUI = await db.cargarHorario(meterId);
 
-    scheduleObject.actualizar(horarioUI);
-    console.log(scheduleObject.dias);
-    
-    await db.actualizarConfiguracionWaterMeter( meterId,scheduleObject);
+      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(scheduleUI);
+      btnEliminar.disable = false;
+      mensajeError.classList.add("hideElement");
+      mensajeError.classList.remove("showElement", "estiloMensajeError");
+      contenidoConfig.classList.add("showElement");
+      contenidoConfig.classList.remove("hideElement");
+      meterName.placeholder = datosDB.customName;
+      nombreActual.placeholder = datosDB.customName;
+    }
+    divCargando.classList.remove("showElement");
+    divCargando.classList.add("hideElement");
+  }
+
+  await revisarVariable();
+
+
+  $("#actualizarHorario").click(async () => {
+    let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
+    console.log(scheduleUI);
+
+    let sch = new Schedule(true);
+
+
+    scheduleObject.toScheduleObject(scheduleUI);
+    console.log(scheduleObject);
+
+    sch.toScheduleObject(scheduleUI);
+    let ui = sch.toScheduleUI(sch.toScheduleDB());
+    console.log("--------------------------------------------");
+
+    console.log(ui);
+
+    await db.acutalizarHorario(meterId, scheduleObject);
   });
+
 
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
