@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  let btnAgregar = document.querySelector("#btnAgregarUsuario");
-  let inputIdMeter = document.querySelector("#inputIdMeter");
-  let inputIdUser = document.querySelector("#inputIdUser");
-  let inputEmail = document.querySelector("#inputEmail");
-  let inputRol = document.querySelector("#inputRol");
+
   let btnEliminar = document.querySelector("#btnEliminarMedidor");
   let mensajeError = document.querySelector("#mensajeError");
   let contenidoConfig = document.querySelector("#v-pills-tabContent");
@@ -15,6 +11,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let emailAgregarUsuario = document.querySelector("#emailAgregarUsuario");
   let formAgregarUsuario = document.querySelector("#formAgregarUsuario");
   let db = new DataBase();
+  let scheduleObject = new Schedule(true);
+
+
 
   meterId = sessionStorage.getItem("id");
 
@@ -68,9 +67,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await revisarVariable();
 
-
-
-
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -81,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     startTime: "00:00",
 
     // HH:mm format
-    endTime: "24:00",
+    endTime: "23:30",
 
     // minutes
     interval: 30,
@@ -90,9 +86,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  $("#serial").click(() => {
-    console.log(
-      $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize());
+  $("#serial").click(async () => {
+
+    let horarioUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
+   
+    scheduleObject.actualizar(horarioUI);
+    console.log(scheduleObject.dias);
+    
+    await db.actualizarConfiguracionWaterMeter( meterId,scheduleObject);
   });
 
   btnEliminar.addEventListener("click", async () => {

@@ -1,5 +1,5 @@
 class Schedule {
-    listaDias = [];
+    dias = {};
     esActual;
 
     constructor(esActual) {
@@ -7,9 +7,23 @@ class Schedule {
         this.initListaDias();
     }
 
-    initListaDias(day) {
+    initListaDias() {
+
         for (let index = 0; index < 7; index++) {
-            this.listaDias.push(day);
+            this.dias[`d${index}`] = new Day()
+
+        }
+    }
+
+    actualizar(horarioUI) {
+     
+        for (let index = 0; index < 7; index++) {
+            if (horarioUI[index][0] && horarioUI[index][0]) {
+              
+
+                this.dias[`d${index}`].desactivarHoras(horarioUI[index][0][0], horarioUI[index][0][1]);
+            }
+
         }
     }
 }

@@ -1,6 +1,6 @@
 class DataBase {
   db = firebase.firestore();
-  constructor() { }
+  constructor() {}
 
   async obtenerDocumento(coleccion, documento) {
     var docRef = this.db.collection(coleccion).doc(documento);
@@ -152,12 +152,12 @@ class DataBase {
   async agregarMedidor(device) {
     let id;
     await this.db.collection("Devices").add({
-      activated: device.activated,
-      customName: device.customName,
-      lastValue: device.lastValue,
-      type: device.type,
-      updateConfig: device.updateConfig,
-    })
+        activated: device.activated,
+        customName: device.customName,
+        lastValue: device.lastValue,
+        type: device.type,
+        updateConfig: device.updateConfig,
+      })
       .then((docRef) => {
 
         id = docRef.id;
@@ -168,6 +168,33 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
     return id;
+  }
+
+  scheduleConverter(schedule) {
+    let scheduleDB ={};
+    for (let index = 0; index < 7; index++) {
+      scheduleDB[`d${index}`] = schedule.dias[`d${index}`].horas;
+
+    }
+    console.log();
+    
+    return scheduleDB;
+  }
+
+  async actualizarConfiguracionWaterMeter(idMeter, schedule) {
+    let configRef = this.db.collection("Config").doc(idMeter);
+
+    // Set the "capital" field of the city 'DC'
+    return await configRef.update({
+        Schedule: this.scheduleConverter(schedule),
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
   }
 
   async loginRegistroGoogle(session) {
@@ -194,7 +221,7 @@ class DataBase {
             docReg
               .get()
               .then((doc) => {
-                if (doc.exists) { } else {
+                if (doc.exists) {} else {
                   this.db
                     .collection("Users")
                     .doc(user.uid)
@@ -268,7 +295,7 @@ class DataBase {
     await docRef.get().then((doc) => {
       if (doc.exists) {
         device = doc.data();
-      
+
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -282,9 +309,9 @@ class DataBase {
   async addDates(idMeter, cutOffDate, payDay) {
 
     await this.db.collection("Devices").doc(idMeter).update({
-      cutOffDate: cutOffDate,
-      payDay: payDay,
-    })
+        cutOffDate: cutOffDate,
+        payDay: payDay,
+      })
       .then(() => {
         console.log("Document successfully written!");
 
@@ -296,7 +323,7 @@ class DataBase {
 
   async addDateForUser(idUser, idMeter, cutOffDate, payDay) {
 
-    let path=`users.${idUser}`;
+    let path = `users.${idUser}`;
 
     let dateUser = {
       cutOffDateUser: cutOffDate,
@@ -316,30 +343,32 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
-  async buscarUsuarioXemail(email){
+  async buscarUsuarioXemail(email) {
     let id;
-   await this.db.collection("Users").where("email", "==", email)
-    .get()
-    .then((querySnapshot) => {
+    await this.db.collection("Users").where("email", "==", email)
+      .get()
+      .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            id=doc.id;
+          // doc.data() is never undefined for query doc snapshots
+          id = doc.id;
         });
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.log("Error getting documents: ", error);
-    });
+      });
     return id;
   }
-  async agregarUsuarioAlista(idMeter,userId,email,rol) {
+  async agregarUsuarioAlista(idMeter, userId, email, rol) {
 
-    let path=`users.${userId}`;
+    let path = `users.${userId}`;
     this.db
       .collection("Devices")
       .doc(idMeter)
       .update({
-        [path]:{ email
-        ,rol}
+        [path]: {
+          email,
+          rol
+        }
       })
       .then(() => {
         console.log("Document successfully written!");
