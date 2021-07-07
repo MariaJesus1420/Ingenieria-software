@@ -228,13 +228,11 @@
                             <label for="recipient-name" class="col-form-label">email:</label>
                             <input type="email" class="form-control" id="emailAgregarUsuario" required>
                         </div>
-                        <div class="dropdown">
-                            <button class="dropbtn btn btn-primary">  Rol ▼</button>
-                            <div class="dropdown-content">
-                              <a href="#">Link 1</a>
-                              <a href="#">Link 2</a>
-                            </div>
-                        </div>
+                        <label for="recipient-name" class="col-form-label">Rol:</label>
+                        <select id="rolSelect" class="form-select" aria-label="Default select example">
+                            <option selected value="1">User</option>
+                            <option value="2">Admin</option>
+                          </select>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" id="btnAgregarUsuarioModal"

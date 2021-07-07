@@ -175,11 +175,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   });
   let user = firebase.auth().currentUser;
+  let combo = document.getElementById("rolSelect");
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
+    let selected = combo.options[combo.selectedIndex].text;
     let rol= buscarElRol(Object.entries(datosDB.users));
-    if(rol==="Admin"&& await db.buscarUsuarioXemail(emailAgregarUsuario.value)!=undefined){
-      console.log(rol+" "+emailAgregarUsuario.value)
+    let idUsuarioaAgregar=await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    
+    if(rol==="Admin"&& idUsuarioaAgregar!=undefined){
+      console.log(rol+" "+emailAgregarUsuario.value+" "+selected)
+      await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
+      // await db.activarDispositivo(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
+    }else{
+      alert("usted no tiene permisos de administrador o el usuario no existe");
     }
     $("#modalAgregarUsuario").modal("hide");
   });
