@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPago = document.querySelector("#slcPayDay");
   let db = new DataBase();
   let scheduleObject = new Schedule(true);
-
+  
 
 
   meterId = sessionStorage.getItem("id");
@@ -25,10 +25,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     for (let index = 0; index < users.length; index++) {
       const user = users[index][1];
-
-
-
-
       let newRow =
         `<tr>
       <td>${user.email}</td>
@@ -39,6 +35,30 @@ document.addEventListener("DOMContentLoaded", async function () {
   </tr>`
 
       $("#cuerpoTablaUsuarios").append(newRow);
+    }
+
+  }
+
+  const cutDays = (days) => {
+
+    for (let index = 1; index < days; index++) {
+      const day = index;
+      let newRow =
+        `<option value="${day}">${day}</option>`
+
+      $("#slcCutOffDay").append(newRow);
+    }
+
+  }
+
+  const payDays = (days) => {
+
+    for (let index = 1; index < days; index++) {
+      const day = index;
+      let newRow =
+        `<option value="${day}">${day}</option>`
+
+      $("#slcPayDay").append(newRow);
     }
 
   }
@@ -74,7 +94,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       datosDB = await db.consultarMedidorID(meterId);
       loadUsers(Object.entries(datosDB.users));
-   
+      cutDays(32);
+      payDays(32);
+     
+
 
       $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
@@ -84,17 +107,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       contenidoConfig.classList.remove("hideElement");
       meterName.placeholder = datosDB.customName;
       nombreActual.placeholder = datosDB.customName;
-      
-      
+
+
     }
     divCargando.classList.remove("showElement");
-    
+
     divCargando.classList.add("hideElement");
-   
+
   }
 
   await revisarVariable();
-
 
   $("#actualizarHorario").click(async () => {
     let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
@@ -131,6 +153,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
+  
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -174,24 +197,28 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
   });
+
+
   let user = firebase.auth().currentUser;
+
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
-    let rol= buscarElRol(Object.entries(datosDB.users));
-    if(rol==="Admin"&& await db.buscarUsuarioXemail(emailAgregarUsuario.value)!=undefined){
-      console.log(rol+" "+emailAgregarUsuario.value)
+    let rol = buscarElRol(Object.entries(datosDB.users));
+    if (rol === "Admin" && await db.buscarUsuarioXemail(emailAgregarUsuario.value) != undefined) {
+      console.log(rol + " " + emailAgregarUsuario.value)
     }
     $("#modalAgregarUsuario").modal("hide");
   });
-  const buscarElRol=array=>{
-    let arr=[];
+
+  const buscarElRol = array => {
+    let arr = [];
     let roll;
-    for(let i=0;i<array.length;i++) {
-        arr=array[i]
-      for(let j=0;j<arr.length;j++) {
-        let {email,rol}=arr[j];
-        if(email==user.email){
-          roll=rol;
+    for (let i = 0; i < array.length; i++) {
+      arr = array[i]
+      for (let j = 0; j < arr.length; j++) {
+        let { email, rol } = arr[j];
+        if (email == user.email) {
+          roll = rol;
         }
       }
     };

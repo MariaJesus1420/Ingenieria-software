@@ -171,8 +171,6 @@ class DataBase {
   }
 
 
-
-
   async cargarHorario(idMeter) {
     let schedule = new Schedule(true);
     let scheduleDB = schedule.toScheduleDB();
@@ -365,6 +363,8 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
+
+
   async buscarUsuarioXemail(email) {
     let id;
     await this.db.collection("Users").where("email", "==", email)
@@ -380,6 +380,8 @@ class DataBase {
       });
     return id;
   }
+
+
   async agregarUsuarioAlista(idMeter, userId, email, rol) {
 
     let path = `users.${userId}`;
