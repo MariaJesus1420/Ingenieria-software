@@ -107,6 +107,29 @@
                             </div>
                         </form>
                         <button type="button" id="btnguardarFechas" class="btn btn-primary">Guardar</button>
+
+                        <div id="funcionesWaterMeterUser">
+                            <form>
+                                <div>
+                                    <label for="lbcutOffDateUser">Seleccione la fecha de corte:</label>
+                                    <select id="slcCutOffDayUser" class="form-select"
+                                        aria-label="Default select example">
+                                        <option selected>Dia del mes</option>
+                                    </select>
+                                </div>
+                            </form>
+
+                            <form>
+                                <div>
+                                    <label for="lbcutOffDateUser">Seleccione la fecha de pago:</label>
+                                    <select id="slcPayDayUser" class="form-select" aria-label="Default select example">
+                                        <option selected>Dia del mes</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <button type="button" id="btnguardarFechasUsuarios" class="btn btn-primary">Guardar</button>
+                        </div>
+
                     </div>
                     <div id="funcionesSoundMeter" class="container ">
                         <!--METER AQUI LAS FUNCIONES DEL MEDIDOR DE SONIDO Y NO TOCAR NADA MAS ANTES DE PREGUNTAR-->
@@ -200,7 +223,7 @@
                         <select id="rolSelect" class="form-select" aria-label="Default select example">
                             <option selected value="1">User</option>
                             <option value="2">Admin</option>
-                          </select>
+                        </select>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" id="btnAgregarUsuarioModal"

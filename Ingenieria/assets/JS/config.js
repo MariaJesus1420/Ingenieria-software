@@ -16,8 +16,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let db = new DataBase();
   let scheduleObject = new Schedule(true);
   const btnSalir = document.querySelector('#salir');
-  
-
+  let btnGuardarFechaUsuario = document.querySelector("#btnguardarFechasUsuarios");
+  let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
+  let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
 
   meterId = sessionStorage.getItem("id");
 
@@ -49,7 +50,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcCutOffDay").append(newRow);
     }
-
   }
 
   const payDays = (days) => {
@@ -61,7 +61,28 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcPayDay").append(newRow);
     }
+  }
 
+  const cutDaysUser = (days) => {
+
+    for (let index = 1; index < days; index++) {
+      const day = index;
+      let newRow =
+        `<option value="${day}">${day}</option>`
+
+      $("#slcCutOffDayUser").append(newRow);
+    }
+  }
+
+  const payDaysUser = (days) => {
+
+    for (let index = 1; index < days; index++) {
+      const day = index;
+      let newRow =
+        `<option value="${day}">${day}</option>`
+
+      $("#slcPayDayUser").append(newRow);
+    }
   }
 
 
@@ -97,9 +118,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       loadUsers(Object.entries(datosDB.users));
       cutDays(32);
       payDays(32);
+      cutDaysUser(32);
+      payDaysUser(32);
      
-
-
       $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
@@ -109,12 +130,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       meterName.placeholder = datosDB.customName;
       nombreActual.placeholder = datosDB.customName;
 
-
     }
     divCargando.classList.remove("showElement");
-
     divCargando.classList.add("hideElement");
-
   }
 
   await revisarVariable();
@@ -179,7 +197,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }).catch((error) => {
         // An error happened.
     });
-
 })
 
   btnGuardarFecha.addEventListener("click", async () => {
@@ -207,12 +224,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
-
   });
 
 
   let user = firebase.auth().currentUser;
   let combo = document.getElementById("rolSelect");
+
+  btnGuardarFechaUsuario.addEventListener("click", async () => {
+    let db = new DataBase();
+    let optCorteUsuario;
+    let optPagoUsuario;
+
+    for (let i = 0, len = fechaCorteUsuario.options.length; i < len; i++) {
+      optCorteUsuario = fechaCorteUsuario.options[i];
+      if (optCorteUsuario.selected === true) {
+        break;
+      }
+    }
+
+    for (let i = 0, len = fechaPagoUsuario.options.length; i < len; i++) {
+      optPagoUsuario = fechaPagoUsuario.options[i];
+      if (optPagoUsuario.selected === true) {
+        break;
+      }
+    }
+
+    if (optCorteUsuario.value * 1 < optPagoUsuario.value * 1) {
+      //await db.addDateForUser(user.uid, meterId, optCorteUsuario.value, optPagoUsuario.value);
+      console.log("Dias agregados");
+    } else {
+      //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
+    }
+  });
+
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;

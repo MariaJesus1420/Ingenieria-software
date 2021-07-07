@@ -22,6 +22,7 @@ class DataBase {
       });
     return result;
   }
+
   async loginEmailPassword(email, password, session) {
     let user;
     await firebase
@@ -79,6 +80,7 @@ class DataBase {
 
     return user;
   }
+
   async activarDispositivo(id, idUser, emailUser, rolUser) {
     let docRef = await this.db
       .collection("Devices")
@@ -170,7 +172,6 @@ class DataBase {
     return id;
   }
 
-
   async cargarHorario(idMeter) {
     let schedule = new Schedule(true);
     let scheduleDB = schedule.toScheduleDB();
@@ -211,10 +212,7 @@ class DataBase {
 
           console.error("Error updating document: ", error);
         });
-
     }
-
-
   }
 
   async loginRegistroGoogle(session) {
@@ -308,6 +306,7 @@ class DataBase {
         console.log("Transaction failed: ", error);
       });
   }
+
   async consultarMedidorID(id) {
     let device;
     var docRef = this.db.collection("Devices").doc(id);
@@ -364,7 +363,6 @@ class DataBase {
       });
   }
 
-
   async buscarUsuarioXemail(email) {
     let id;
     await this.db.collection("Users").where("email", "==", email)
@@ -380,7 +378,6 @@ class DataBase {
       });
     return id;
   }
-
 
   async agregarUsuarioAlista(idMeter, userId, email, rol) {
 
