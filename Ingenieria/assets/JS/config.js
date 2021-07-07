@@ -131,18 +131,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-
-
-  formAgregarUsuario.addEventListener('submit', async e => {
-    e.preventDefault();
-    let db = new DataBase();
-    let userId = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    if (userId !== undefined) {
-      await db.agregarUsuarioAlista(meterId, userId, emailAgregarUsuario.value, "User");
-    }
-    $("#modalAgregarUsuario").modal("hide");
-  });
-
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -186,7 +174,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
   });
-
+  let user = firebase.auth().currentUser;
+  formAgregarUsuario.addEventListener('submit', async e => {
+    e.preventDefault();
+    let rol= buscarElRol(Object.entries(datosDB.users));
+    if(rol==="Admin"&& await db.buscarUsuarioXemail(emailAgregarUsuario.value)!=undefined){
+      console.log(rol+" "+emailAgregarUsuario.value)
+    }
+    $("#modalAgregarUsuario").modal("hide");
+  });
+  const buscarElRol=array=>{
+    let arr=[];
+    let roll;
+    for(let i=0;i<array.length;i++) {
+        arr=array[i]
+      for(let j=0;j<arr.length;j++) {
+        let {email,rol}=arr[j];
+        if(email==user.email){
+          roll=rol;
+        }
+      }
+    };
+    return roll;
+  }
 
 
 });
