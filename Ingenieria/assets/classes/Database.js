@@ -342,7 +342,7 @@ class DataBase {
 
   async addDateForUser(idUser, idMeter, cutOffDay, payDay) {
 
-    let path = `users.${idUser}`;
+    let pathUserConfig = `users.${idUser}.config`;
 
     let dateUser = {
       cutOffDayUser: cutOffDay,
@@ -353,7 +353,7 @@ class DataBase {
       .collection("Devices")
       .doc(idMeter)
       .update({
-        [path]: dateUser,
+        [pathUserConfig]: dateUser,
       })
       .then(() => {
         console.log("Document successfully written!");

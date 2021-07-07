@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
 
+  let user = firebase.auth().currentUser;
+  let combo = document.getElementById("rolSelect");
+  
   meterId = sessionStorage.getItem("id");
 
   const loadUsers = (users) => {
@@ -38,11 +41,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#cuerpoTablaUsuarios").append(newRow);
     }
-
   }
 
   const cutDays = (days) => {
-
     for (let index = 1; index < days; index++) {
       const day = index;
       let newRow =
@@ -53,7 +54,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   const payDays = (days) => {
-
     for (let index = 1; index < days; index++) {
       const day = index;
       let newRow =
@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   const cutDaysUser = (days) => {
-
     for (let index = 1; index < days; index++) {
       const day = index;
       let newRow =
@@ -75,7 +74,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   const payDaysUser = (days) => {
-
     for (let index = 1; index < days; index++) {
       const day = index;
       let newRow =
@@ -84,7 +82,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#slcPayDayUser").append(newRow);
     }
   }
-
 
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
@@ -142,7 +139,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(scheduleUI);
 
     let sch = new Schedule(true);
-
 
     scheduleObject.toScheduleObject(scheduleUI);
     console.log(scheduleObject);
@@ -226,10 +222,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
-
-  let user = firebase.auth().currentUser;
-  let combo = document.getElementById("rolSelect");
-
   btnGuardarFechaUsuario.addEventListener("click", async () => {
     let db = new DataBase();
     let optCorteUsuario;
@@ -250,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (optCorteUsuario.value * 1 < optPagoUsuario.value * 1) {
-      //await db.addDateForUser(user.uid, meterId, optCorteUsuario.value, optPagoUsuario.value);
+      await db.addDateForUser(user.uid, meterId, optCorteUsuario.value, optPagoUsuario.value);
       console.log("Dias agregados");
     } else {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
@@ -270,6 +262,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }else{
       alert("usted no tiene permisos de administrador o el usuario no existe");
     }
+
     $("#modalAgregarUsuario").modal("hide");
   });
 
@@ -287,6 +280,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     return roll;
   }
-
 
 });
