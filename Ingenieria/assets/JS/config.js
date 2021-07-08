@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
 
-  let user = firebase.auth().currentUser;
+  
   let combo = document.getElementById("rolSelect");
   
   meterId = sessionStorage.getItem("id");
@@ -248,17 +248,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
   });
-
+  let user = firebase.auth().currentUser;
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
     let rol= buscarElRol(Object.entries(datosDB.users));
     let idUsuarioaAgregar=await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    
     if(rol==="Admin"&& idUsuarioaAgregar!=undefined){
-      console.log(rol+" "+emailAgregarUsuario.value+" "+selected)
+      console.log(rol+" "+emailAgregarUsuario.value+" "+selected);
       await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
-      // await db.activarDispositivo(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
+      await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
     }else{
       alert("usted no tiene permisos de administrador o el usuario no existe");
     }
@@ -273,6 +272,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       arr = array[i]
       for (let j = 0; j < arr.length; j++) {
         let { email, rol } = arr[j];
+        console.log(email+" "+user.email);
         if (email == user.email) {
           roll = rol;
         }

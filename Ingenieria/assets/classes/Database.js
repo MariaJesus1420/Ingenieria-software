@@ -398,5 +398,72 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
+  async activarDispositivoParaUserAdmin(id, idUser, emailUser, rolUser) {
+    let docRef = await this.db
+      .collection("Devices")
+      .withConverter(deviceConverter)
+      .doc(id);
 
+    return await this.db
+      .runTransaction((transaction) => {
+        // This code may get re-run multiple times if there are conflicts.
+        return transaction.get(docRef).then((sfDoc) => {
+          if (!sfDoc.exists) {
+            throw "El medidor no existe!";
+          }
+
+          let path = `devices.${id}`;
+          let pathUser = `users.${idUser}`;
+          let complete = true;
+
+          if (sfDoc.exists) {
+            let device = sfDoc.data();
+            let userDevice = {
+              customName: device.customName,
+              lastValue: device.lastValue,
+              type: device.type,
+            };
+
+            this.db
+              .collection("Users")
+              .doc(idUser)
+              .update({
+                [path]: userDevice,
+              })
+              .then(() => {
+                complete = true;
+                console.log("Document successfully written!");
+              })
+              .catch((error) => {
+                console.error("Error writing document: ", error);
+                complete = false;
+              });
+          } else {
+            console.log("No such document!");
+            throw "Error, medidor en uso";
+          }
+
+          if (!complete) {
+            throw "Error al escribir en usuario";
+          }
+
+          let deviceUser = {
+            email: emailUser,
+            rol: rolUser,
+          };
+
+          transaction.update(docRef, {
+            [pathUser]: deviceUser,
+          });
+        });
+      })
+      .then((result) => {
+        console.log("Transaction successfully committed!");
+      })
+      .catch((error) => {
+        console.log("Transaction failed: ", error);
+        $("#modalContent").text("El medidor no existe o esta en uso");
+        $("#modalMessages").modal("show");
+      });
+  }
 }
