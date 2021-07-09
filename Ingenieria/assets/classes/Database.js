@@ -1,3 +1,6 @@
+
+
+
 class DataBase {
   db = firebase.firestore();
   constructor() {}
@@ -230,8 +233,10 @@ class DataBase {
 
   async loginRegistroGoogle(session) {
     let provider = new firebase.auth.GoogleAuthProvider();
-    let user;
-    await firebase
+    let user = null;
+    let resultUser = null;
+    console.log("LOGIN REGISTRO GOOGLE");
+     await firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence[session])
       .then(() => {
@@ -239,38 +244,44 @@ class DataBase {
           .auth()
           .signInWithPopup(provider)
           .then((result) => {
+
+            console.log("FINISH AUTH");
             /** @type {firebase.auth.OAuthCredential} */
             let credential = result.credential;
-
+   
             // This gives you a Google Access Token. You can use it to access the Google API.
             let token = credential.accessToken;
             // The signed-in user info.
             user = result.user;
-
+            console.log(user.uid);
             let docReg = this.db.collection("Users").doc(user.uid);
 
-            docReg
+           return docReg
               .get()
               .then((doc) => {
-                if (doc.exists) {} else {
-                  this.db
-                    .collection("Users")
-                    .doc(user.uid)
-                    .set({
-                      email: user.email,
-                    })
-                    .then(() => {
-                      console.log("Document successfully written! gooooogle");
-                    })
-                    .catch((error) => {
-                      console.error("Error writing document: ", error);
-                    });
-                }
+                console.log("FINISH GET");
+                if (!doc.exists) {
+                 return this.db
+                  .collection("Users")
+                  .doc(user.uid)
+                  .set({
+                    email: user.email,
+                  },{merge:true})
+                  .then(() => {
+                    resultUser = user;
+                   
+                    console.log("Document successfully written! gooooogle");
+                    
+                  })
+                  .catch((error) => {
+                    console.error("Error writing document: ", error);
+                  });
+                } 
               })
               .catch((error) => {
                 console.log("Error getting document:", error);
               });
-
+    
             // ...
           })
           .catch((error) => {
@@ -283,9 +294,10 @@ class DataBase {
             let credential = error.credential;
             // ...
           });
+
       });
 
-    return Promise.resolve(user);
+      return resultUser;
   }
 
   async eliminarDispositivo(id) {
