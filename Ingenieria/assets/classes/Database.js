@@ -27,7 +27,8 @@ class DataBase {
   }
 
   async loginEmailPassword(email, password, session) {
-    let user;
+   
+    let resultUser = null;
     await firebase
       .auth()
       .setPersistence(firebase.auth.Auth.Persistence[session])
@@ -42,7 +43,7 @@ class DataBase {
           .auth()
           .signInWithEmailAndPassword(email, password)
           .then((result) => {
-            user = result.user;
+            resultUser = result.user;
           });
       })
       .catch((error) => {
@@ -51,24 +52,26 @@ class DataBase {
         var errorMessage = error.message;
         console.log(errorMessage);
       });
-    return Promise.resolve(user);
+    return  resultUser;
   }
 
   async registroEmailPassword(email, password) {
     let user;
+    let resultUser = null;
     await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // Signed in
         user = userCredential.user;
-        this.db
+        return this.db
           .collection("Users")
           .doc(user.uid)
           .set({
             email: user.email,
           })
           .then(() => {
+            resultUser= user;
             console.log("Document successfully written!");
           })
           .catch((error) => {
@@ -81,7 +84,7 @@ class DataBase {
         // ..
       });
 
-    return user;
+    return resultUser;
   }
 
   async activarDispositivo(id, idUser, emailUser, rolUser) {
