@@ -137,6 +137,7 @@ body {
 
 table.schedule-table {
     border-collapse: separate;
+    
 }
 #v-pills-horarios{
     position: relative;
@@ -161,7 +162,7 @@ table.schedule-table {
     height: 38px;
     margin: 3px;
     padding: 5px;
-    background-color: #3cb371;
+    background-color: #007f66;
     cursor: pointer;
 }
 
@@ -173,19 +174,19 @@ table.schedule-table {
 }
 
 .schedule-rows td[data-selectedG] {
-    background-color: #3cb371;
+    background-color: #007f66;
 }
 
 .schedule-rows td[data-selected] {
-    background-color: #f2003c;
+    background-color: #dcdcdc;
 }
 
 .schedule-rows td[data-selecting] {
-    background-color: #fa4371;
+    background-color: #a9a9a9;
 }
 
 .schedule-rows td[data-selectingG] {
-    background-color: #4eff9e;
+    background-color: #2e8b57;
 }
 
 .schedule-rows td[data-disabled] {

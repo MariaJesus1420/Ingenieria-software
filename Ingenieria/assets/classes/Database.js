@@ -260,7 +260,7 @@ class DataBase {
                       email: user.email,
                     })
                     .then(() => {
-                      console.log("Document successfully written!");
+                      console.log("Document successfully written! gooooogle");
                     })
                     .catch((error) => {
                       console.error("Error writing document: ", error);

@@ -35,14 +35,20 @@ btnConfirm_loginRegist.addEventListener('click', async(event) => {
         $('#signUpModal').modal('hide');
         }
     } else if(inputPassword.value===inputConfirmPassword.value){
-        db.registroEmailPassword(inputEmail.value, inputPassword.value);
+     await   db.registroEmailPassword(inputEmail.value, inputPassword.value);
+      await  db.loginEmailPassword(inputEmail.value,inputPassword.value,"NONE");
         $('#signUpModal').modal('hide');
     }else{
         $('#modalContent').text("Las contraseñas no coinciden o el email es invalido");
         $('#modalMessages').modal('show');
     }
+    
+  
     let user = await firebase.auth().currentUser;
-    console.log(user);
+    if(user){
+        $('#signUpModal').modal('hide');
+        $(location).attr('href', "loged.html");
+    }
 })
 
 const btnClick = (btnOn, btnOff) => {
@@ -72,12 +78,12 @@ btnLogin.addEventListener("click", () => {
     divConfirmPassword.style.display = "none";
     divCheck.style.display="block";
 })
-btnRegistro.addEventListener("click", () => {
+btnRegistro.addEventListener("click", async() => {
     btnClick(btnRegistro, btnLogin);
     canLogin = false;
     divCheck.style.display="none";
     divConfirmPassword.style.display = "block";
-
+    
 })
 bntGoogle.addEventListener('click', async() => {
     let db = new DataBase();
