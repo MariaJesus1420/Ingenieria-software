@@ -18,19 +18,17 @@ document.addEventListener("DOMContentLoaded", () => {
 btnConfirm_loginRegist.addEventListener("click", async (event) => {
   event.preventDefault();
   let db = new DataBase();
+  let user;
   if (canLogin) {
     try {
-      let user = await db.loginEmailPassword(
+      user = await db.loginEmailPassword(
         inputEmail.value,
         inputPassword.value,
         "SESSION"
       );
-      let resultado = await db.obtenerDocumento("Users", user.uid);
-      console.log(resultado.rol);
-      if (resultado.rol === "admin") $(location).attr("href", "admin.html");
-      else if (resultado.rol == null) {
-        $(location).attr("href", "loged.html");
-      }
+
+      console.log(user);
+      $(location).attr("href", "loged.html");
     } catch (e) {
       $("#modalContent").text(
         "Las credenciales son incorrectas o el usuario no se encuentra registrado"
@@ -39,8 +37,17 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
       $("#signUpModal").modal("hide");
     }
   } else if (inputPassword.value === inputConfirmPassword.value) {
-    await db.registroEmailPassword(inputEmail.value, inputPassword.value);
-    await db.loginEmailPassword(inputEmail.value, inputPassword.value, "NONE");
+    let result = await db.registroEmailPassword(
+      inputEmail.value,
+      inputPassword.value
+    );
+    console.log("registro", result);
+    user = await db.loginEmailPassword(
+      inputEmail.value,
+      inputPassword.value,
+      "NONE"
+    );
+    console.log(user);
     $("#signUpModal").modal("hide");
   } else {
     $("#modalContent").text(
@@ -49,7 +56,6 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
     $("#modalMessages").modal("show");
   }
 
-  let user = await firebase.auth().currentUser;
   if (user) {
     $("#signUpModal").modal("hide");
     $(location).attr("href", "loged.html");
@@ -101,10 +107,9 @@ bntGoogle.addEventListener("click", async () => {
   }
   console.log("saliendo");
 
-
   let user = await db.loginRegistroGoogle(session);
   console.log(user);
-  
+
   if (user) {
     $("#signUpModal").modal("hide");
     $(location).attr("href", "loged.html");
