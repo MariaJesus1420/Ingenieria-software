@@ -10,6 +10,7 @@ $(document).ready(async() => {
         }
     });
 });
+
 btnSalir.addEventListener('click', e => {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
