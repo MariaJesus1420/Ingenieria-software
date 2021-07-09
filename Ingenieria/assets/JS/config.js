@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
   let configWaterMeterAdmin = document.querySelector("#funcionesWaterMeterAdmin");
   let configWaterMeterCustomer = document.querySelector("#funcionesWaterMeterUser");
-  let formModificarMedidor= document.querySelector('#formModificarMedidor');
+  let formModificarMedidor = document.querySelector('#formModificarMedidor');
   let btnModificar = document.querySelector('#btnguardarModificar');
-  let newName= document.querySelector("#nuevoNombreInput");
+  let newName = document.querySelector("#nuevoNombreInput");
 
 
   let combo = document.getElementById("rolSelect");
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     $("#modalAgregarUsuario").modal("hide");
   });
 
-   const buscarElRol = async (array)=> {
+  const buscarElRol = async (array) => {
     let arr = [];
     let user = await firebase.auth().currentUser;
     let roll;
@@ -200,15 +200,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     await db.acutalizarHorario(meterId, scheduleObject);
 
   });
-  btnModificar.addEventListener('click', async()=>{
+
+  btnModificar.addEventListener('click', async () => {
     let rol = await buscarElRol(Object.entries(datosDB.users));
-    if(rol==="Admin"){
+    if (rol === "Admin") {
       await db.modificarMedidor(newName.value, meterId);
       $("#exampleModalToggle").modal("show");
-    }else{
+    } else {
       alert("No se pudo cambiar el nombre");
     }
-  
+
   });
 
 
@@ -279,9 +280,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#exampleModalToggle").modal("show");
 
     } else {
-      //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
+      alert("El día de corte debe ser menor al día de pago");
     }
-   
   });
 
   btnGuardarFechaUsuario.addEventListener("click", async () => {
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log("Dias agregados");
       $("#exampleModalToggle").modal("show");
     } else {
-      //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
+      alert("El día de corte debe ser menor al día de pago");
     }
   });
 
