@@ -21,7 +21,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
   let configWaterMeterAdmin = document.querySelector("#funcionesWaterMeterAdmin");
   let configWaterMeterCustomer = document.querySelector("#funcionesWaterMeterUser");
-  
+  let formModificarMedidor= document.querySelector('#formModificarMedidor');
+  let btnModificar = document.querySelector('#btnguardarModificar');
+  let newName= document.querySelector("#nuevoNombreInput");
+
 
   let combo = document.getElementById("rolSelect");
 
@@ -121,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     $("#modalAgregarUsuario").modal("hide");
   });
 
-  const buscarElRol = async (array)=> {
+   const buscarElRol = async (array)=> {
     let arr = [];
     let user = await firebase.auth().currentUser;
     let roll;
@@ -197,6 +200,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     await db.acutalizarHorario(meterId, scheduleObject);
 
   });
+  btnModificar.addEventListener('click', async()=>{
+    let rol = await buscarElRol(Object.entries(datosDB.users));
+    if(rol==="Admin"){
+      await db.modificarMedidor(newName.value, meterId);
+      $("#exampleModalToggle").modal("show");
+    }else{
+      alert("No se pudo cambiar el nombre");
+    }
+  
+  });
 
 
   btnEliminar.addEventListener("click", async () => {
@@ -263,6 +276,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (optCorte.value * 1 < optPago.value * 1) {
       await db.addDates(meterId, optCorte.value, optPago.value);
       console.log("Dias agregados");
+      $("#exampleModalToggle").modal("show");
+
     } else {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
@@ -292,6 +307,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (optCorteUsuario.value * 1 < optPagoUsuario.value * 1) {
       await db.addDateForUser(user.uid, meterId, optCorteUsuario.value, optPagoUsuario.value);
       console.log("Dias agregados");
+      $("#exampleModalToggle").modal("show");
     } else {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }

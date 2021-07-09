@@ -69,7 +69,7 @@
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
                     aria-labelledby="v-pills-nombre-tab">
-                    <form>
+                    <form id="formModificarMedidor">
                         <div id="seccion1" class="form-group mx-auto ">
                             <label for="nuevoNombreInput">Nuevo nombre</label>
                             <input type="text" class="form-control" id="nuevoNombreInput" aria-describedby="emailHelp"
@@ -83,7 +83,9 @@
                                 disabled readonly>
                         </div>
 
-
+                        <div>
+                            <button type="button" id="btnguardarModificar" class="btn btn-primary">Guardar</button>
+                        </div>
                         <!--Agregar usuarios-->
                     </form>
                 </div>
