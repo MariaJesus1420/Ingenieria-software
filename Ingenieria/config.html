@@ -69,7 +69,7 @@
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
                     aria-labelledby="v-pills-nombre-tab">
-                    <form>
+                    <form id="formModificarMedidor">
                         <div id="seccion1" class="form-group mx-auto ">
                             <label for="nuevoNombreInput">Nuevo nombre</label>
                             <input type="text" class="form-control" id="nuevoNombreInput" aria-describedby="emailHelp"
@@ -83,32 +83,35 @@
                                 disabled readonly>
                         </div>
 
-
+                        <div>
+                            <button type="button" id="btnguardarModificar" class="btn btn-primary">Guardar</button>
+                        </div>
                         <!--Agregar usuarios-->
                     </form>
                 </div>
                 <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
                     aria-labelledby="v-pills-funciones-tab">
                     <div id="funcionesWaterMeter">
-                        <form>
-                            <div>
-                                <label for="lbcutOffDate">Seleccione la fecha de corte:</label>
-                                <select id="slcCutOffDay" class="form-select" aria-label="Default select example">
-                                    <option selected>Dia del mes</option>
-                                </select>
-                            </div>
-                        </form>
-                        <form>
-                            <div>
-                                <label for="lbpayday">Seleccione la fecha de pago:</label>
-                                <select id="slcPayDay" class="form-select" aria-label="Default select example">
-                                    <option selected>Dia del mes</option>
-                                </select>
-                            </div>
-                        </form>
-                        <button type="button" id="btnguardarFechas" class="btn btn-primary">Guardar</button>
-
-                        <div id="funcionesWaterMeterUser">
+                        <div id="funcionesWaterMeterAdmin" class="hideElement">
+                            <form>
+                                <div>
+                                    <label for="lbcutOffDate">Seleccione la fecha de corte:</label>
+                                    <select id="slcCutOffDay" class="form-select" aria-label="Default select example">
+                                        <option selected>Dia del mes</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <form>
+                                <div>
+                                    <label for="lbpayday">Seleccione la fecha de pago:</label>
+                                    <select id="slcPayDay" class="form-select" aria-label="Default select example">
+                                        <option selected>Dia del mes</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <button type="button" id="btnguardarFechas" class="btn btn-primary">Guardar</button>
+                        </div>
+                        <div id="funcionesWaterMeterUser" class="hideElement">
                             <form>
                                 <div>
                                     <label for="lbcutOffDateUser">Seleccione la fecha de corte:</label>
@@ -129,8 +132,8 @@
                             </form>
                             <button type="button" id="btnguardarFechasUsuarios" class="btn btn-primary">Guardar</button>
                         </div>
-
                     </div>
+
                     <div id="funcionesSoundMeter" class="container ">
                         <!--METER AQUI LAS FUNCIONES DEL MEDIDOR DE SONIDO Y NO TOCAR NADA MAS ANTES DE PREGUNTAR-->
                     </div>
@@ -235,6 +238,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">Actualizar Configuración</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Configuración guardada exitosamente!
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
