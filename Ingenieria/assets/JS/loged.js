@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
             console.log(user);
-            user.displayName ? nombreUsuario.innerText = user.displayName : nombreUsuario.innerText =  user.email;
-           await loadData2();
-           divCargando.classList.remove("showElement");
-           divCargando.classList.add("hideElement");
+            user.displayName ? nombreUsuario.innerText = user.displayName : nombreUsuario.innerText = user.email;
+            await loadData2();
+            divCargando.classList.remove("showElement");
+            divCargando.classList.add("hideElement");
         } else {
             // No user is signed in.
         }
@@ -38,23 +38,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     })
     const shuffleArray = array => {
         for (let i = array.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          const temp = array[i];
-          array[i] = array[j];
-          array[j] = temp;
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
         }
-      }
+    }
 
     btnRandomMedidor.addEventListener("click", async () => {
         let db = new DataBase();
-        let types = ["WaterMeter","SoundMeter"];
+        let types = "WaterMeter";
         shuffleArray(types);
-       console.log(types[0]);
-       
-        
-        let device = new Device(generateName(), "", false, 0, types[0], false);
+        console.log(types);
+
+
+        let device = new Device(generateName(), "", false, 0, types, false);
         let id = await db.agregarMedidor(device);
-        
+
 
         let user = firebase.auth().currentUser;
         await db.activarDispositivo(id, user.uid, user.email, "Admin");
@@ -80,19 +80,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     })
 
-    const cardNueva2 = (customName, id, lastValue,type) => {
+    const cardNueva2 = (customName, id, lastValue, type) => {
         let divCard = document.createElement("div");
         divCard.classList.add("card");
         let imgCard = document.createElement("img");
         imgCard.classList.add("card-img-top");
         imgCard.alt = "Sensor de ruido";
-        if(type ==="WaterMeter"){
+        if (type === "WaterMeter") {
             imgCard.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1200px-Pok%C3%A9mon_Water_Type_Icon.svg.png";
-            
-        }else{
+
+        } else {
             imgCard.src = "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/sound-icon.png";
         }
-       
+
         divCard.appendChild(imgCard);
         let divBody = document.createElement("div");
         divBody.classList.add("card-body");
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         })
         return divCard;
     }
-    const loadData2 = async() => {
+    const loadData2 = async () => {
         let db = new DataBase();
         console.log("LOADING NEW METERS");
 
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 type = resultado[index][1].type;
                 id = resultado[index][0];
 
-                card = cardNueva2(customName, id, lastValue,type);
+                card = cardNueva2(customName, id, lastValue, type);
 
 
                 console.log({

@@ -19,10 +19,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   let btnGuardarFechaUsuario = document.querySelector("#btnguardarFechasUsuarios");
   let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
+  let configWaterMeterAdmin = document.querySelector("#funcionesWaterMeterAdmin");
+  let configWaterMeterCustomer = document.querySelector("#funcionesWaterMeterUser");
+  
 
-  
   let combo = document.getElementById("rolSelect");
-  
+
   meterId = sessionStorage.getItem("id");
 
   const loadUsers = (users) => {
@@ -101,6 +103,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
 
+
+  formAgregarUsuario.addEventListener('submit', async e => {
+    e.preventDefault();
+    let selected = combo.options[combo.selectedIndex].text;
+    let rol = await buscarElRol(Object.entries(datosDB.users));
+    let idUsuarioaAgregar = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    console.log(rol);
+    console.log(idUsuarioaAgregar);
+    if (rol === "Admin" && idUsuarioaAgregar != undefined) {
+      console.log(rol + " " + emailAgregarUsuario.value + " " + selected);
+      await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
+      await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
+    } else {
+      alert("Usted no tiene permisos de administrador o el usuario no existe");
+    }
+    $("#modalAgregarUsuario").modal("hide");
+  });
+
+  const buscarElRol = async (array)=> {
+    let arr = [];
+    let user = await firebase.auth().currentUser;
+    let roll;
+    for (let i = 0; i < array.length; i++) {
+      arr = array[i]
+      for (let j = 0; j < arr.length; j++) {
+        let { email, rol } = arr[j];
+        console.log(email + " " + user.email);
+        if (email == user.email) {
+          roll = rol;
+        }
+      }
+    };
+    return roll;
+  }
+
   const revisarVariable = async () => {
 
     if (meterId === "" || meterId === null) {
@@ -117,7 +154,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       payDays(32);
       cutDaysUser(32);
       payDaysUser(32);
-     
+
+      if (buscarElRol(Object.entries(datosDB.users)) === "Admin") {
+        configWaterMeterAdmin.classList.remove("hideElement");
+        configWaterMeterAdmin.classList.add("showElement");
+      } else {
+        configWaterMeterCustomer.classList.remove("hideElement");
+        configWaterMeterCustomer.classList.add("showElement");
+      }
+
       $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
@@ -146,10 +191,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     sch.toScheduleObject(scheduleUI);
     let ui = sch.toScheduleUI(sch.toScheduleDB());
     console.log("--------------------------------------------");
-
+    $("#exampleModalToggle").modal("show");
     console.log(ui);
 
     await db.acutalizarHorario(meterId, scheduleObject);
+
   });
 
 
@@ -168,7 +214,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-  
+
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -187,13 +233,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   btnSalir.addEventListener('click', e => {
     firebase.auth().signOut().then(() => {
-        // Sign-out successful.
-        console.log("salio de la sesion");
-        $(location).attr('href', "index.html");
+      // Sign-out successful.
+      console.log("salio de la sesion");
+      $(location).attr('href', "index.html");
     }).catch((error) => {
-        // An error happened.
+      // An error happened.
     });
-})
+  })
 
   btnGuardarFecha.addEventListener("click", async () => {
     let db = new DataBase();
@@ -220,10 +266,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
+   
   });
 
   btnGuardarFechaUsuario.addEventListener("click", async () => {
     let db = new DataBase();
+    let user = await firebase.auth().currentUser;
     let optCorteUsuario;
     let optPagoUsuario;
 
@@ -248,37 +296,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
   });
-  let user = firebase.auth().currentUser;
-  formAgregarUsuario.addEventListener('submit', async e => {
-    e.preventDefault();
-    let selected = combo.options[combo.selectedIndex].text;
-    let rol= buscarElRol(Object.entries(datosDB.users));
-    let idUsuarioaAgregar=await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    if(rol==="Admin"&& idUsuarioaAgregar!=undefined){
-      console.log(rol+" "+emailAgregarUsuario.value+" "+selected);
-      await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
-      await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
-    }else{
-      alert("usted no tiene permisos de administrador o el usuario no existe");
-    }
 
-    $("#modalAgregarUsuario").modal("hide");
-  });
 
-  const buscarElRol = array => {
-    let arr = [];
-    let roll;
-    for (let i = 0; i < array.length; i++) {
-      arr = array[i]
-      for (let j = 0; j < arr.length; j++) {
-        let { email, rol } = arr[j];
-        console.log(email+" "+user.email);
-        if (email == user.email) {
-          roll = rol;
-        }
-      }
-    };
-    return roll;
-  }
 
 });
