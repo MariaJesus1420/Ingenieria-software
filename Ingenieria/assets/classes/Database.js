@@ -280,6 +280,7 @@ class DataBase {
                     console.error("Error writing document: ", error);
                   });
                 } 
+                resultUser = user;
               })
               .catch((error) => {
                 console.log("Error getting document:", error);
