@@ -157,8 +157,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       payDays(32);
       cutDaysUser(32);
       payDaysUser(32);
-
-      if (buscarElRol(Object.entries(datosDB.users)) === "Admin") {
+      console.log(await buscarElRol(Object.entries(datosDB.users)), '----------');
+      if (await buscarElRol(Object.entries(datosDB.users)) === "Admin") {
         configWaterMeterAdmin.classList.remove("hideElement");
         configWaterMeterAdmin.classList.add("showElement");
       } else {

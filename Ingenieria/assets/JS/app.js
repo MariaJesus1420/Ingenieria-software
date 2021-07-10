@@ -20,6 +20,7 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
   let db = new DataBase();
   let user;
   if (canLogin) {
+    console.log('--------------------');
     try {
       user = await db.loginEmailPassword(
         inputEmail.value,
@@ -42,11 +43,7 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
       inputPassword.value
     );
     console.log("registro", result);
-    user = await db.loginEmailPassword(
-      inputEmail.value,
-      inputPassword.value,
-      "NONE"
-    );
+    user=result;
     console.log(user);
     $("#signUpModal").modal("hide");
   } else {
