@@ -55,6 +55,9 @@
                 <button class="nav-link" id="v-pills-horarios-tab" data-bs-toggle="pill"
                     data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
                     aria-selected="false">Horarios</button>
+                <button class="nav-link" id="v-pills-reportes-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-reportes" type="button" role="tab" aria-controls="v-pills-reportes"
+                    aria-selected="false">Reportes</button>
             </div>
             <div id="divCargando" class="showElement">
                 <div class="spinner-border  text-primary" style="width: 6rem; height: 6rem;" role="status">
@@ -174,8 +177,40 @@
                             <button id="actualizarHorario" type="button" class="btn btn-primary">Actualizar</button>
                         </div>
                     </div>
-
+<!-- maria -->
                 </div>
+                <div class="tab-pane fade container mx-auto showElement" id="v-pills-reportes" role="tabpanel"
+                aria-labelledby="v-pills-reportes-tab">
+
+                <div  class="mx-auto container-sm overflow-auto ">
+
+                    <div id="seccion1" class="form-group mx-auto ">
+                        <h4>Consumo del mes</h4>
+                        <label >Cantidad de litros</label>
+                        <input type="text" class="form-control" disabled readonly>
+                        
+                    </div>
+                    <div id="seccion2" class="form-group  mx-auto">
+                        <label >Total a pagar</label>
+                        <input type="text" class="form-control "disabled readonly>
+                    </div>
+                    <div class=" d-flex justify-content-start">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a class="btn btn-primary"  href="/Ingenieria/Graphic.html">Grafica consumo mensual</a>
+                            </div>
+                            <div class="col-lg-12" style="margin-top: 20px;">
+                                <a class="btn btn-primary"  href="/Ingenieria/grapichMonth.html">Grafica consumo anual</a>
+                            </div>
+                        </div>
+                        
+                     
+                     
+                    </div>
+                 
+                </div>
+
+            </div>
             </div>
         </div>
 
