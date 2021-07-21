@@ -1,0 +1,22 @@
+.contenedor{
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+
+
+.fila{
+    margin-top: 10px;
+}
+
+#containerChartMonth{
+    margin-bottom: 10px;
+   
+}
+
+#contenedorCharts{
+    margin-left: 10px;
+}
+
