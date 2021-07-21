@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let formModificarMedidor = document.querySelector('#formModificarMedidor');
   let btnModificar = document.querySelector('#btnguardarModificar');
   let newName = document.querySelector("#nuevoNombreInput");
-
-
+  let usersTable = document.querySelector("#v-pills-usuarios");
   let combo = document.getElementById("rolSelect");
 
   meterId = sessionStorage.getItem("id");
@@ -37,17 +36,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       const user = users[index][1];
       let newRow =
         `<tr>
-      <td>${user.email}</td>
+      <td id="userEmail">${user.email}</td>
       <td class="text-center">${user.rol}</td>
       <td class="text-end">
-          <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
+          <button data-id="${user.email}" class="btn btn-primary btnuser"><i class="bi bi-sliders"></i></button>
       </td>
   </tr>`
 
       $("#cuerpoTablaUsuarios").append(newRow);
     }
   }
-
   const cutDays = (days) => {
     for (let index = 1; index < days; index++) {
       const day = index;
@@ -312,7 +310,20 @@ document.addEventListener("DOMContentLoaded", async function () {
       alert("El día de corte debe ser menor al día de pago");
     }
   });
-
-
-
+  let selectedUserEmail;
+  let selectedUserId;
+  // metodo para agregar los pemisos
+  usersTable.addEventListener('click',async e=>{
+    e.preventDefault();
+    console.log(e.target.classList.contains("bi"));
+    let rol = await buscarElRol(Object.entries(datosDB.users));
+    if(e.target.classList.contains("bi-sliders")&&rol==='Admin'){
+      const user = e.target.parentElement.parentElement;
+      selectedUserEmail = user.querySelector('button').getAttribute('data-id');
+      selectedUserId=await db.buscarUsuarioXemail(selectedUserEmail);
+      sessionStorage.setItem("selectedId", selectedUserId);
+      sessionStorage.setItem("selectedEmail", selectedUserEmail);
+      $(location).attr('href', "admin.html");
+    }else{console.log('usted no tiene permisos')}
+  })
 });

@@ -495,4 +495,26 @@ class DataBase {
         $("#modalMessages").modal("show");
       });
   }
+  async addPermisosUserEnMedidor(idMeter, userId,email,rol, canChangeName, canChangeSchedule,canChangeFunctions) {
+
+    let path = `users.${userId}`;
+    this.db
+      .collection("Devices")
+      .doc(idMeter)
+      .update({
+        [path]: {
+          email,
+          rol,
+          canChangeName,
+          canChangeSchedule,
+          canChangeFunctions
+        }
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
 }
