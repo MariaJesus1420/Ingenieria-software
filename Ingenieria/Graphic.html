@@ -5,14 +5,42 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/css/sidebar.css">
         <link rel="stylesheet" href="assets/css/styles.css">
+        
+        <style>
+            .item0 { grid-area: start; box-shadow: 0px 0px 5px 1px black; border-radius: 10px; background-color: white; }
+            .item1 { grid-area: header;  box-shadow: 0px 0px 5px 1px black; border-radius: 10px; background-color: white;}
+           .item2 { grid-area: menu;   } 
+            .item3 { grid-area: main; }
+            .item4 { grid-area: right; }
+            .item5 { grid-area: footer;  box-shadow: 0px 0px 5px 1px black; border-radius: 10px; background-color: white; }
+            
+            .grid-container {
+              display: grid;
+              grid-template-areas:
+                'start start menu menu  header header'
+                'main main main right right right'
+                'footer footer footer footer footer footer';
+              grid-gap: 20px;
+            padding: 10px;
+                            
+            }
+            
+            .grid-container > div {
+              /* background-color: rgba(255, 255, 255, 0.8); */
+              text-align: center;
+              padding: 20px 0;
+              font-size: 30px;
+              
+            }
+            </style>
     </head>
        	
     <body>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a id="btnHome" href="config.html">Volver</a>
+            <a id="btnHome" href="loged.html" style="font-family: Segoe UI" >Volver</a>
         </div>
-        <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+        <span class="menu" style="font-size:30px;cursor:pointer; font-family: Segoe UI" onclick="openNav()">&#9776; Menú</span>
         <script>
             function openNav() {
                 document.getElementById("mySidenav").style.width = "250px";
@@ -23,13 +51,47 @@
             }
         </script>
 
-    
-        <div style="text-align:center; background-color:white; border-radius: 10px;" >
-           
-            <canvas id="myChart" style="width:100%;max-width:1000px auto" ></canvas>
+
+<div class="grid-container">
+    <div class="item0">
+  
+        <div  class="mx-auto container-sm overflow-auto ">
+
+            <div id="seccion1" class="form-group mx-auto ">
+                <label style="font-family: Segoe UI" >Cantidad de litros</label>
+                <input type="text" class="form-control" disabled readonly>
+                <i class="bi bi-droplet-half"  style="color: teal; margin-left: 30px;"></i>
+                
+            </div>
+         
         </div>
-    
-    
+    </div>
+  <div class="item1">
+ 
+    <div id="seccion2" class="form-group  mx-auto">
+        <label style="font-family: Segoe UI">Total a pagar</label>
+        <input type="text" class="form-control "disabled readonly>
+        <i class="bi bi-cash-coin" style="color: green; margin-left: 30px;"></i>
+    </div>
+  </div>
+  <div class="item2">
+
+  </div>
+  <div class="item3">
+    <div style="text-align:center; background-color:white; box-shadow: 0px 0px 5px 1px black; border-radius: 10px;" >
+           
+        <canvas id="myChartMonth" style="width:100%;max-width:800px " ></canvas>
+    </div>
+  </div>  
+  <div class="item4">
+    <div style="text-align:center; background-color:white; box-shadow: 0px 0px 5px 1px black; border-radius: 10px;" >
+        <canvas id="myChart" style="width:100%;max-width:800px " ></canvas>
+    </div>
+  </div>
+  <div class="item5">Footer</div>
+</div>
+       
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" integrity="sha384-tKLJeE1ALTUwtXlaGjJYM3sejfssWdAaWR2s97axw4xkiAdMzQjtOjgcyw0Y50KU" crossorigin="anonymous">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="assets/classes/graphic.js"></script>

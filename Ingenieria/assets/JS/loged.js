@@ -115,10 +115,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let buttonReportes = document.createElement("a");
     buttonReportes.classList.add("btn-outline-success", "btn");
-    buttonReportes.href = "#";
+    buttonReportes.href = "/Ingenieria/Graphic.html"
     buttonReportes.text = " Reportes";
     buttonReportes.style = "margin-top: 10px";
-
+    
     buttonReportes.prepend(iconReportes);
 
     let buttonConfigurar = document.createElement("a");
