@@ -98,15 +98,41 @@ document.addEventListener("DOMContentLoaded", async function () {
     divBody.appendChild(titleCard);
     let paragraphCard = document.createElement("p");
     paragraphCard.classList.add("card-text");
-    paragraphCard.innerText = lastValue;
+    
     divBody.appendChild(paragraphCard);
-    let buttonCard = document.createElement("a");
-    buttonCard.classList.add("btn-primary", "btn");
-    buttonCard.innerText = "Configurar";
-    buttonCard.href = "#";
-    divBody.appendChild(buttonCard);
+
+   
+    let iconReportes = document.createElement("i");
+
+    iconReportes.classList.add("bi", "bi-bar-chart-fill");
+    iconReportes.style = "font-size: 1.3rem;";
+
+
+    let iconConfigurar = document.createElement("i");
+
+    iconConfigurar.classList.add("bi", "bi-gear-fill");
+    iconConfigurar.style = "font-size: 1.3rem;";
+
+    let buttonReportes = document.createElement("a");
+    buttonReportes.classList.add("btn-outline-success", "btn");
+    buttonReportes.href = "#";
+    buttonReportes.text = " Reportes";
+    buttonReportes.style = "margin-top: 10px";
+
+    buttonReportes.prepend(iconReportes);
+
+    let buttonConfigurar = document.createElement("a");
+    buttonConfigurar.classList.add("btn-outline-primary", "btn");
+    buttonConfigurar.text = " Configurar";
+    buttonConfigurar.href = "#";
+
+    buttonConfigurar.prepend(iconConfigurar);
+
+    divBody.style = "display:flex;flex-direction:column;";
+    divBody.appendChild(buttonConfigurar);
+    divBody.appendChild(buttonReportes);
     divCard.appendChild(divBody);
-    buttonCard.addEventListener("click", () => {
+    buttonConfigurar.addEventListener("click", () => {
       sessionStorage.setItem("id", id);
       $(location).attr("href", "config.html");
     });
