@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     3, 4, 5, 36, 24, 4, 1, 3, 14, 5, 6, 5, 0, 8, 5, 11, 2, 3, 4, 8,
   ];
   new Chart("chartAnual", {
-    type: "radar",
+    type: "line",
     data: {
       labels: xValuesM,
       datasets: [
