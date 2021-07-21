@@ -1,6 +1,4 @@
 
-
-
 class DataBase {
   db = firebase.firestore();
   constructor() {}
