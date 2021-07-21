@@ -81,7 +81,7 @@ class DataBase {
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-        // ..
+        // .r.
       });
 
     return resultUser;
