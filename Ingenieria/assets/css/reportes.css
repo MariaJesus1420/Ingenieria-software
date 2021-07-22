@@ -1,24 +1,57 @@
-.contenedor{
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.contenedor {
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 18px 18px 18px;
+}
+
+.fila {
+  margin-top: 10px;
+}
+
+@media (max-width: 767.98px) { 
+    #graficos{
+        width: 90vw;
+    }
+
+    #containerChartActual{
+        position: relative;
+        height: 40vh;
+        
+    }
+    #containerChartMensual {
+      
+      position: relative;
+      height: 40vh;
+        margin-top: 10px;
+    }
+    #containerChartDiario {
+      position: relative;
+      height: 40vh;
+    
+    }
+}
+
+@media (min-width: 768px) { 
+    #graficos{
+        width: 90vw;
+    }
+    #containerChartActual{
+        position: relative;
+        height: 40vh;
+        width: 40vw;
+    }
+    #containerChartMensual {
+      margin-left: 10px;
+      position: relative;
+      height: 40vh;
+      width: 40vw;
+    }
+    #containerChartDiario {
+      position: relative;
+      height: 40vh;
+      width: 10vw;
+    }
 
 }
 
 
-
-.fila{
-    margin-top: 10px;
-}
-
-
-#graficos{
-    max-width: 90%;
-}
-#containerChartMensual{
-    margin-left: 10px;
-    height: 300px;
-}
-#containerChartDiario{
-    height: 300px;
-}
