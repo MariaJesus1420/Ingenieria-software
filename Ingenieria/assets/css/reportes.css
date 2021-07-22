@@ -11,12 +11,14 @@
     margin-top: 10px;
 }
 
-#containerChartMonth{
-    margin-bottom: 10px;
-   
-}
 
-#contenedorCharts{
+#graficos{
+    max-width: 90%;
+}
+#containerChartMensual{
     margin-left: 10px;
+    height: 300px;
 }
-
+#containerChartDiario{
+    height: 300px;
+}

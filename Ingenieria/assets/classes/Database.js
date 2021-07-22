@@ -11,9 +11,10 @@ class DataBase {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("data es ", doc.data());
+         
 
           result = doc.data();
+          console.log(result);
         } else {
           console.log("No such document!");
         }
