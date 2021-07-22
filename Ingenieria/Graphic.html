@@ -8,22 +8,18 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/reportes.css" />
 
-   
+
   </head>
 
   <body>
     <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-        >&times;</a
-      >
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a id="btnHome" href="loged.html" style="font-family: Segoe UI">Volver</a>
     </div>
     <span
       class="menu"
       style="font-size: 30px; cursor: pointer; font-family: Segoe UI"
-      onclick="openNav()"
-      >&#9776; Menú</span
-    >
+      onclick="openNav()">&#9776; Menú</span>
     <script>
       function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
@@ -33,37 +29,27 @@
         document.getElementById("mySidenav").style.width = "0";
       }
     </script>
-
- 
-
-
-    <div class="container">
+    <div id="graficos" class="container-xxl">
       <div class="row fila">
         <div class="col contenedor"><h2 class="text-center">Consumo</h3></div>
       </div>
       <div class="row fila">
-        <div class="col-7 contenedor">
+        <div id="containerChartActual"class="col contenedor" >
           <canvas
-            id="chartAnual"
-         
-          ></canvas>
+            id="chartActual"></canvas>
         </div>
 
-  
-        <div id="contenedorCharts" class="col">
-          <div class="row ">
-            <div id="containerChartMonth"class="col contenedor">
-              <canvas id="myChart" ></canvas>
-            </div>
+          <div id="containerChartMensual" class="col contenedor" >
+            <canvas id="chartMensual"></canvas>
           </div>
 
-          
-
-          <div class="row ">
-            <div class="col contenedor"><canvas id="myChartMonth3" ></canvas></div>
-          </div>
+        </div>
+        <div class="row fila">
+          <div id="containerChartDiario"class="col contenedor" >
+            <canvas id="chartDiario"></canvas></div>
         </div>
       </div>
+    
      
     </div>
 
@@ -72,12 +58,14 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
       integrity="sha384-tKLJeE1ALTUwtXlaGjJYM3sejfssWdAaWR2s97axw4xkiAdMzQjtOjgcyw0Y50KU"
       crossorigin="anonymous"
-    />
+      />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
     <script src="assets/JS/firebase.js"></script>
     <script src="assets/classes/Database.js"></script>
     <script src="assets/JS/graphic.js"></script>
