@@ -512,17 +512,28 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
+  async eliminarUsuarioDeMedidor(idMeter,email) {
+    let uid=this.buscarUsuarioXemail(email);
+    let path = `users.${uid}`;
+    var cityRef = this.db.collection('Devices').doc(idMeter);
+
+    // Remove the 'capital' field from the document
+    var removeCapital = cityRef.update({
+      [path]: firebase.firestore.FieldValue.delete()
+    });
+    return removeCapital;
+  }
   async simularLecturas(meterId) {
     let lectura = {
       fechaGenerado: new Date(),
       fechaRecibido: new Date(),
-      valor:100,
+      valor:firebase.firestore.FieldValue.increment(50),
     };
     let year = new Date().getFullYear();
     let cont=1;
     for (let month = 1; month <= 12; month++) {
       for (let day = 1; day <= 31; day++) {
-        await  this.db.collection("Readings").doc(meterId).collection(year.toString()).doc(month.toString()).update({
+        await  this.db.collection("Readings").doc(meterId).collection("2020").doc(month.toString()).update({
           [`${day}`]:{lectura}
         })
         .then(() => {
