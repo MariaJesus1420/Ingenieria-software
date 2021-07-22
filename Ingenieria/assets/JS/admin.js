@@ -1,23 +1,24 @@
-const btnSalir = document.querySelector('#salir');
-$(document).ready(async() => {
-
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            console.log(user);
-            // user.displayName? nombreUsuario.innerText = "Bienvenid@: " + user.displayName:nombreUsuario.innerText = "Bienvenid@: " + user.email;
-        } else {
-            // No user is signed in.
-        }
-    });
-});
-
-btnSalir.addEventListener('click', e => {
-    firebase.auth().signOut().then(() => {
-        // Sign-out successful.
-        console.log("salio de la sesion");
-        $(location).attr('href', "index.html");
-    }).catch((error) => {
-        // An error happened.
-    });
-
+document.addEventListener('DOMContentLoaded',async function(){
+    const btnVolver = document.querySelector('#volver');
+    const formPermisos=document.getElementById('formPermisos');
+    let db = new DataBase();
+    let selectedUserId = sessionStorage.getItem("selectedId");
+    let selectedUserEmail = sessionStorage.getItem("selectedEmail");
+    let meterId = sessionStorage.getItem("id");
+    console.log(selectedUserEmail,selectedUserId);
+    document.getElementById("nombreUsuario").innerText=""+selectedUserEmail+" en el medidor "+meterId;
+    let btnLecturas=document.getElementById('btnLecturas');
+    // medotos para modificar todos los permisos
+    formPermisos.addEventListener('submit',async e=>{
+        e.preventDefault();
+        let rolModalPermisos=document.getElementById("rolModalPermisos");
+        let selected = rolModalPermisos.options[rolModalPermisos.selectedIndex].text;
+        // console.log(meterId,selectedUserId,selectedUserEmail,selected,switchNombre,switchfunciones,switchHorario);
+        await db.cambiarEl_RolEnMedidor(meterId,selectedUserId,selectedUserEmail,selected);
+        alert('Cambio de rol exitoso');
+    })
+    btnVolver.addEventListener('click', e => {
+        $(location).attr('href', "loged.html");
+    })
+    
 })
