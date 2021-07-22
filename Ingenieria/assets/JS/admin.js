@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded',async function(){
-    const btnSalir = document.querySelector('#salir');
+    const btnVolver = document.querySelector('#volver');
     const formPermisos=document.getElementById('formPermisos');
     let db = new DataBase();
     let selectedUserId = sessionStorage.getItem("selectedId");
@@ -7,25 +7,18 @@ document.addEventListener('DOMContentLoaded',async function(){
     let meterId = sessionStorage.getItem("id");
     console.log(selectedUserEmail,selectedUserId);
     document.getElementById("nombreUsuario").innerText=""+selectedUserEmail+" en el medidor "+meterId;
+    let btnLecturas=document.getElementById('btnLecturas');
     // medotos para modificar todos los permisos
     formPermisos.addEventListener('submit',async e=>{
         e.preventDefault();
-        let switchNombre=document.getElementById("switchNombre").checked;
-        let switchfunciones=document.getElementById("switchfunciones").checked;
-        let switchHorario=document.getElementById("switchHorario").checked;
         let rolModalPermisos=document.getElementById("rolModalPermisos");
         let selected = rolModalPermisos.options[rolModalPermisos.selectedIndex].text;
-        console.log(meterId,selectedUserId,selectedUserEmail,selected,switchNombre,switchfunciones,switchHorario);
-        // await db.addPermisosUserEnMedidor(meterId,selectedUserId,selectedUserEmail,selected,switchNombre,switchHorario,switchfunciones);
+        // console.log(meterId,selectedUserId,selectedUserEmail,selected,switchNombre,switchfunciones,switchHorario);
+        await db.cambiarEl_RolEnMedidor(meterId,selectedUserId,selectedUserEmail,selected);
+        alert('Cambio de rol exitoso');
     })
-    btnSalir.addEventListener('click', e => {
-        firebase.auth().signOut().then(() => {
-            // Sign-out successful.
-            console.log("salio de la sesion");
-            $(location).attr('href', "index.html");
-        }).catch((error) => {
-            // An error happened.
-        });
+    btnVolver.addEventListener('click', e => {
+        $(location).attr('href', "loged.html");
+    })
     
-    })
 })

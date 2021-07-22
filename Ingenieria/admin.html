@@ -1,66 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/sidebar.css">
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>Admin</title>
-</head>
-<body>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt" ></i></i> <span>Salir</span> </a>
-        <!-- <div id="divbtnAgregar"></div> -->
-    </div>
-    <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
-    <!--  -->
-    <div class="container"style="background-color:white;">
-      <h3>Modificando permisos de:<p id="nombreUsuario"></p></h3>     
-              <div class="form">
-                  <form id="formPermisos">
-                      <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="switchNombre" checked>
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Puede cambiar el nombre del dispositivo</label>
-                      </div>
-                      <div class="form-check form-switch"> 
-                          <input class="form-check-input" type="checkbox" id="switchfunciones" checked>
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Puede cambiar las funciones del dispositivo</label>
-                      </div>
-                      <div class="form-check form-switch"> 
-                          <input class="form-check-input" type="checkbox" id="switchHorario" checked>
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Puede modificar el horario del dispositivo</label>
-                      </div>
-                      <div>
-                          <label for="recipient-name" class="col-form-label">Rol:</label>
-                          <select id="rolModalPermisos" class="form-select" aria-label="Default select example" required>
-                              <option selected value="1">User</option>
-                              <option value="2">Admin</option>
-                          </select>
-                      </div>
-                      <br>
-                      <button type="submit" id="btnConfirmarPermisos"class="btn btn-primary">Confirmar</button>
-                  </form>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/sidebar.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>Admin</title>
+</head>
+
+<body>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a id="volver" href="#"><i id="salirImage" class="fas fa-sign-out-alt"></i></i> <span>Volver</span> </a>
+    <!-- <div id="divbtnAgregar"></div> -->
+  </div>
+  <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+  <!--  -->
+  <div class="container" id="container" style="background-color:white;">
+    </h3>
+    <div class="container">
+      <div class="row">
+        <h5>Modificando:<p id="nombreUsuario"></p></h5>
+      </div>
+      <div class="row" style="padding: 2ch;">
+        <div class="col">
+          <h3>Cambiar rol</h3>
+          <div class="form">
+            <form id="formPermisos">
+              <div>
+                <select id="rolModalPermisos" class="form-select" aria-label="Default select example" required>
+                  <option selected value="1">User</option>
+                  <option value="2">Admin</option>
+                </select>
               </div>
+              <br>
+              <button type="submit" id="btnConfirmarPermisos" class="btn btn-primary">Confirmar</button>
+            </form>
+          </div>
+        </div>
+        <div style="border-left: 1px solid rgb(20, 20, 20);" class="col">
+         <h3>Eliminar usuario de este medidor</h3>
+         <form action="" style="padding: 1ch;">
+           <div class="row">
+             <input type="email"class="form-control" placeholder="correo del usuario a eliminar" required>
+            </div>
+            <br>
+           <button type="submit" class="btn btn-danger">Eliminar</button>
+         </form>
+        </div>
+      </div>
     </div>
-      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
-      <script src="assets/JS/firebase.js"></script>
-      <script src="assets/JS/admin.js"></script>
-      <script src="assets/classes/Database.js"></script>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+  <script src="assets/JS/firebase.js"></script>
+  <script src="assets/JS/admin.js"></script>
+  <script src="assets/classes/Database.js"></script>
 </body>
+
 </html>

@@ -493,7 +493,7 @@ class DataBase {
         $("#modalMessages").modal("show");
       });
   }
-  async addPermisosUserEnMedidor(idMeter, userId,email,rol, canChangeName, canChangeSchedule,canChangeFunctions) {
+  async cambiarEl_RolEnMedidor(idMeter, userId,email,rol) {
 
     let path = `users.${userId}`;
     this.db
@@ -503,9 +503,6 @@ class DataBase {
         [path]: {
           email,
           rol,
-          canChangeName,
-          canChangeSchedule,
-          canChangeFunctions
         }
       })
       .then(() => {
@@ -515,4 +512,44 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
+  async simularLecturas(meterId) {
+    let lectura = {
+      fechaGenerado: new Date(),
+      fechaRecibido: new Date(),
+      valor:100,
+    };
+    let year = new Date().getFullYear();
+    let cont=1;
+    for (let month = 1; month <= 12; month++) {
+      for (let day = 1; day <= 31; day++) {
+        await  this.db.collection("Readings").doc(meterId).collection(year.toString()).doc(month.toString()).update({
+          [`${day}`]:{lectura}
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      console.log("contador "+month+" "+day+" "+cont++)
+        switch (month) {
+          case 2:
+            day===28?day=31:"";
+            break;
+          case 4:
+            day==30?day=31:"";
+            break;
+          case 6:
+            day==30?day=31:"";
+            break;
+          case 9:
+            day==30?day=31:"";
+          break; 
+          case 11:
+            day==30?day=31:"";
+            break;
+        }
+      }
+    }
+  };
 }
