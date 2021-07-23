@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
   let divsCargando = document.querySelectorAll(".divCargando");
-  
+
+  let costoLitro = 3;
 
   const quitarDivsCargando = () => {
     for (let index = 0; index < divsCargando.length; index++) {
@@ -12,21 +13,45 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   };
 
+  const calcularCosto = (labelCosto, datos, costoPorLitro) => {
+    let formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: 'CRC',
+    
+      // These options are needed to round to whole numbers if that's what you want.
+      //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+      //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+    });
+
+    let acumulado = 0;
+    for (let index = 0; index < datos.length; index++) {
+      acumulado += datos[index] * costoPorLitro;
+    }
+    console.log(acumulado);
+    labelCosto.innerText = formatter.format(acumulado);
+  };
+
   const mostrarGraficas = () => {
     let errorGraficaActual = document.querySelector("#errorGraficaActual");
     let errorGraficaMensual = document.querySelector("#errorGraficaMensual");
     let errorGraficaDiario = document.querySelector("#errorGraficoDiario");
-    let errorGraficaCostos = document.querySelector("#errorGraficaCostos");
-   
-    let graficaActual  = document.querySelector("#graficaActual");;
-    let graficaMensual = document.querySelector("#graficaMensual");;
-    let graficaDiario  = document.querySelector("#graficaDiario");;
-    let containerChartCostos = document.querySelector("#containerChartCostos");
+    
+
+    let graficaActual = document.querySelector("#graficaActual");
+    let graficaMensual = document.querySelector("#graficaMensual");
+    let graficaDiario = document.querySelector("#graficaDiario");
+  
     if (datosActual.length === 0) {
       errorGraficaActual.classList.replace("hideElement", "showElement");
     } else {
       errorGraficaActual.classList.replace("showElement", "hideElement");
       graficaActual.classList.replace("hideElement", "showElement");
+      console.log(datosActual);
+      calcularCosto(
+        document.querySelector("#labelCostoActual"),
+        datosActual,
+        costoLitro
+      );
     }
 
     if (datosMensual1.length === 0) {
@@ -34,6 +59,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       errorGraficaMensual.classList.replace("showElement", "hideElement");
       graficaMensual.classList.replace("hideElement", "showElement");
+      calcularCosto(
+        document.querySelector("#labelCostoMensual"),
+        datosMensual1,
+        costoLitro
+      );
     }
 
     if (datosDiario1.length === 0) {
@@ -41,11 +71,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       errorGraficaDiario.classList.replace("showElement", "hideElement");
       graficaDiario.classList.replace("hideElement", "showElement");
+      calcularCosto(
+        document.querySelector("#labelCostoAnual"),
+        datosDiario1,
+        costoLitro
+      );
     }
 
-    containerChartCostos.classList.replace("hideElement","showElement");
+    if(meterId){
+      calcularCosto(
+        document.querySelector("#labelCostoLitro"),
+        [1],
+        costoLitro
+      );
+    }
 
-
+    //containerChartCostos.classList.replace("hideElement","showElement");
   };
   let meterId = sessionStorage.getItem("id");
 
@@ -99,7 +140,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     "Noviembre",
     "Diciembre",
   ];
-
+  
   function updateData(chart) {
     let lenghtDataGrafica = chart.data.datasets[0].data.length;
 
@@ -107,8 +148,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       chart.data.datasets[0].data[lenghtDataGrafica] =
         datosActual[datosActual.length - 1];
       datosActual[datosActual.length - 1];
-
+      calcularCosto(
+        document.querySelector("#labelCostoActual"),
+        datosActual,
+        costoLitro
+      );
       chart.update();
+      $("#liveToast").toast('show');
     }
   }
 
@@ -125,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   let datosActual = [];
 
-  let labelDatosActual ;
+  let labelDatosActual;
 
   let labelDatosMensual1;
   let labelDatosMensual2;
@@ -144,13 +190,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       for (let index = 1; index < 13; index++) {
         datosMensual[index - 1] = resumenMensual[`${index}`].total;
       }
-
-      
     }
     return year;
   };
 
-  const cargarDiario = async (month, year, datosDiario,label) => {
+  const cargarDiario = async (month, year, datosDiario, label) => {
     let db = new DataBase();
 
     let resumenDiario = await db.obtenerDocumento(
@@ -175,11 +219,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         dia++;
       }
-
-     
-    } 
-      return nombreMeses[month - 1];
-    
+    }
+    return nombreMeses[month - 1];
   };
 
   const cargarActual = async () => {
@@ -188,7 +229,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       `Readings/${meterId}/${new Date().getFullYear()}`,
       `${new Date().getMonth() + 1}`
     );
-    if ((resumenActual != null) && (resumenActual!= undefined)) {
+    if (resumenActual != null && resumenActual != undefined) {
       let datosDelDia = Object.entries(resumenActual[new Date().getDate()]);
 
       let hora = 0;

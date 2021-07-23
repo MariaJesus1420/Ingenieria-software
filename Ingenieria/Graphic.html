@@ -30,22 +30,57 @@
       document.getElementById("mySidenav").style.width = "0";
     }
   </script>
-  <div id="graficos" class="container-xxl">
+  <div id="graficos" class="container-fluid">
     <div class="row fila">
       <div class="col contenedor text-center ">
-        <div class="showElement divCargando">
-          <div class="spinner-border text-primary" role="status">
-
-          </div>
-        </div>
-        <div id="containerChartCostos"class="hideElement grafica">
-          <h1 class="text-center">Reporte</h1>
-          <button type="button" id="generarData" class="btn btn-primary" ><i class="bi bi-shuffle"></i>
-          </button>
-        </div>
-
+        <h1 class="text-center">Reporte</h1>
+        
+       
       </div>
     </div>
+
+    <div id="costos" class="row fila  ">
+
+
+      <div id="costoLitro" class="col text-white bg-primary contenedor contenedorCostos ">
+        <h4>Costo por litro</h4>
+      
+        <i class="bi bi-currency-exchange" style="font-size: 2em;"> </i>
+        <div class="break"></div>
+        
+        <h4 id="labelCostoLitro"class="fw-bold labelCostos">0</h4>
+      </div>
+
+      <div id="costoDia" class="col text-white bg-success contenedor contenedorCostos ">
+        <h4>Costo del dia actual</h4>
+      
+        <i class="bi bi-currency-exchange" style="font-size: 2em;"> </i>
+        <div class="break"></div>
+        
+        <h4 id="labelCostoActual"class="fw-bold labelCostos">0</h4>
+      </div>
+      <div id="costoMensual" class="col contenedor text-white bg-success contenedorCostos">
+        <h4>Costo del mes</h4>
+        
+        <i class="bi bi-currency-exchange" style="font-size: 2em;"> </i>
+        <div class="break"></div>
+      
+        <h4 id="labelCostoMensual"class="fw-bold labelCostos">0</h4>
+      </div>
+      <div id="costoAnual" class="col contenedor  text-white bg-success contenedorCostos">
+        <h4>Costo del año</h4>
+ 
+        <i class="bi bi-currency-exchange" style="font-size: 2em;"> </i>
+        <div class="break"></div>
+        
+        <h4 id="labelCostoAnual"class="fw-bold labelCostos">0</h4>
+      </div>
+
+    </div>
+
+
+
+
     <div class="row fila">
       <div id="containerChartActual" class="col contenedor flex ">
         <h2 class="text-center tituloGrafica">Consumo del dia</h2>
@@ -53,10 +88,10 @@
           <div class=" spinner-border text-primary" role="status">
         </div>
       </div>
-      <div  id="graficaActual" class="hideElement grafica "> <canvas id="chartActual"></canvas></div>
+      <div id="graficaActual" class="hideElement grafica "> <canvas id="chartActual"></canvas></div>
       <h2 id="errorGraficaActual" class="text-center errorGrafica hideElement">¡No hay datos que mostrar!</h2>
-
     </div>
+
 
     <div id="containerChartMensual" class="col contenedor flex">
       <h2 class="text-center tituloGrafica">Consumo mensual de un año</h2>
@@ -64,31 +99,43 @@
         <div class="spinner-border text-primary" role="status">
         </div>
       </div>
-      <div  id="graficaMensual"class="hideElement grafica "><canvas id="chartMensual"></canvas></div>
-      <h2 id="errorGraficaMensual"class="text-center errorGrafica hideElement">¡No hay datos que mostrar!</h2>
+      <div id="graficaMensual" class="hideElement grafica "><canvas id="chartMensual"></canvas></div>
+      <h2 id="errorGraficaMensual" class="text-center errorGrafica hideElement">¡No hay datos que mostrar!</h2>
     </div>
-
   </div>
   <div class="row fila">
     <div id="containerChartDiario" class="col contenedor flex">
-      <h2 class="text-center tituloGrafica">Consumo diario de un mes</h2>
+      <h2 class="text-center tituloGrafica">Consumo por dia de un mes</h2>
       <div class="showElement divCargando">
         <div class="spinner-border text-primary" role="status">
         </div>
       </div>
       <div id="graficaDiario" class="hideElement grafica "> <canvas id="chartDiario"></canvas></div>
-      <h2 id="errorGraficoDiario"class="text-center errorGrafica hideElement">¡No hay datos que mostrar!</h2>
+      <h2 id="errorGraficoDiario" class="text-center errorGrafica hideElement">¡No hay datos que mostrar!</h2>
     </div>
   </div>
-  </div>
-
 
   </div>
+ 
 
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+     
+      <strong class="me-auto">¡Nueva lectura!</strong>
+      <small>¡YAY!</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      El medidor ha producido una lectura del dia de hoy.
+    </div>
+  </div>
+</div>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     integrity="sha384-tKLJeE1ALTUwtXlaGjJYM3sejfssWdAaWR2s97axw4xkiAdMzQjtOjgcyw0Y50KU" crossorigin="anonymous" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="assets/references/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
