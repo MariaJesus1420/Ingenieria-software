@@ -577,7 +577,7 @@ class DataBase {
     return new Date(year, month, day, hour);
   }
   async simularLecturas(meterId, year) {
-    console.log(object);
+   
     let cont = 1;
     for (let month = 1; month <= 12; month++) {
       for (let day = 1; day <= 31; day++) {

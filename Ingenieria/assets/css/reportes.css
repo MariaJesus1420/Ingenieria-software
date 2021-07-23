@@ -4,18 +4,35 @@
   box-shadow: rgba(0, 0, 0, 0.24) 18px 18px 18px;
   display: flex;
   justify-content: center;
+ 
+}
+
+.errorGrafica{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+
+.flex{
+  flex-direction: column;
+  justify-content: center;
 }
 .divCargando{
   align-self: center;
+  
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .spinner-border {
 
-  
+  justify-self: start;
   width: 6rem;
   height: 6rem;
 }
 .fila {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 767.98px) {
@@ -57,14 +74,14 @@
   }
   #containerChartActual {
     position: relative;
-    height: 40vh;
+    height: 50vh;
     width: 40vw;
     
   }
   #containerChartMensual {
     margin-left: 10px;
     position: relative;
-    height: 40vh;
+    height: 50vh;
     width: 40vw;
     
   }

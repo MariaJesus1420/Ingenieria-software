@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
   let divsCargando = document.querySelectorAll(".divCargando");
-  let graficas = document.querySelectorAll(".grafica");
+  
 
   const quitarDivsCargando = () => {
     for (let index = 0; index < divsCargando.length; index++) {
@@ -13,9 +13,39 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
 
   const mostrarGraficas = () => {
-    for (let index = 0; index < graficas.length; index++) {
-      graficas[index].classList.replace("hideElement", "showElement");
+    let errorGraficaActual = document.querySelector("#errorGraficaActual");
+    let errorGraficaMensual = document.querySelector("#errorGraficaMensual");
+    let errorGraficaDiario = document.querySelector("#errorGraficoDiario");
+    let errorGraficaCostos = document.querySelector("#errorGraficaCostos");
+   
+    let graficaActual  = document.querySelector("#graficaActual");;
+    let graficaMensual = document.querySelector("#graficaMensual");;
+    let graficaDiario  = document.querySelector("#graficaDiario");;
+    let containerChartCostos = document.querySelector("#containerChartCostos");
+    if (datosActual.length === 0) {
+      errorGraficaActual.classList.replace("hideElement", "showElement");
+    } else {
+      errorGraficaActual.classList.replace("showElement", "hideElement");
+      graficaActual.classList.replace("hideElement", "showElement");
     }
+
+    if (datosMensual1.length === 0) {
+      errorGraficaMensual.classList.replace("hideElement", "showElement");
+    } else {
+      errorGraficaMensual.classList.replace("showElement", "hideElement");
+      graficaMensual.classList.replace("hideElement", "showElement");
+    }
+
+    if (datosDiario1.length === 0) {
+      errorGraficaDiario.classList.replace("hideElement", "showElement");
+    } else {
+      errorGraficaDiario.classList.replace("showElement", "hideElement");
+      graficaDiario.classList.replace("hideElement", "showElement");
+    }
+
+    containerChartCostos.classList.replace("hideElement","showElement");
+
+
   };
   let meterId = sessionStorage.getItem("id");
 
@@ -84,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   $("#generarData").on("click", async () => {
     let db = new DataBase();
-    await db.simularLecturas(meterId, 2020);
+    await db.simularLecturas(meterId, 2021);
   });
 
   let datosMensual1 = [];
@@ -95,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   let datosActual = [];
 
-  let labelDatosActual = nombreDias[new Date().getDay() - 1];
+  let labelDatosActual ;
 
   let labelDatosMensual1;
   let labelDatosMensual2;
@@ -115,11 +145,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         datosMensual[index - 1] = resumenMensual[`${index}`].total;
       }
 
-      return year;
+      
     }
+    return year;
   };
 
-  const cargarDiario = async (month, year, datosDiario) => {
+  const cargarDiario = async (month, year, datosDiario,label) => {
     let db = new DataBase();
 
     let resumenDiario = await db.obtenerDocumento(
@@ -145,10 +176,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         dia++;
       }
 
+     
+    } 
       return nombreMeses[month - 1];
-    } else {
-      return null;
-    }
+    
   };
 
   const cargarActual = async () => {
@@ -157,7 +188,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       `Readings/${meterId}/${new Date().getFullYear()}`,
       `${new Date().getMonth() + 1}`
     );
-    if (resumenActual) {
+    if ((resumenActual != null) && (resumenActual!= undefined)) {
       let datosDelDia = Object.entries(resumenActual[new Date().getDate()]);
 
       let hora = 0;
@@ -173,7 +204,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         (x) => x.valor
       );
       datosActual = result.slice();
-      return null;
+      return nombreDias[new Date().getDay() - 1];
     }
   };
   labelDatosDiarios1 = await cargarDiario(
@@ -191,11 +222,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     datosMensual1
   );
   labelDatosMensual2 = await cargarMensual(
-    new Date().getFullYear() - 1,
+    new Date().getFullYear() - 2,
     datosMensual2
   );
 
-  await cargarActual();
+  labelDatosActual = await cargarActual();
   quitarDivsCargando();
   mostrarGraficas();
 
@@ -221,7 +252,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       maintainAspectRatio: false,
       legend: { display: true },
       title: {
-        display: true,
+        display: false,
         text: "Hoy",
         fontSize: 30,
       },
@@ -263,7 +294,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       maintainAspectRatio: false,
       responsive: true,
       title: {
-        display: true,
+        display: false,
         text: "Mensual",
         fontSize: 30,
       },
@@ -299,7 +330,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       responsive: true,
       legend: { display: true },
       title: {
-        display: true,
+        display: false,
         text: "Diario",
         fontSize: 30,
       },
