@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     //containerChartCostos.classList.replace("hideElement","showElement");
   };
   let meterId = sessionStorage.getItem("id");
-
+  
   let nombreHoras = [
     "0h",
     "1h",
