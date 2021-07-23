@@ -3,8 +3,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
+  let divsCargando = document.querySelectorAll(".divCargando");
+  let graficas = document.querySelectorAll(".grafica");
 
-  let meterId = "COFG9yKTnL6t0DPIShSz";
+  const quitarDivsCargando = () => {
+    for (let index = 0; index < divsCargando.length; index++) {
+      divsCargando[index].classList.replace("showElement", "hideElement");
+    }
+  };
+
+  const mostrarGraficas = () => {
+    for (let index = 0; index < graficas.length; index++) {
+      graficas[index].classList.replace("hideElement", "showElement");
+    }
+  };
+  let meterId = sessionStorage.getItem("id");
 
   let nombreHoras = [
     "0h",
@@ -59,23 +72,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function updateData(chart) {
     let lenghtDataGrafica = chart.data.datasets[0].data.length;
-    console.log("EVALUATING", (lenghtDataGrafica < datosActual.length));
-    if((datosActual.length > 0) && (lenghtDataGrafica < datosActual.length)){
-      console.log("UPDATING");
-      console.log( chart.data.datasets[0]);
-      chart.data.datasets[0].data[lenghtDataGrafica ] = datosActual[datosActual.length-1];
+
+    if (datosActual.length > 0 && lenghtDataGrafica < datosActual.length) {
+      chart.data.datasets[0].data[lenghtDataGrafica] =
+        datosActual[datosActual.length - 1];
       datosActual[datosActual.length - 1];
 
-    chart.update();
-    console.log("HOLA");
+      chart.update();
     }
-    
   }
 
   $("#generarData").on("click", async () => {
     let db = new DataBase();
     await db.simularLecturas(meterId, 2020);
-    console.log("DONE");
   });
 
   let datosMensual1 = [];
@@ -101,11 +110,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       `Readings/${meterId}/${year}`,
       "resumen"
     );
-    for (let index = 1; index < 13; index++) {
-      datosMensual[index - 1] = resumenMensual[`${index}`].total;
-    }
+    if (resumenMensual) {
+      for (let index = 1; index < 13; index++) {
+        datosMensual[index - 1] = resumenMensual[`${index}`].total;
+      }
 
-    return year;
+      return year;
+    }
   };
 
   const cargarDiario = async (month, year, datosDiario) => {
@@ -118,23 +129,26 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let dia = 1;
     let acumuladoDia = 0;
+    if (resumenDiario) {
+      while (resumenDiario[dia] != undefined) {
+        let lectura = 0;
+        let lecturas = Object.entries(resumenDiario[dia]);
 
-    while (resumenDiario[dia] != undefined) {
-      let lectura = 0;
-      let lecturas = Object.entries(resumenDiario[dia]);
+        while (lecturas[lectura] != undefined) {
+          acumuladoDia += lecturas[lectura][1].valor;
+          lectura++;
+        }
 
-      while (lecturas[lectura] != undefined) {
-        acumuladoDia += lecturas[lectura][1].valor;
-        lectura++;
+        datosDiario[dia - 1] = acumuladoDia;
+        acumuladoDia = 0;
+
+        dia++;
       }
 
-      datosDiario[dia - 1] = acumuladoDia;
-      acumuladoDia = 0;
-
-      dia++;
+      return nombreMeses[month - 1];
+    } else {
+      return null;
     }
-
-    return nombreMeses[month-1];
   };
 
   const cargarActual = async () => {
@@ -143,21 +157,24 @@ document.addEventListener("DOMContentLoaded", async function () {
       `Readings/${meterId}/${new Date().getFullYear()}`,
       `${new Date().getMonth() + 1}`
     );
+    if (resumenActual) {
+      let datosDelDia = Object.entries(resumenActual[new Date().getDate()]);
 
-    let datosDelDia = Object.entries(resumenActual[new Date().getDate()]);
-
-    let hora = 0;
-    let datosActualSort = [];
-    while (datosDelDia[hora] != undefined) {
-      datosActualSort[hora] = {
-        fechaGenerado: datosDelDia[hora][1].fechaGenerado.seconds,
-        valor: datosDelDia[hora][1].valor,
-      };
-      hora++;
+      let hora = 0;
+      let datosActualSort = [];
+      while (datosDelDia[hora] != undefined) {
+        datosActualSort[hora] = {
+          fechaGenerado: datosDelDia[hora][1].fechaGenerado.seconds,
+          valor: datosDelDia[hora][1].valor,
+        };
+        hora++;
+      }
+      let result = _.sortBy(datosActualSort, "fechaGenerado").map(
+        (x) => x.valor
+      );
+      datosActual = result.slice();
+      return null;
     }
-    let result = _.sortBy(datosActualSort, "fechaGenerado").map((x) => x.valor);
-    datosActual = result.slice();
-    return null;
   };
   labelDatosDiarios1 = await cargarDiario(
     new Date().getMonth() + 1,
@@ -179,10 +196,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   );
 
   await cargarActual();
+  quitarDivsCargando();
+  mostrarGraficas();
 
   let dataBase = new DataBase();
 
-  
   let chartActual = new Chart("chartActual", {
     type: "line",
     data: {
@@ -210,13 +228,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     },
   });
   await dataBase.db
-  .collection(`Readings/${meterId}/${new Date().getFullYear()}`)
-  .doc(`${new Date().getMonth() + 1}`)
-  .onSnapshot(async (doc) => {
-    await cargarActual();
-    updateData(chartActual);
-  });
-  console.log("LISTO CHART ACTUAL");
+    .collection(`Readings/${meterId}/${new Date().getFullYear()}`)
+    .doc(`${new Date().getMonth() + 1}`)
+    .onSnapshot(async (doc) => {
+      await cargarActual();
+      updateData(chartActual);
+    });
+
   let chartMensual = new Chart("chartMensual", {
     type: "line",
     data: {
@@ -277,6 +295,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     },
     options: {
       maintainAspectRatio: false,
+
       responsive: true,
       legend: { display: true },
       title: {
@@ -286,4 +305,20 @@ document.addEventListener("DOMContentLoaded", async function () {
       },
     },
   });
+  chartActual.update();
+  window.onbeforeunload = function () {
+    if (document.referrer === "") {
+      sessionStorage.removeItem("id");
+    } else {
+      // do foo
+    }
+  };
+
+  window.onload = function () {
+    if (document.referrer === "") {
+      sessionStorage.removeItem("id");
+    } else {
+      // do foo
+    }
+  };
 });
