@@ -514,10 +514,10 @@ class DataBase {
       });
   }
   async eliminarUsuarioDeMedidor(idMeter,email) {
-    let uid=this.buscarUsuarioXemail(email);
+    let uid=await this.buscarUsuarioXemail(email);
     let path = `users.${uid}`;
     var cityRef = this.db.collection('Devices').doc(idMeter);
-
+    console.log(cityRef,path)
     // Remove the 'capital' field from the document
     var removeCapital = cityRef.update({
       [path]: firebase.firestore.FieldValue.delete()

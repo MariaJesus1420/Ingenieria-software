@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded',async function(){
     // })
     formEliminar.addEventListener('submit',async e=>{
         e.preventDefault();
-        // await db.eliminarDispositivo(meterId,document.getElementById('inputEmail').value)
-        // $(location).attr('href', "loged.html");
+        await db.eliminarUsuarioDeMedidor(meterId,document.getElementById('inputEmail').value)
+        $(location).attr('href', "loged.html");
     })
 })
