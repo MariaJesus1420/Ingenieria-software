@@ -21,7 +21,6 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
   let user;
   if (canLogin) {
     console.log('--------------------');
-    try {
       user = await db.loginEmailPassword(
         inputEmail.value,
         inputPassword.value,
@@ -29,8 +28,8 @@ btnConfirm_loginRegist.addEventListener("click", async (event) => {
       );
 
       console.log(user);
-      $(location).attr("href", "loged.html");
-    } catch (e) {
+      // $(location).attr("href", "loged.html");
+    if (user==null) {
       $("#modalContent").text(
         "Las credenciales son incorrectas o el usuario no se encuentra registrado"
       );
