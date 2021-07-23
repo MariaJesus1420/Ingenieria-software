@@ -324,6 +324,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       sessionStorage.setItem("selectedId", selectedUserId);
       sessionStorage.setItem("selectedEmail", selectedUserEmail);
       $(location).attr('href', "admin.html");
-    }else{console.log('usted no tiene permisos')}
+    }else{alert('solo los admin pueden administrar los usuarios');}
   })
 });

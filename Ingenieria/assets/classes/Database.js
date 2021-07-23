@@ -517,85 +517,56 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  async eliminarUsuarioDeMedidor(idMeter,email) {
+    let uid=await this.buscarUsuarioXemail(email);
+    let path = `users.${uid}`;
+    var cityRef = this.db.collection('Devices').doc(idMeter);
+    console.log(cityRef,path)
+    // Remove the 'capital' field from the document
+    var removeCapital = cityRef.update({
+      [path]: firebase.firestore.FieldValue.delete()
+    });
+    return removeCapital;
+  }
+  async simularLecturas(meterId) {
+    let lectura = {
+      fechaGenerado: new Date(),
+      fechaRecibido: new Date(),
+      valor:firebase.firestore.FieldValue.increment(50),
+    };
+    let year = new Date().getFullYear();
+    let cont=1;
+    for (let month = 1; month <= 12; month++) {
+      for (let day = 1; day <= 31; day++) {
+        await  this.db.collection("Readings").doc(meterId).collection("2020").doc(month.toString()).update({
+          [`${day}`]:{lectura}
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+      console.log("contador "+month+" "+day+" "+cont++)
+        switch (month) {
+          case 2:
+            day===28?day=31:"";
+            break;
+          case 4:
+            day==30?day=31:"";
+            break;
+          case 6:
+            day==30?day=31:"";
+            break;
+          case 9:
+            day==30?day=31:"";
+          break; 
+          case 11:
+            day==30?day=31:"";
+            break;
+        }
+      }
+    }
+  };
+}
 }
