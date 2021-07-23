@@ -2,56 +2,76 @@
   border-radius: 5px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.24) 18px 18px 18px;
+  display: flex;
+  justify-content: center;
 }
+.divCargando{
+  align-self: center;
+}
+.spinner-border {
 
+  
+  width: 6rem;
+  height: 6rem;
+}
 .fila {
   margin-top: 10px;
 }
 
-@media (max-width: 767.98px) { 
-    #graficos{
-        width: 90vw;
-    }
+@media (max-width: 767.98px) {
+  #graficos {
+    width: 100vw;
+  }
 
-    #containerChartActual{
-        position: relative;
-        height: 40vh;
-        
-    }
-    #containerChartMensual {
-      
-      position: relative;
-      height: 40vh;
-        margin-top: 10px;
-    }
-    #containerChartDiario {
-      position: relative;
-      height: 40vh;
+  #containerChartActual {
+    position: relative;
+    height: 40vh;
+
+  }
+  #containerChartMensual {
+    position: relative;
+    height: 40vh;
+    margin-top: 10px;
     
-    }
+  }
+  #containerChartDiario {
+    position: relative;
+    height: 40vh;
+   
+  }
+}
+.grafica{
+  width: 100%;
+  height: 100%;
+}
+.hideElement {
+  display: none;
 }
 
-@media (min-width: 768px) { 
-    #graficos{
-        width: 90vw;
-    }
-    #containerChartActual{
-        position: relative;
-        height: 40vh;
-        width: 40vw;
-    }
-    #containerChartMensual {
-      margin-left: 10px;
-      position: relative;
-      height: 40vh;
-      width: 40vw;
-    }
-    #containerChartDiario {
-      position: relative;
-      height: 40vh;
-      width: 10vw;
-    }
-
+.showElement {
+  display: block;
 }
-
-
+@media (min-width: 768px) {
+  #graficos {
+    width: 100vw;
+  }
+  #containerChartActual {
+    position: relative;
+    height: 40vh;
+    width: 40vw;
+    
+  }
+  #containerChartMensual {
+    margin-left: 10px;
+    position: relative;
+    height: 40vh;
+    width: 40vw;
+    
+  }
+  #containerChartDiario {
+    position: relative;
+    height: 40vh;
+    width: 10vw;
+   
+  }
+}

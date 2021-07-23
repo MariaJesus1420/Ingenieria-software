@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let buttonReportes = document.createElement("a");
     buttonReportes.classList.add("btn-outline-success", "btn");
-    buttonReportes.href = "/Ingenieria/Graphic.html"
+    buttonReportes.href = "#"
     buttonReportes.text = " Reportes";
     buttonReportes.style = "margin-top: 10px";
     
@@ -135,6 +135,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     buttonConfigurar.addEventListener("click", () => {
       sessionStorage.setItem("id", id);
       $(location).attr("href", "config.html");
+    });
+
+    buttonReportes.addEventListener("click", () => {
+      sessionStorage.setItem("id", id);
+      $(location).attr("href", "Graphic.html");
     });
     return divCard;
   };
