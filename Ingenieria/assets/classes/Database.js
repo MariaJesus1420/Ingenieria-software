@@ -597,57 +597,5 @@ class DataBase {
 
 
 
-  generateDate(year, month, day, hour) {
-    return new Date(year, month, day, hour);
-  }
-  async simularLecturas(meterId,year) {
-    console.log(object);
-    let cont = 1;
-    for (let month = 1; month <= 12; month++) {
-      for (let day = 1; day <= 31; day++) {
-        for (let hora = 1; hora < 2; hora++) {
-          let lectura = {
-            fechaGenerado: this.generateDate(year, month-1, day, hora-1),
-            fechaRecibido: this.generateDate(year, month - 1, day, hora-1),
-            valor: Math.floor(Math.random() * (300 - 100 + 1)) + 100,
-          };
-          await this.db
-            .collection("Readings")
-            .doc(meterId)
-            .collection(year.toString())
-            .doc(month.toString())
-            .set(
-              {
-                [`${day}`]: { [`lectura${hora}`]: lectura },
-              },
-              { merge: true }
-            )
-            .then(() => {
-              console.log("Document successfully written!");
-            })
-            .catch((error) => {
-              console.error("Error writing document: ", error);
-            });
-          console.log("contador " + month + " " + day + " " + cont++);
-          switch (month) {
-            case 2:
-              day === 28 ? (day = 31) : "";
-              break;
-            case 4:
-              day == 30 ? (day = 31) : "";
-              break;
-            case 6:
-              day == 30 ? (day = 31) : "";
-              break;
-            case 9:
-              day == 30 ? (day = 31) : "";
-              break;
-            case 11:
-              day == 30 ? (day = 31) : "";
-              break;
-          }
-        }
-      }
-    }
-  }
+
 }
