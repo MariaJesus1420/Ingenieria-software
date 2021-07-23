@@ -317,13 +317,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     e.preventDefault();
     console.log(e.target.classList.contains("bi"));
     let rol = await buscarElRol(Object.entries(datosDB.users));
-    if(e.target.classList.contains("bi-sliders")&&rol==='Admin'){
-      const user = e.target.parentElement.parentElement;
-      selectedUserEmail = user.querySelector('button').getAttribute('data-id');
-      selectedUserId=await db.buscarUsuarioXemail(selectedUserEmail);
-      sessionStorage.setItem("selectedId", selectedUserId);
-      sessionStorage.setItem("selectedEmail", selectedUserEmail);
-      $(location).attr('href', "admin.html");
-    }else{alert('solo los admin pueden administrar los usuarios');}
+    if(e.target.classList.contains("bi-sliders")){
+      if(rol==='Admin'){
+        const user = e.target.parentElement.parentElement;
+        selectedUserEmail = user.querySelector('button').getAttribute('data-id');
+        selectedUserId=await db.buscarUsuarioXemail(selectedUserEmail);
+        sessionStorage.setItem("selectedId", selectedUserId);
+        sessionStorage.setItem("selectedEmail", selectedUserEmail);
+        $(location).attr('href', "admin.html");
+      }else{alert('solo los admin pueden administrar los usuarios');}
+    }
   })
 });
