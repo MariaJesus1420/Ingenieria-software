@@ -543,7 +543,7 @@ class DataBase {
           .collection("2020")
           .doc(month.toString())
           .update({
-            [`${day}`]: { lectura },
+            [`d${day}`]: { lectura },
           })
           .then(() => {
             console.log("Document successfully written!");

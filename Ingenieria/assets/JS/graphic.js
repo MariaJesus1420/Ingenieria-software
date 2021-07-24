@@ -46,15 +46,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       errorGraficaActual.classList.replace("showElement", "hideElement");
       graficaActual.classList.replace("hideElement", "showElement");
-      console.log(datosActual);
+    
       calcularCosto(
         document.querySelector("#labelCostoActual"),
         datosActual,
         costoLitro
       );
     }
-
+    console.log(datosMensual1);
     if (datosMensual1.length === 0) {
+      console.log("VACIO");
       errorGraficaMensual.classList.replace("hideElement", "showElement");
     } else {
       errorGraficaMensual.classList.replace("showElement", "hideElement");
@@ -70,6 +71,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       errorGraficaDiario.classList.replace("hideElement", "showElement");
     } else {
       errorGraficaDiario.classList.replace("showElement", "hideElement");
+      errorGraficaDiario.classList.remove("showElement");
+      errorGraficaDiario.classList.add("hideElement");
       graficaDiario.classList.replace("hideElement", "showElement");
       calcularCosto(
         document.querySelector("#labelCostoAnual"),
@@ -181,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const cargarMensual = async (year, datosMensual) => {
     let db = new DataBase();
-
+  
     let resumenMensual = await db.obtenerDocumento(
       `Readings/${meterId}/${year}`,
       "resumen"
@@ -191,6 +194,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         datosMensual[index - 1] = resumenMensual[`${index}`].total;
       }
     }
+  
     return year;
   };
 
@@ -230,7 +234,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       `${new Date().getMonth() + 1}`
     );
     if (resumenActual != null && resumenActual != undefined) {
-      let datosDelDia = Object.entries(resumenActual[new Date().getDate()]);
+      console.log(resumenActual);
+      let datosDelDia = Object.entries(resumenActual[`d${new Date().getDate()}`]);
 
       let hora = 0;
       let datosActualSort = [];
@@ -262,6 +267,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     new Date().getFullYear(),
     datosMensual1
   );
+
   labelDatosMensual2 = await cargarMensual(
     new Date().getFullYear() - 2,
     datosMensual2
