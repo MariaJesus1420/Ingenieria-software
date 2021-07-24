@@ -626,4 +626,20 @@ class DataBase {
       }
     }
   }
+  async getMeterName(meterid){
+    let docRef =  this.db.collection("Devices").doc(`${meterid}`);
+    let name;
+        await docRef.get().then((doc) => {
+          if (doc.exists) {
+            let {customName}=doc.data();
+            name=customName;
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch((error) => {
+          console.log("Error getting document:", error);
+      });
+      return name;
+  }
 }
