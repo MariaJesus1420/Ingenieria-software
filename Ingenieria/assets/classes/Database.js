@@ -374,11 +374,10 @@ class DataBase {
       });
   }
 
-  async addDateForUser(idUser, idMeter, cutOffDay, payDay) {
+  async addDateForUser(idUser, idMeter, payDay) {
     let pathUserConfig = `users.${idUser}.config`;
 
     let dateUser = {
-      cutOffDayUser: cutOffDay,
       payDayUser: payDay,
     };
 
