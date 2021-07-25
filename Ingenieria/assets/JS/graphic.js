@@ -393,4 +393,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
+  document.getElementById('btnFactura').addEventListener('click',async e=>{
+    try{
+      let user = await firebase.auth().currentUser;
+      console.log(user.email,costoLitro);
+      e.preventDefault();
+      const email=user.email;
+      firebase
+      .firestore()
+      .collection("Notificacion")
+      .add({email,costoLitro})
+      .then(r=>{
+          console.log(r);
+          alert('Correo Enviado');
+      })
+    }catch(w){
+      console.log(w)
+    }
+  })
 });

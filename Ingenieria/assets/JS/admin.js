@@ -30,16 +30,4 @@ document.addEventListener('DOMContentLoaded',async function(){
         await db.eliminarUsuarioDeMedidor(meterId,document.getElementById('inputEmail').value)
         $(location).attr('href', "config.html");
     })
-    // document.getElementById('formTest').addEventListener('submit',e=>{
-    //     e.preventDefault();
-    //     const email=e.target.email.value;
-    //     firebase
-    //     .firestore()
-    //     .collection("Notificacion")
-    //     .add({email})
-    //     .then(r=>{
-    //         console.log(r);
-    //         alert('se');
-    //     })
-    //   })
 })
