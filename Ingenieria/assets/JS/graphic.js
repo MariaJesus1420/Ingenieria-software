@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
   let divsCargando = document.querySelectorAll(".divCargando");
-
-  let costoLitro = 3;
+//falta hacer consulta
+  let costoLitro =3 ;
 
   const quitarDivsCargando = () => {
     for (let index = 0; index < divsCargando.length; index++) {

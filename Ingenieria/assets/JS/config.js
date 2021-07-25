@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let newName = document.querySelector("#nuevoNombreInput");
   let usersTable = document.querySelector("#v-pills-usuarios");
   let combo = document.getElementById("rolSelect");
+  let costo = document.querySelector("#costoLitro");
 
   meterId = sessionStorage.getItem("id");
 
@@ -273,7 +274,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (optCorte.value * 1 < optPago.value * 1) {
-      await db.addDates(meterId, optCorte.value, optPago.value);
+      await db.addDates(meterId, optCorte.value, optPago.value, costo.value*1);
       console.log("Dias agregados");
       $("#exampleModalToggle").modal("show");
 
