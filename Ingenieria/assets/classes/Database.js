@@ -161,6 +161,7 @@ class DataBase {
         lastValue: device.lastValue,
         type: device.type,
         updateConfig: device.updateConfig,
+    
       })
       .then((docRef) => {
         id = docRef.id;
@@ -356,13 +357,14 @@ class DataBase {
     return device;
   }
 
-  async addDates(idMeter, cutOffDay, payDay) {
+  async addDates(idMeter, cutOffDay, payDay, costoLitro) {
     await this.db
       .collection("Devices")
       .doc(idMeter)
       .update({
         cutOffDay: cutOffDay,
         payDay: payDay,
+        costoLitro: costoLitro,
       })
       .then(() => {
         console.log("Document successfully written!");
@@ -454,6 +456,7 @@ class DataBase {
               customName: device.customName,
               lastValue: device.lastValue,
               type: device.type,
+              costoLitro: device.costoLitro,
             };
 
             this.db
