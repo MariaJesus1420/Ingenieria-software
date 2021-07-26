@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
+  let costoMes,costoDia,costoAnno;
   let meterId = sessionStorage.getItem("id");
   let numeroDias = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     console.log(acumulado);
     labelCosto.innerText = formatter.format(acumulado);
+    return formatter.format(acumulado);
   };
 
   const mostrarGraficas = () => {
@@ -58,7 +60,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       errorGraficaActual.classList.replace("showElement", "hideElement");
       graficaActual.classList.replace("hideElement", "showElement");
 
-      calcularCosto(
+     costoDia= calcularCosto(
         document.querySelector("#labelCostoActual"),
         datosActual,
         costoLitro
@@ -70,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     } else {
       errorGraficaMensual.classList.replace("showElement", "hideElement");
       graficaMensual.classList.replace("hideElement", "showElement");
-      calcularCosto(
+    costoMes= calcularCosto(
         document.querySelector("#labelCostoMensual"),
         datosMensual1,
         costoLitro
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       errorGraficaDiario.classList.add("hideElement");
       graficaDiario.classList.replace("hideElement", "showElement");
       graficaDiario.classList.add("showElement");
-      calcularCosto(
+    costoAnno= calcularCosto(
         document.querySelector("#labelCostoAnual"),
         datosDiario1,
         costoLitro
@@ -415,14 +417,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
   document.getElementById("btnFactura").addEventListener("click", async (e) => {
     try {
+      if(costoLitro==undefined||costoDia==undefined||costoMes==undefined||costoAnno==undefined){
+        costoLitro=0;
+        costoMes=0;
+        costoDia=0;
+        costoAnno=0;
+      }
       let user = await firebase.auth().currentUser;
-      console.log(user.email, costoLitro);
+      console.log(user.email, costoLitro,costoAnno);
       e.preventDefault();
       const email = user.email;
       firebase
         .firestore()
         .collection("Notificacion")
-        .add({ email, costoLitro })
+        .add({ email, costoLitro,costoDia,costoMes,costoAnno })
         .then((r) => {
           console.log(r);
           alert("Correo Enviado");
