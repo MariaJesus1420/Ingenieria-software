@@ -3,9 +3,10 @@ class DataBase {
   constructor() {}
 
   async obtenerDocumento(coleccion, documento) {
+    
     var docRef = this.db.collection(coleccion).doc(documento);
     let result;
-
+    
     await docRef
       .get()
       .then((doc) => {
