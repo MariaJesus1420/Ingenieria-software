@@ -161,6 +161,7 @@ class DataBase {
         lastValue: device.lastValue,
         type: device.type,
         updateConfig: device.updateConfig,
+    
       })
       .then((docRef) => {
         id = docRef.id;
@@ -356,13 +357,14 @@ class DataBase {
     return device;
   }
 
-  async addDates(idMeter, cutOffDay, payDay) {
+  async addDates(idMeter, cutOffDay, payDay, costoLitro) {
     await this.db
       .collection("Devices")
       .doc(idMeter)
       .update({
         cutOffDay: cutOffDay,
         payDay: payDay,
+        costoLitro: costoLitro,
       })
       .then(() => {
         console.log("Document successfully written!");
@@ -372,11 +374,10 @@ class DataBase {
       });
   }
 
-  async addDateForUser(idUser, idMeter, cutOffDay, payDay) {
+  async addDateForUser(idUser, idMeter, payDay) {
     let pathUserConfig = `users.${idUser}.config`;
 
     let dateUser = {
-      cutOffDayUser: cutOffDay,
       payDayUser: payDay,
     };
 
@@ -454,6 +455,7 @@ class DataBase {
               customName: device.customName,
               lastValue: device.lastValue,
               type: device.type,
+              costoLitro: device.costoLitro,
             };
 
             this.db
@@ -625,5 +627,21 @@ class DataBase {
         }
       }
     }
+  }
+  async getMeterName(meterid){
+    let docRef =  this.db.collection("Devices").doc(`${meterid}`);
+    let name;
+        await docRef.get().then((doc) => {
+          if (doc.exists) {
+            let {customName}=doc.data();
+            name=customName;
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch((error) => {
+          console.log("Error getting document:", error);
+      });
+      return name;
   }
 }

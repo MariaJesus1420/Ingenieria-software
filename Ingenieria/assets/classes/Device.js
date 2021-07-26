@@ -5,13 +5,16 @@ class Device {
     lastValue;
     type;
     activated;
-    constructor(customName, id, updateConfig, lastValue, type, activated) {
+    costoLitro;
+
+    constructor(customName, id, updateConfig, lastValue, type, activated, costoLitro) {
         this.customName = customName;
         this.id = id;
         this.updateConfig = updateConfig;
         this.lastValue = lastValue;
         this.type = type;
         this.activated = activated;
+        this.costoLitro=costoLitro;
     }
 
     set setCustomName(customName) {
@@ -45,6 +48,12 @@ class Device {
     get getId() {
         return this.id;
     }
+    get costoLitro() {
+        return this.costoLitro;
+    }
+    set costoLitro(costoLitro) {
+        this.costoLitro = costoLitro;
+    }
 
 }
 
@@ -56,11 +65,12 @@ let deviceConverter = {
             updateConfig: device.updateConfig,
             lastValue: device.lastValue,
             type: device.type,
-            activated: device.activated
+            activated: device.activated,
+            costoLitro:device.costoLitro
         };
     },
     fromFirestore: function(snapshot, options) {
         const data = snapshot.data(options);
-        return new Device(data.customName, data.id, data.updateConfig, data.lastValue, data.type, data.activated);
+        return new Device(data.customName, data.id, data.updateConfig, data.lastValue, data.type, data.activated, data.costoLitro);
     }
 };

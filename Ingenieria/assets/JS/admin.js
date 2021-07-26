@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded',async function(){
     let selectedUserEmail = sessionStorage.getItem("selectedEmail");
     let meterId = sessionStorage.getItem("id");
     console.log(selectedUserEmail,selectedUserId);
-    document.getElementById("nombreUsuario").innerText=""+selectedUserEmail+" en el medidor "+meterId;
+    document.getElementById("nombreUsuario").innerText=""+selectedUserEmail+" en el medidor "+await  db.getMeterName(meterId);
+
     // let btnSimular=document.getElementById('btnSimular');
     let formEliminar=document.getElementById('formEliminar');
     // medotos para modificar todos los permisos
     formPermisos.addEventListener('submit',async e=>{
+
         e.preventDefault();
         let rolModalPermisos=document.getElementById("rolModalPermisos");
         let selected = rolModalPermisos.options[rolModalPermisos.selectedIndex].text;
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded',async function(){
         alert('Cambio de rol exitoso');
     })
     btnVolver.addEventListener('click', e => {
-        $(location).attr('href', "loged.html");
+        $(location).attr('href', "config.html");
     })
     // btnSimular.addEventListener('click',async e=>{
     //     // await db.simularLecturas(meterId);
@@ -26,6 +28,6 @@ document.addEventListener('DOMContentLoaded',async function(){
     formEliminar.addEventListener('submit',async e=>{
         e.preventDefault();
         await db.eliminarUsuarioDeMedidor(meterId,document.getElementById('inputEmail').value)
-        $(location).attr('href', "loged.html");
+        $(location).attr('href', "config.html");
     })
 })

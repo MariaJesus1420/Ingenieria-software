@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
   let divsCargando = document.querySelectorAll(".divCargando");
-
-  let costoLitro = 3;
+//falta hacer consulta
+  let costoLitro =3 ;
 
   const quitarDivsCargando = () => {
     for (let index = 0; index < divsCargando.length; index++) {
@@ -402,4 +402,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
+  document.getElementById('btnFactura').addEventListener('click',async e=>{
+    try{
+      let user = await firebase.auth().currentUser;
+      console.log(user.email,costoLitro);
+      e.preventDefault();
+      const email=user.email;
+      firebase
+      .firestore()
+      .collection("Notificacion")
+      .add({email,costoLitro})
+      .then(r=>{
+          console.log(r);
+          alert('Correo Enviado');
+      })
+    }catch(w){
+      console.log(w)
+    }
+  })
 });

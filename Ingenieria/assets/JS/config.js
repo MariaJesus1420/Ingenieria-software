@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   let scheduleObject = new Schedule(true);
   const btnSalir = document.querySelector('#salir');
   let btnGuardarFechaUsuario = document.querySelector("#btnguardarFechasUsuarios");
-  let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
   let configWaterMeterAdmin = document.querySelector("#funcionesWaterMeterAdmin");
   let configWaterMeterCustomer = document.querySelector("#funcionesWaterMeterUser");
@@ -26,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let newName = document.querySelector("#nuevoNombreInput");
   let usersTable = document.querySelector("#v-pills-usuarios");
   let combo = document.getElementById("rolSelect");
+  let costo = document.querySelector("#costoLitro");
 
   meterId = sessionStorage.getItem("id");
 
@@ -63,16 +63,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         `<option value="${day}">${day}</option>`
 
       $("#slcPayDay").append(newRow);
-    }
-  }
-
-  const cutDaysUser = (days) => {
-    for (let index = 1; index < days; index++) {
-      const day = index;
-      let newRow =
-        `<option value="${day}">${day}</option>`
-
-      $("#slcCutOffDayUser").append(newRow);
     }
   }
 
@@ -153,7 +143,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       loadUsers(Object.entries(datosDB.users));
       cutDays(32);
       payDays(32);
-      cutDaysUser(32);
       payDaysUser(32);
       console.log(await buscarElRol(Object.entries(datosDB.users)), '----------');
       if (await buscarElRol(Object.entries(datosDB.users)) === "Admin") {
@@ -273,7 +262,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (optCorte.value * 1 < optPago.value * 1) {
-      await db.addDates(meterId, optCorte.value, optPago.value);
+      await db.addDates(meterId, optCorte.value, optPago.value, costo.value*1);
       console.log("Dias agregados");
       $("#exampleModalToggle").modal("show");
 
@@ -285,15 +274,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   btnGuardarFechaUsuario.addEventListener("click", async () => {
     let db = new DataBase();
     let user = await firebase.auth().currentUser;
-    let optCorteUsuario;
     let optPagoUsuario;
-
-    for (let i = 0, len = fechaCorteUsuario.options.length; i < len; i++) {
-      optCorteUsuario = fechaCorteUsuario.options[i];
-      if (optCorteUsuario.selected === true) {
-        break;
-      }
-    }
 
     for (let i = 0, len = fechaPagoUsuario.options.length; i < len; i++) {
       optPagoUsuario = fechaPagoUsuario.options[i];
@@ -302,14 +283,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     }
 
-    if (optCorteUsuario.value * 1 < optPagoUsuario.value * 1) {
-      await db.addDateForUser(user.uid, meterId, optCorteUsuario.value, optPagoUsuario.value);
+      await db.addDateForUser(user.uid, meterId, optPagoUsuario.value);
       console.log("Dias agregados");
-      $("#exampleModalToggle").modal("show");
-    } else {
-      alert("El día de corte debe ser menor al día de pago");
-    }
   });
+
+
   let selectedUserEmail;
   let selectedUserId;
   // metodo para agregar los pemisos
@@ -317,13 +295,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     e.preventDefault();
     console.log(e.target.classList.contains("bi"));
     let rol = await buscarElRol(Object.entries(datosDB.users));
-    if(e.target.classList.contains("bi-sliders")&&rol==='Admin'){
-      const user = e.target.parentElement.parentElement;
-      selectedUserEmail = user.querySelector('button').getAttribute('data-id');
-      selectedUserId=await db.buscarUsuarioXemail(selectedUserEmail);
-      sessionStorage.setItem("selectedId", selectedUserId);
-      sessionStorage.setItem("selectedEmail", selectedUserEmail);
-      $(location).attr('href', "admin.html");
-    }else{alert('solo los admin pueden administrar los usuarios');}
+    if(e.target.classList.contains("bi-sliders")){
+      if(rol==='Admin'){
+        const user = e.target.parentElement.parentElement;
+        selectedUserEmail = user.querySelector('button').getAttribute('data-id');
+        selectedUserId=await db.buscarUsuarioXemail(selectedUserEmail);
+        sessionStorage.setItem("selectedId", selectedUserId);
+        sessionStorage.setItem("selectedEmail", selectedUserEmail);
+        $(location).attr('href', "admin.html");
+      }else{alert('solo los admin pueden administrar los usuarios');}
+    }
   })
 });

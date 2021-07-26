@@ -96,7 +96,7 @@
                         <div id="funcionesWaterMeterAdmin" class="hideElement">
                             <form>
                                 <div>
-                                    <h4>Configuracion de fechas</h4>
+                                    <h4>Configuración de fechas</h4>
                                     <label for="lbcutOffDate">Seleccione la fecha de corte:</label>
                                     <select id="slcCutOffDay" class="form-select" aria-label="Default select example">
                                         <option selected>Dia del mes</option>
@@ -111,28 +111,25 @@
                                     </select>
                                 </div>
                             </form>
+                            <form>
+                                <div>
+                                    <label for="lbpayday">Costo por litro</label>
+                                    <input  class="form-control" id="costoLitro" placeholder="Ingrese el costo por litro de agua" required>
+                                </div>
+                            </form>
                             <button type="button" id="btnguardarFechas" class="btn btn-primary">Guardar</button>
                         </div>
                         <div id="funcionesWaterMeterUser" class="hideElement">
-                            <form>
-                                <div>
-                                    <!-- <h4>conf</h4> -->
-                                    <label for="lbcutOffDateUser">Seleccione la fecha de corte:</label>
-                                    <select id="slcCutOffDayUser" class="form-select"
-                                        aria-label="Default select example">
-                                        <option selected>Dia del mes</option>
-                                    </select>
-                                </div>
-                            </form>
 
                             <form>
                                 <div>
-                                    <label for="lbcutOffDateUser">Seleccione la fecha de pago:</label>
+                                    <label for="lbcutOffDateUser">Seleccione la fecha en la que desea ser notificado:</label>
                                     <select id="slcPayDayUser" class="form-select" aria-label="Default select example">
                                         <option selected>Dia del mes</option>
                                     </select>
                                 </div>
                             </form>
+
                             <button type="button" id="btnguardarFechasUsuarios" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
@@ -167,7 +164,10 @@
 
                 <div class="tab-pane fade container mx-auto showElement" id="v-pills-horarios" role="tabpanel"
                     aria-labelledby="v-pills-horarios-tab">
-
+                    <div class="d-flex justify-content-end"  aria-label="Basic mixed styles example">
+                        <div  class="btn" style="background-color: darkgray;color: white;"  >Desactivado</div>
+                        <div class="btn" style="background-color: #007f66;color: white;" >Activado</div>
+                      </div>
                     <div id="horarioContainer" class="mx-auto container-sm overflow-auto ">
 
                         <div id="weekly-schedule" class="mx-auto verflow-auto "> </div>
@@ -214,8 +214,8 @@
 
         <div id="footerConfiguracion">
             <div id="footerContenido">
-                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
-                        class="far fa-save"></i></button>
+                <!-- <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
+                        class="far fa-save"></i></button> -->
                 <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
                         class="bi bi-trash"></i></button>
             </div>
@@ -231,7 +231,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h4 class="text-center">¡Atencion: Esta accion es irreversible!</h4>
+                        <h4 class="text-center">¡Atención: Esta acción es irreversible!</h4>
                         <label for="inputName" class="form-label">Para desactivar el dispositivo debe confirmarlo con su
                             nombre.</label>
                         <input type="text" class="form-control" id="inputName">
@@ -263,7 +263,7 @@
                             <option value="2">Admin</option>
                         </select>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" id="btnAgregarUsuarioModal"
                                 class="btn btn-primary">AgregarUsuario</button>
                         </div>
