@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         costoLitro
       );
     }
-    console.log(datosMensual1);
+    
     if (datosMensual1.length === 0) {
-      console.log("VACIO");
+   
       errorGraficaMensual.classList.replace("hideElement", "showElement");
     } else {
       errorGraficaMensual.classList.replace("showElement", "hideElement");
@@ -68,12 +68,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     if (datosDiario1.length === 0) {
+      console.log("VACIO");
       errorGraficaDiario.classList.replace("hideElement", "showElement");
     } else {
       errorGraficaDiario.classList.replace("showElement", "hideElement");
       errorGraficaDiario.classList.remove("showElement");
       errorGraficaDiario.classList.add("hideElement");
       graficaDiario.classList.replace("hideElement", "showElement");
+      graficaDiario.classList.add("showElement");
       calcularCosto(
         document.querySelector("#labelCostoAnual"),
         datosDiario1,
@@ -208,10 +210,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     let dia = 1;
     let acumuladoDia = 0;
+    console.log(resumenDiario);
     if (resumenDiario) {
-      while (resumenDiario[dia] != undefined) {
+      while (resumenDiario[`d${dia}`] != undefined) {
         let lectura = 0;
-        let lecturas = Object.entries(resumenDiario[dia]);
+        let lecturas = Object.entries(resumenDiario[`d${dia}`]);
 
         while (lecturas[lectura] != undefined) {
           acumuladoDia += lecturas[lectura][1].valor;
@@ -235,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
     if (resumenActual != null && resumenActual != undefined) {
       console.log(resumenActual);
-      let datosDelDia = Object.entries(resumenActual[`d${new Date().getDate()}`]);
+      let datosDelDia = Object.entries(resumenActual[`d${1}`]);
 
       let hora = 0;
       let datosActualSort = [];

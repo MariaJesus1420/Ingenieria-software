@@ -594,7 +594,7 @@ class DataBase {
             .doc(month.toString())
             .set(
               {
-                [`${day}`]: { [`lectura${hora}`]: lectura },
+                [`d${day}`]: { [`lectura${hora}`]: lectura },
               },
               { merge: true }
             )
